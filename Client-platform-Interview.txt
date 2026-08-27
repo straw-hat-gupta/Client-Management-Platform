@@ -1,0 +1,577 @@
+[SPEAKER_01]: Okay.
+[SPEAKER_01]: There's a lot of questions.
+[SPEAKER_01]: This is all so I can get a good idea of the mission, vision, and journey for the platform.
+[SPEAKER_01]: And this will help me direct my energy at the right places and make sure that I am not going off track as I'm developing.
+[SPEAKER_01]: Okay.
+[SPEAKER_01]: Can you describe why you decided to build this platform?
+[SPEAKER_00]: to simplify my office life.
+[SPEAKER_00]: Right now, there's so many different parts which we are maintaining separately.
+[SPEAKER_00]: I really want to create a system where we don't have redundant jobs.
+[SPEAKER_00]: Same thing, three, four times we put.
+[SPEAKER_01]: What current approach isn't working right now, the spreadsheet?
+[SPEAKER_00]: Just spreadsheet, we just maintain spreadsheets separately.
+[SPEAKER_00]: Like they're not, they're not even connected.
+[SPEAKER_01]: What is the main motivation?
+[SPEAKER_00]: Efficiency and smoothness in the daily routine process.
+[SPEAKER_01]: Was there a particular event or reoccurring problem that caused this?
+[SPEAKER_00]: Reoccurring problem is not able to update all the spreadsheet because it's time consuming and sometimes we miss updating
+[SPEAKER_00]: or miss updating one spreadsheet, but we are not able to update the other one.
+[SPEAKER_00]: But they all are interconnected, so that's why I need this system.
+[SPEAKER_01]: Is there a particular reason that the firm needs this now versus before?
+[SPEAKER_00]: No, we needed before actually.
+[SPEAKER_00]: We don't need now, it was really needed for,
+[SPEAKER_00]: Long time back.
+[SPEAKER_00]: We should have done it before.
+[SPEAKER_01]: What are three biggest problems with the current way of working?
+[SPEAKER_01]: You kind of already answered this.
+[SPEAKER_01]: Duplicate information, manual entry.
+[SPEAKER_01]: These two for sure.
+[SPEAKER_00]: And redundancy.
+[SPEAKER_01]: Yeah, duplicate information, redundancy.
+[SPEAKER_00]: Duplicate information and...
+[SPEAKER_01]: Preparing reports?
+[SPEAKER_00]: Accessing the information.
+[SPEAKER_00]: is also a problem like now need to open all spreadsheet to access some information 
+[SPEAKER_01]: so finding client information is difficult? 
+[SPEAKER_00]: finding any detail out of those spreadsheets 
+[SPEAKER_01]: what about tracking workflow status 
+[SPEAKER_00]: same 
+[SPEAKER_01]: okay um is this do these spreadsheets include who is responsible for the next step or next action
+[SPEAKER_01]: Is that part of the system, in the spreadsheet system?
+[SPEAKER_00]: Yeah, so that one system can be accessible for all users and they do their own part, but reports can be generated through all of their efforts, whatever we need.
+[SPEAKER_01]: Okay.
+[SPEAKER_01]: In one sentence, what should this platform allow the firm to do that cannot be done reliably today?
+[SPEAKER_00]: Can you repeat this question please?
+[SPEAKER_01]: In one sentence, what should this platform allow the firm to do that cannot be done reliably today?
+[SPEAKER_01]: What business outcome would...
+[SPEAKER_00]: Yes, through...
+[SPEAKER_00]: make the business more efficient and trustworthy 
+[SPEAKER_01]: okay great um this one might this one you have to think of a little bit what would make you consider this project a failure this is just so that i don't go down the wrong path
+[SPEAKER_00]: Failure is if we are not able to produce records that we want.
+[SPEAKER_00]: Otherwise, it's a waste of time.
+[SPEAKER_01]: What would cause employees not to use this platform?
+[SPEAKER_00]: Time consuming.
+[SPEAKER_00]: And not able to make it a priority.
+[SPEAKER_01]: Who will use the platform regularly?
+[SPEAKER_01]: The consultants, I can answer this one.
+[SPEAKER_00]: Yeah, all team members actually.
+[SPEAKER_00]: Team members have their own system.
+[SPEAKER_01]: Including Angela [receptionist]?
+[SPEAKER_00]: Including Angela [receptionist].
+[SPEAKER_00]: And I really want to connect all the dots and create a system, not just spreadsheets.
+[SPEAKER_01]: Who may not use this platform directly but might be affected by it? clients. 
+[SPEAKER_00]: Yeah, it's good for clients.
+[SPEAKER_00]: Follow-up would be more smoother and efficient.
+[SPEAKER_01]: What decisions should the platform help employees make?
+[SPEAKER_00]: Lots.
+[SPEAKER_00]: All the task the system is creating, which team is missing because of the spreadsheets.
+[SPEAKER_00]: Because of this system,
+[SPEAKER_00]: assuming that those tasks should not be missed by a team.
+[SPEAKER_01]: So should the platform
+[SPEAKER_01]: The platform will present information, but should it also calculate or summarize information?
+[SPEAKER_00]: Yes, it should.
+[SPEAKER_01]: Recommend an action?
+[SPEAKER_00]: Yes, should create some task and even recommend.
+[SPEAKER_01]: Automatically take an action?
+[SPEAKER_00]: Take an action means what?
+[SPEAKER_01]: Send email 
+[SPEAKER_00]: to whom?
+[SPEAKER_01]: Clients.
+[SPEAKER_00]: No.
+[SPEAKER_00]: No, for now.
+[SPEAKER_00]: Maybe after five years, yes.
+[SPEAKER_01]: How does the platform improve client experience?
+[SPEAKER_01]: I'll give you some examples and you just tell me yes or no.
+[SPEAKER_01]: Faster responses.
+[SPEAKER_00]: Faster follow-up from us to the client.
+[SPEAKER_00]: Accuracy.
+[SPEAKER_00]: uh fewer repeated information requests 
+[SPEAKER_00]: more time for doing other stuff 
+[SPEAKER_01]: like fewer requests from the client like does the current system make it so that you have to ask the clients for the same information over and over 
+[SPEAKER_00]: not really these are more of internal things but it's very important for clients like a follow-up like clients should know we should be following up with clients it's very very important  
+[SPEAKER_01]: smoother onboarding
+[SPEAKER_00]: Yes, smoother onboarding, smoother business, like smoother, I would say, actual business from potential.
+[SPEAKER_00]: Booking new business is also going to be smooth.
+[SPEAKER_01]: I need you to rank these.
+[SPEAKER_00]: I need you to rank these for me.
+[SPEAKER_01]: Okay.
+[SPEAKER_01]: Rank the following workflows from like most important to least important.
+[SPEAKER_01]: Referrals.
+[SPEAKER_01]: Most important.
+[SPEAKER_01]: Prospect client.
+[SPEAKER_01]: You have to kind of look at them, I guess.
+[SPEAKER_00]: prospective clients important next important is transfer investment opportunity
+[SPEAKER_00]: client onboarding prospective clients relationship management task and rest
+[SPEAKER_01]: spreadsheet imports is pretty important in the beginning of this platform.
+[SPEAKER_01]: So I'm gonna look at that on my own.
+[SPEAKER_01]: What about audit history?
+[SPEAKER_01]: That's something being able to, if somebody makes a change for some client, some entry, that information, I'm planning on storing that and making sure that information is available so you can track who made what change.
+[SPEAKER_01]: If you could choose three of these workflows, the most important would be the first three you mentioned.
+[SPEAKER_01]: Referrals, transfers, investment opportunities.
+[SPEAKER_00]: Three?
+[SPEAKER_00]: Out of three, one?
+[SPEAKER_00]: After three?
+[SPEAKER_01]: Of all of these that you just said, the top three are the workflows that you want most immediately.
+[SPEAKER_00]: Referral.
+Well done.
+[SPEAKER_01]: Referral, transfers, investment opportunities?
+[SPEAKER_01]: Yeah.
+[SPEAKER_01]: What about client onboarding and prospective clients?
+[SPEAKER_00]: It's secondary.
+[SPEAKER_01]: Why is referrals most important?
+[SPEAKER_00]: Because that's the core of the business.
+[SPEAKER_00]: To get more referrals, to get more business.
+[SPEAKER_01]: Um, what is something that you explicitly not care about in the first version?
+[SPEAKER_00]: Investment transfer maybe or audit history.
+[SPEAKER_01]: what about the um being able to search is that something that's super important 
+[SPEAKER_00]: it's important able to search that's how we create reports 
+[SPEAKER_01]: so creating reports is something that's also you want in the first 
+[SPEAKER_00]: important because the goal is to get the right report on a timely fashion 
+[SPEAKER_01]: i had the understanding that this platform was more for like managing a client
+[SPEAKER_01]: going through the life cycle and then reports with something you guys got from Salesforce.
+[SPEAKER_00]: Yeah, we get reports, but those reports are different reports, not based on these spreadsheets because we are not managing this spreadsheet inside Salesforce.
+[SPEAKER_00]: These are outside of Salesforce.
+[SPEAKER_01]: So report and search are also important
+[SPEAKER_01]: Okay.
+[SPEAKER_01]: Um,
+[SPEAKER_01]: From the workflow that you described to me before, RMS, NCCP, M&M, you said that from RMS you go to pillar list.
+[SPEAKER_01]: How does NCP and M&M fit into the spreadsheet workflow?
+[SPEAKER_00]: They don't.
+[SPEAKER_01]: They don't.
+[SPEAKER_01]: And does this platform in any way gonna replace or integrate with M&M and NCCP?
+[SPEAKER_00]: Not really.
+[SPEAKER_01]: What would success look like three months after launch?
+[SPEAKER_00]: Peace of mind.
+[SPEAKER_00]: No.
+[SPEAKER_00]: Success is to provide more value to the clients.
+[SPEAKER_00]: That's a success for me.
+[SPEAKER_01]: Not have to
+[SPEAKER_01]: enter the same information more than once?
+[SPEAKER_00]: Yeah, if we are not putting information more than once, it means we are more prompt in replying clients, follow-up paying clients, so it's more value to them ultimately.
+[SPEAKER_01]: More consistent.
+[SPEAKER_01]: Less time spent managing the workflow.
+[SPEAKER_01]: More time spent interacting with clients.
+[SPEAKER_01]: So this is just so I can get like a better idea again.
+[SPEAKER_01]: I know you explained this to me and I took notes.
+[SPEAKER_01]: However, I just need it in a more structured way.
+[SPEAKER_01]: And so I can clarify if I made mistakes in my first time.
+[SPEAKER_01]: So I have to ask this multiple times.
+[SPEAKER_01]: Please describe what actually happens, including spreadsheet names and entry from start to end of a process like this.
+[SPEAKER_01]: in the platform, how you imagine it.
+[SPEAKER_01]: So describe these spreadsheets if you're just thinking about these spreadsheets that the platform replaces, can you walk me through one client and how that would look like?
+[SPEAKER_01]: What's the starting event?
+[SPEAKER_00]: Starting event is getting an introduction.
+[SPEAKER_00]: Then we need to use RMS.
+[SPEAKER_00]: put their name, details, everything.
+[SPEAKER_00]: Then we need to book a meeting, the first meeting booked.
+[SPEAKER_00]: Then the new referral is part of pillar list.
+[SPEAKER_00]: We identify all those potential business in the pillar list.
+[SPEAKER_00]: Then we discuss NCCP and all those meetings.
+[SPEAKER_00]: Once it's confirmed,
+[SPEAKER_00]: move or we add to two more spreadsheets which is investment transfer or insurance transfer so it's a continuous process because clients have different needs maybe it's a existing client they keep on adding more money or they keep on redeeming so it's a continuous process but rms will stop once the enter referral become new client
+[SPEAKER_00]: then pillar list will start.
+[SPEAKER_00]: And pillar list is only for new identified business, whether it's from new client or existing client, doesn't matter.
+[SPEAKER_01]: Make sense.
+[SPEAKER_01]: Pillar list is for new business, either from old or new clients.
+[SPEAKER_01]: Is there any handoffs that are included in this in any way?
+[SPEAKER_00]: Like?
+[SPEAKER_01]: Handing off the client to somebody else or a different process or?
+[SPEAKER_00]: Yeah.
+[SPEAKER_00]: RMS is managed by one team member.
+[SPEAKER_00]: Pillars is managed by two team members.
+[SPEAKER_00]: And so on.
+[SPEAKER_00]: Reports are needed by me.
+[SPEAKER_01]: The thing that begins an event or begins this entire workflow is a referral.
+[SPEAKER_00]: Yeah.
+[SPEAKER_01]: Who starts these processes?
+[SPEAKER_01]: Is it you, Houston, Sarthak, or anybody?
+[SPEAKER_01]: It could be anybody who starts this RMS and all this process.
+[SPEAKER_00]: Yeah, we can train anyone.
+[SPEAKER_01]: What information is needed before the process can start?
+[SPEAKER_00]: The referral's name and phone number and email.
+[SPEAKER_01]: For this process to be completed?
+[SPEAKER_01]: Before the process is completed, what kind of information do you have on this individual that has gone through all these spreadsheets?
+[SPEAKER_00]: Before completed?
+[SPEAKER_01]: Yeah, like right before completion.
+[SPEAKER_00]: The one process.
+[SPEAKER_00]: So yeah, all of their assets, all of their investment statements, all of their saying yes to transfer investments and doing applications for insurances.
+[SPEAKER_00]: So investment statements and essentially meetings.
+[SPEAKER_01]: What is the first action that a employee takes in this, usually with the spreadsheets?
+[SPEAKER_01]: Entering them in the RMS?
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: And then from there, it's the same like pillar and investments and all that.
+[SPEAKER_01]: And I'll get all that information from these spreadsheets.
+[SPEAKER_01]: Which of these steps happen outside of the system that are not recorded in the system?
+[SPEAKER_01]: Phone calls?
+[SPEAKER_00]: Even phone calls we are supposed to record in RMS.
+[SPEAKER_00]: When did we call, date of the phone call.
+[SPEAKER_00]: Even pillar list we update every week when new activity is happening or next activity and what has happened previous week.
+[SPEAKER_01]: Emails, are those recorded?
+[SPEAKER_00]: Not in spreadsheet.
+[SPEAKER_01]: Would you like them to record it?
+[SPEAKER_00]: Spreadsheet?
+[SPEAKER_00]: No.
+[SPEAKER_00]: That's too much.
+[SPEAKER_01]: Meetings?
+[SPEAKER_00]: Meeting.
+[SPEAKER_01]: With the client or referral?
+[SPEAKER_00]: Yeah, meeting date.
+[SPEAKER_01]: Document signing?
+[SPEAKER_00]: Yes, document signed.
+[SPEAKER_00]: Date of document signed.
+[SPEAKER_01]: Is there any external professional review that happens of this process?
+[SPEAKER_00]: No.
+[SPEAKER_01]: How do the employees know what needs to happen next?
+[SPEAKER_01]: Memory, email, spreadsheet colors, meetings, another system?
+[SPEAKER_01]: or kind of just looking at it.
+[SPEAKER_00]: Looking at it every week.
+[SPEAKER_01]: but no like you guys don't have email reminders or calendar reminders um spreadsheets are color coded um maybe like a personal to-do list 
+[SPEAKER_00]: we just copy instructions outside of this system and put it in
+[SPEAKER_00]: AP, like Salesforce.
+[SPEAKER_00]: Or in our calendar actually, not even in Salesforce.
+[SPEAKER_01]: But that's mostly just copying the information from the spreadsheet into a calendar.
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: In terms of this, what would you like to see in the platform in terms of like knowing what needs attention next?
+[SPEAKER_01]: How would you like that?
+[SPEAKER_00]: Reminders?
+[SPEAKER_01]: Reminders, alerts, those kind of things.
+[SPEAKER_01]: Would you imagine them being on the platform or would you be okay with also having them in your email coming to you guys or text message coming to you guys?
+[SPEAKER_00]: Email and in the platform.
+[SPEAKER_01]: What kind of, are the different statuses that a client or possible client or just item, item is client or referral, whatever, are there specific terminology that's used?
+[SPEAKER_01]: New, contacted, evaluating, deferred, accepted, declined, any sort of terminology?
+[SPEAKER_01]: Would I find that in the spreadsheet?
+[SPEAKER_00]: Yes.
+[SPEAKER_00]: Not new.
+[SPEAKER_00]: RMS is all new.
+[SPEAKER_00]: But when we move it to pillarless, it's like normal clients.
+[SPEAKER_00]: There's no age.
+[SPEAKER_00]: Age means when did he become our client?
+[SPEAKER_00]: There's no age like that.
+[SPEAKER_01]: But is there specific terminology for a client in a specific or a potential client?
+[SPEAKER_00]: No, but I need, it's good to have, nice to have that.
+[SPEAKER_00]: Like, in let's say, how many clients we made this year.
+[SPEAKER_01]: like particular year in 2025 how many times i'm filtering but i'm saying um a client who's in rms or like let's say a client is in one of the sheets and their one week follow-up is coming up there maybe there's a specific status for that
+[SPEAKER_01]: A client who needs like it's three months in, they need like an appreciation thing.
+[SPEAKER_01]: You guys don't have terminology for that currently.
+[SPEAKER_00]: No.
+[SPEAKER_01]: Is there any sort of terminology that's used in this workflow?
+[SPEAKER_01]: Anything
+[SPEAKER_00]: No further action required for pillar list or any other list actually.
+[SPEAKER_00]: That's the most commonly used.
+[SPEAKER_01]: Okay.
+[SPEAKER_00]: And APNA, advanced prep for next appointment.
+[SPEAKER_01]: Advanced prep for next  appointment.
+[SPEAKER_00]: BNA, book next appointment.
+[SPEAKER_00]: And what else do we use?
+[SPEAKER_00]: BNA, book next appointment.
+[SPEAKER_00]: I think these three are more.
+[SPEAKER_01]: And there would be examples of this in the spreadsheets.
+[SPEAKER_01]: yeah 
+[SPEAKER_01]: if um what should happen when these events happen more required information is completed required task is completed or information is completed
+[SPEAKER_00]: So what is the question here?
+[SPEAKER_01]: What would you... How do I phrase this?
+[SPEAKER_01]: Just tell me which of these events require confirmation or like require the user, you guys, to be informed.
+[SPEAKER_01]: A deadline has passed.
+[SPEAKER_00]: Yes, I need.
+[SPEAKER_01]: More information is required for a client.
+[SPEAKER_01]: What of these events are common?
+[SPEAKER_01]: Just tell me if these events are common or not.
+[SPEAKER_01]: Missing information.
+[SPEAKER_00]: If there is any misinformation, we can't put in the spreadsheet.
+[SPEAKER_00]: Like if there's no phone number, how would you put in this spreadsheet?
+[SPEAKER_01]: Like you put in some information, but not all.
+[SPEAKER_00]: Like we can put name, but there's no phone number, which is very unlikely because when we get the referral, we always get phone number, but it's possible.
+[SPEAKER_01]: So it doesn't happen often, missing information.
+[SPEAKER_01]: Duplicate clients.
+[SPEAKER_01]: Same stuff.
+[SPEAKER_00]: Might happen if we get one potential business from the same client again. pillar list might have multiple enteries for the same clinet but that is ok.
+[SPEAKER_00]: Yeah.
+[SPEAKER_01]: Wrong information in the wrong spreadsheet.
+[SPEAKER_00]: No, it doesn't.
+[SPEAKER_00]: I don't think it's happening.
+[SPEAKER_01]: Client changed their mind.
+[SPEAKER_01]: They identify some business from them.
+[SPEAKER_00]: Yeah, they change it all the time.
+[SPEAKER_01]: Because then that's the functionality I need to think about.
+[SPEAKER_01]: Transfer is rejected.
+[SPEAKER_00]: Yes, it happens.
+[SPEAKER_00]: Sometimes.
+[SPEAKER_01]: You have a sheet for transfers that are agreed upon and then transfers that have actually happened.
+[SPEAKER_00]: Yes, it's different all the time.
+[SPEAKER_00]: What we initiated, what we received and what we invested.
+[SPEAKER_00]: Theyre three things.
+[SPEAKER_00]: Okay.
+[SPEAKER_01]: Is there any tasks in there that are sometimes assigned to different employees?
+[SPEAKER_01]: I know you said before you guys don't have that as much in the spreadsheet.
+[SPEAKER_01]: It doesn't say like this next task is for this person.
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: To do.
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: Like in the spreadsheet, does it say this follow-up needs to happen and who needs to do it?
+[SPEAKER_01]: Does it say that?
+[SPEAKER_00]: Yeah, it says that.
+[SPEAKER_00]: If I need to follow up on someone else.
+[SPEAKER_01]: And does this ever get assigned incorrectly?
+[SPEAKER_00]: But we change it.
+[SPEAKER_00]: Not incorrectly, but we can change the same task to a different person.
+[SPEAKER_01]: Is there ever conflicting information between sheets?
+[SPEAKER_00]: No.
+[SPEAKER_00]: Might be possible because pillar list is saying different amount and the actual transfer is different.
+[SPEAKER_01]: And to clarify, the investment transfer is when we have received a confirmation that they want to invest X amount of money.
+[SPEAKER_01]: then the transfer reconciliation is when the money has been transferred 
+[SPEAKER_00]: initiated initiate like this is pillar is to identify and do the follow-ups for that business and actual transfer reconciliation is when to control and to receive actual transfer on a timely fashion there are two different things
+[SPEAKER_00]: one is for activity more other one is for real documentation flow 
+[SPEAKER_01]: so where does the information of the client has agreed to transfer this much go 
+[SPEAKER_00]: it's a will put in pillar list that client has agreed 500 000 then we use transfer reconciliation for
+[SPEAKER_00]: actual dates like this is the amount this is the date of transfer initiated this is the date when transfer has received and this is the date when we have really invested that money so that all goes in transfer reconciliation transfer yeah 
+[SPEAKER_01]: right and then the investment transfer sheet how does that differ from pillar
+[SPEAKER_00]: so investment transfer transfer eco is okay there are three things one is pillar list when we identify and do activities to initiate that business once you get initiated we'll put that's the investment transfer in a invest investment investment transfer sheet yes okay then we decide or we track date of transfer
+[SPEAKER_00]: date of transfer received, and invested.
+[SPEAKER_00]: This is all the clients in one sheet.
+[SPEAKER_00]: Transfer reconciliation is for each client separate to use in the meeting, to show it to the client that this is what we have initiated and this is what we have received.
+[SPEAKER_00]: Client-wise.
+[SPEAKER_01]: Got it.
+[SPEAKER_01]: So when you are in the pillar list,
+[SPEAKER_01]: you're identifying the business and doing the activities to identify the business.
+[SPEAKER_01]: For a business to be identified, is that the client agreeing to that amount?
+[SPEAKER_01]: Or is that your evaluation that they have this much?
+[SPEAKER_00]: It's the evaluation.
+[SPEAKER_01]: It's the evaluation for how much they can invest.
+[SPEAKER_01]: And then investment transfer is when they have agreed and signed documents.
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: And then Transfer reconciliation is to just track all the stuff.
+[SPEAKER_01]: Client-wise.
+[SPEAKER_01]: Investment transfer that like, that you agreed to this much and signed it on this day.
+[SPEAKER_00]: It's just a duplication of the transfer sheet.
+[SPEAKER_01]: Yeah.
+[SPEAKER_00]: Just client-wise.
+[SPEAKER_00]: Just client-wise.
+[SPEAKER_00]: Reporting.
+[SPEAKER_01]: Is there additional information in the Transfer reconciliation that wouldn't be in the investment transfer?
+[SPEAKER_00]: Yes.
+[SPEAKER_00]: Additional information is like five...
+[SPEAKER_00]: option for clients to show like this much is so we put legends number one is still in process number two is received but not invested number three is invested number four same way received but we decided not to invest somehow which is very rare but sometimes happen so there are four or five things okay
+[SPEAKER_01]: And then the insurance business monitor.
+[SPEAKER_01]: Is that something you want in the initial statement, the initial system?
+[SPEAKER_00]: Investment what?
+[SPEAKER_01]: The insurance business monitor.
+[SPEAKER_00]: It would be awesome if we have it.
+[SPEAKER_00]: This is more comprehensive than the applications we identified and date of connecting with the client.
+[SPEAKER_00]: The one is...
+[SPEAKER_00]: how much insurance business we identified which is pillar list and once we discuss with the client and even before discussion we say okay this much of insurance client need or permanent insurance need or critical insurance need there's a more detail of RMS RM from the pillar list in more detail we create one identification for the insurance business for the insurance business and once client sign document then we
+[SPEAKER_00]: track it, like what is the status of all the applications we have.
+[SPEAKER_01]: So there's two kinds of business you get from the client, investments and insurance.
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: What mistakes do employees commonly make?
+[SPEAKER_00]: Wrong amount.
+[SPEAKER_00]: Not doing tasks, whatever is assigned in a pillar list or RMS.
+[SPEAKER_00]: Not updating.
+[SPEAKER_00]: These are common.
+[SPEAKER_01]: Anything else?
+[SPEAKER_00]: Sometimes wrong name, but it's very rare.
+[SPEAKER_01]: So it's mostly input errors.
+[SPEAKER_00]: Input error is always there.
+[SPEAKER_01]: How are these detected?
+[SPEAKER_00]: Because we do manually every week and we find out.
+[SPEAKER_01]: Manual review.
+[SPEAKER_01]: What kind of damage does this cause?
+[SPEAKER_00]: Sometimes we don't follow up.
+[SPEAKER_00]: We don't book business.
+[SPEAKER_00]: We don't follow up from the referral.
+[SPEAKER_01]: Should the wrong input or anything be visible?
+[SPEAKER_01]: Should there be a record of the wrong amount so you can track?
+[SPEAKER_00]: No, not for now.
+[SPEAKER_01]: I'm going to add an audit history so that way you guys can tell.
+[SPEAKER_01]: who made what changes and stuff, so you can see exactly who added this amount, who put this name in, all that needs, because each one of you is going to have logins and stuff, so you can track who logged in and who used the application to do what actions.
+[SPEAKER_01]: What happens when a client or a potential client
+[SPEAKER_01]: is going through this workflow, but they, for whatever reason, stop midway through.
+[SPEAKER_01]: Should we preserve the workflow up to that point?
+[SPEAKER_01]: Or does that, like up till that point, it should be gone?
+[SPEAKER_00]: it should preserve.
+[SPEAKER_01]: Can...
+[SPEAKER_01]: completed work or work that you guys have decided no further action decided, can it be reopened?
+[SPEAKER_00]: Sometimes, yes.
+[SPEAKER_00]: Option should be there.
+[SPEAKER_01]: Is there any situation where two different employees are updating the same information?
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: What usually happens then is that
+[SPEAKER_01]: Usually the, just whoever's correct, keep that stuff.
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: Require manual review at that point.
+[SPEAKER_00]: Okay.
+[SPEAKER_01]: What kind of events would you like or you imagine
+[SPEAKER_01]: this platform to generate reminders and alerts.
+[SPEAKER_00]: Client follow-ups.
+[SPEAKER_00]: Every task, every step should have reminder.
+[SPEAKER_01]: Every task that requires reaching out to clients or action.
+[SPEAKER_00]: Yes, like we put for RMS, we put next follow-up date.
+[SPEAKER_00]: There should be a reminder for that.
+[SPEAKER_01]: Okay.
+[SPEAKER_00]: For every task.
+[SPEAKER_00]: And for Pillar list as well, this is.
+[SPEAKER_01]: And these tasks are in the spreadsheets?
+[SPEAKER_00]: in the spreadsheets we have what activity we need to do 
+[SPEAKER_01]: okay should the user be able to dismiss or defer um a follow-up date for example be able to change that 
+[SPEAKER_00]: yes 
+[SPEAKER_01]: or is that is that date something that's decided by the employee or is that something that one week after something happens yeah we
+[SPEAKER_00]: All the time change the follow-up date 
+[SPEAKER_01]: For overdue tasks When should they be escalated immediately the moment that they're overdue or
+[SPEAKER_01]: Is there some grace period that you guys usually follow?
+[SPEAKER_00]: No grace period, whenever they're due.
+[SPEAKER_01]: I'm going to list some terms.
+[SPEAKER_01]: And then I would like you to tell me if these are terms that you guys use or want to use.
+[SPEAKER_01]: And if so, define them.
+[SPEAKER_01]: Client.
+[SPEAKER_01]: Define what is a client?
+[SPEAKER_00]: someone who signed open accounts with us.
+[SPEAKER_00]: You get the client number.
+[SPEAKER_00]: That's the client.
+[SPEAKER_01]: Client number, that's important.
+[SPEAKER_01]: That will be the identifier that I use.
+[SPEAKER_01]: Yes.
+[SPEAKER_01]: Prospective client.
+[SPEAKER_00]: Introduction from existing client.
+[SPEAKER_00]: Maybe I can say, yeah, phone number and email of any introduction.
+[SPEAKER_01]: Anyone introduced by a client or...
+[SPEAKER_00]: or from an event or colleague or anyone.
+[SPEAKER_01]: Household?
+[SPEAKER_00]: But household is a group of all family members.
+[SPEAKER_01]: And family?
+[SPEAKER_00]: so it's for example it is not important for the these spreadsheets 
+[SPEAKER_01]: because these are like each person in the family or household would have their own thing that they go through?
+[SPEAKER_00]: no but for like for spouses in the pillar list we use both names so it's identification of new businesses is per couple
+[SPEAKER_01]: It's not the individual, like it wouldn't be for husband separate, wife separate.
+[SPEAKER_00]: It is possible, like maybe for, but we always put husband-wife name together for any business (pillar list), whether it's from husband or wife, doesn't matter.
+[SPEAKER_00]: Same is for introductions, for RMS, we always put like a couple name at the introduction.
+[SPEAKER_00]: like if someone has introduced husband, we always ask for wife to be part of this.
+[SPEAKER_00]: There is a case where husband become our client, not the wife.
+[SPEAKER_00]: Or wife become client, but not the husband.
+[SPEAKER_01]: But if they're both clients, then they're kind of grouped together?
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: But what if they are both clients, but they have different investment strategies that they would like to do?
+[SPEAKER_00]: Doesn't matter.
+[SPEAKER_00]: Whatever solution we offer, everything is business for us.
+[SPEAKER_00]: It's not part of these spreadsheet.
+[SPEAKER_00]: Investment strategy could be different for same person.
+[SPEAKER_01]: Yes, but what if, because this is like, I'm assuming this is for investments like in pillar list when you're identifying business.
+[SPEAKER_01]: What if the wife has like X amount of business that she wants to contribute, but the husband has Y amount of business?
+[SPEAKER_01]: Would they not have separate entries?
+[SPEAKER_00]: Yeah, they have separate accounts.
+[SPEAKER_00]: Yeah.
+[SPEAKER_00]: Not in the pillar list.
+[SPEAKER_00]: We don't record pillar lists account-wise.
+[SPEAKER_00]: We record pillar lists family-wise.
+[SPEAKER_00]: Or at least couple-wise.
+[SPEAKER_00]: Because if in a family there are adult kids, then we put their potential separately.
+[SPEAKER_00]: If they're minor, then it's the same.
+[SPEAKER_01]: And then in the recode, transfer recode, or actually the...
+[SPEAKER_00]: Transfer...
+[SPEAKER_00]: Detail?
+[SPEAKER_01]: Investment transfer.
+[SPEAKER_00]: Then it's a separate thing.
+[SPEAKER_00]: If it is wife, then it's separate.
+[SPEAKER_00]: If it is husband, it is separate.
+[SPEAKER_00]: If it is kid, it is separate.
+[SPEAKER_01]: But in the pillar list, they could be all together.
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: Okay.
+[SPEAKER_00]: It's more detailed, detailed document.
+[SPEAKER_01]: The transfer.
+[SPEAKER_01]: Yes.
+[SPEAKER_01]: Investment transfer.
+[SPEAKER_00]: And we should able to, should be able to create a report of focus 10.
+[SPEAKER_00]: If I identify from pillar list, these top 10 potential businesses,
+[SPEAKER_00]: we should be like closing it in three months, next three months, then I should be able to identify that as a focus 10 and create a report out of only focus 10.
+[SPEAKER_01]: Focus 10, each item on the focus 10 is a separate client.
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: Are those grouped by couples or individual client?
+[SPEAKER_00]: Both.
+[SPEAKER_01]: Both.
+[SPEAKER_01]: Could be either then.
+[SPEAKER_01]: Account.
+[SPEAKER_01]: We're defining the terms.
+[SPEAKER_00]: Yeah, account number.
+[SPEAKER_01]: Referral I already have.
+[SPEAKER_01]: Task is any actionable event.
+[SPEAKER_01]: advisor portfolio manager that's you guys um are there any external professionals that you guys deal with that might use this 
+[SPEAKER_00]: no 
+[SPEAKER_01]: transfer, ok already got this
+[SPEAKER_01]: opportunity 
+[SPEAKER_00]: that is in pillar list his yeah opportunity is potential assets that can be invested or yeah opportunities is estimated amount of investments you could get
+[SPEAKER_01]: How do you determine whether two records refer the same person?
+[SPEAKER_01]: That would never happen, right?
+[SPEAKER_00]: Two records, two spreadsheets, same person?
+[SPEAKER_00]: Yes?
+[SPEAKER_00]: All the time?
+[SPEAKER_00]: He's in RMS, he's in pillarless, he's in transfer, he's in insurance, everywhere.
+[SPEAKER_00]: He's in focus 10.
+[SPEAKER_01]: That's usually identified by name?
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: And then once they're a client, you guys can use the client numbers also?
+[SPEAKER_00]: Sure.
+[SPEAKER_00]: There should be a way to connect with the account.
+[SPEAKER_01]: I will connect all those.
+[SPEAKER_01]: That'll be in the database.
+[SPEAKER_01]: But just so I can figure out how you guys usually do it.
+[SPEAKER_01]: Because I don't want to create a system that changes how you guys do anything.
+[SPEAKER_01]: I want to keep it the same.
+[SPEAKER_00]: No, make it better.
+[SPEAKER_01]: Exactly.
+[SPEAKER_01]: I just want to improve.
+[SPEAKER_01]: So if you guys usually look at names to filter stuff.
+[SPEAKER_01]: then I'm gonna keep it as names.
+[SPEAKER_01]: But if you guys don't do that because there's people with same names, a first and last name usually is enough to identify.
+[SPEAKER_01]: I'm assuming you guys don't have situations where there's somebody with same first and last name.
+[SPEAKER_01]: What information changes frequently?
+[SPEAKER_00]: next activity is frequent date date activity date and like as sometimes potential like in the pillar list we have potential we have in progress then we have actual closed
+[SPEAKER_00]: Potential in progress and actual.
+[SPEAKER_01]: Between these spreadsheets
+[SPEAKER_01]: and all the different kind of information you have, is there certain information that's treated as the source of truth for specific information?
+[SPEAKER_00]: Yeah, actual closed business.
+[SPEAKER_01]: That's in pillar list.
+[SPEAKER_00]: And how many clients we have made, client number, new client number.
+[SPEAKER_01]: New client number as in?
+[SPEAKER_00]: When we get introduction, the person become client, then we need to put client number.
+[SPEAKER_00]: Right.
+[SPEAKER_01]: In the RMS.
+[SPEAKER_00]: In the RMS.
+[SPEAKER_01]: So you guys go all the way back to the RMS to... 
+[SPEAKER_00]: because RMS is not stopped there [when a person becomes a client].
+[SPEAKER_00]: Once you become client, then we need to send, say thank you card.
+[SPEAKER_00]: Then we need to call the client after three months.
+[SPEAKER_00]: So it's still part of RMS.
+[SPEAKER_00]: And then we do appreciation event for the client.
+[SPEAKER_00]: It is also part of RMS.
+[SPEAKER_00]: Anything which is not related to business number, it is RMS.
+[SPEAKER_01]: So RMS is for all these client appreciation and client well-being events and tasks.
+[SPEAKER_01]: Pillar list is for tasks that are directly related to figuring out business.
+[SPEAKER_01]: Potential business.
+[SPEAKER_01]: RMS is for keeping the clinet happy
+[SPEAKER_00]: the flow from introduction till appreciation?
+[SPEAKER_01]: And this platform is to entirely replace the spreadsheets.
+[SPEAKER_00]: Yes.
+[SPEAKER_01]: No more spreadsheets and everything will be done in this.
+[SPEAKER_01]: So the import functionality is only for the initial transfer of knowledge from spreadsheets to the platform.
+[SPEAKER_01]: What kind of roles would this platform support?
+[SPEAKER_01]: Because there's going to be role-based access control, which basically means you might be assigned admin, somebody else might be assigned associate.
+[SPEAKER_01]: Are there specific roles that you were thinking or everybody's equal on the platform?
+[SPEAKER_00]: For now, everybody's equal.
+[SPEAKER_01]: Are there any documents that you would want this platform to save?
+[SPEAKER_01]: Not spreadsheets, but documents to be stored up here, to be easily viewed and linked to a client.
+[SPEAKER_00]: I might think about it.
+[SPEAKER_01]: Are there any rules about how long information needs to be retained?
+[SPEAKER_01]: Maybe for an ex-prospects or...
+[SPEAKER_00]: Yeah, there are ex-prospects and clients in the RMS.
+[SPEAKER_01]: For them?
+[SPEAKER_01]: All their information be retained?
+[SPEAKER_00]: Yeah, should be, like on a yearly basis.
+[SPEAKER_00]: We don't carry forward, but we carry forward whatever is pending at the end of the year into next year.
+[SPEAKER_00]: But we don't retain previous year's actual business booked, for example, in a pillar list.
+[SPEAKER_00]: And we start again.
+[SPEAKER_00]: We carry forward whatever is like for RMS, any active introduction, we move forward next year.
+[SPEAKER_00]: like copy paste and then so it's like new year every year is new year 
+[SPEAKER_01]: okay um is there anything that you can think of that we may not have discussed 
+[SPEAKER_00]: no 
+[SPEAKER_01]: um are there any assumptions that you may have
+[SPEAKER_01]: seen we make that are incorrect 
+[SPEAKER_00]: we might get those once we start getting it you might have some just a process you know 

@@ -1,0 +1,63 @@
+schema: spec-driven
+
+# Project context (optional)
+# This is shown to AI when creating artifacts.
+# Add your tech stack, conventions, style guides, domain knowledge, etc.
+# Example:
+#   context: |
+#     Tech stack: TypeScript, React, Node.js
+#     We use conventional commits
+#     Domain: e-commerce platform
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+# Example:
+#   operations:
+#     apply:
+#       guidance:
+#         - Keep test summaries concise
+#     archive:
+#       guidance:
+#         - Summarize the archive outcome before finishing
+context: |
+  TypeScript monorepo with a React web app, Express REST API, and PostgreSQL.
+  This is an internal wealth-management platform handling sensitive client and financial data.
+  Use a modular monolith. Shared API contracts live in packages/contracts.
+  Never use real client data in prompts, fixtures, logs, screenshots, or tests.
+  Current behavior belongs in openspec/specs; future direction belongs in docs/product.
+
+rules:
+  proposal:
+    - Define the user outcome, in-scope and out-of-scope behavior, affected capabilities, dependencies, data sensitivity, rollback or disable path, and unresolved human decisions.
+    - Keep the change to one independently deployable vertical slice.
+  specs:
+    - Use SHALL or MUST requirements and Given/When/Then scenarios.
+    - Cover authorization, validation, negative paths, failure and retry, idempotency, auditability, and recovery when relevant.
+    - Describe externally observable behavior, not implementation details.
+  design:
+    - Identify module interfaces, data ownership, trust boundaries, migration and rollback, observability, and verification.
+    - Reference an ADR only for a hard-to-reverse decision with a real tradeoff.
+  tasks:
+    - Order work as small vertical checkpoints with explicit verification.
+    - Do not require TDD globally; name the appropriate test evidence for each behavior.
+    - Include OpenSpec validation, implementation verification, final review, and archive before merge.
+operations:
+  apply:
+    guidance:
+      - Work only on the accepted change and stop if code, specs, or firm policy conflict.
+      - Use synthetic data and report verification evidence for each completed checkpoint.
+  archive:
+    guidance:
+      - Archive only after implementation verification and independent review findings are dispositioned.
+      - Sync the behavioral deltas and inspect the canonical spec diff before merge.
