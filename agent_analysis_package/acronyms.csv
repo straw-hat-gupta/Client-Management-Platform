@@ -1,0 +1,18 @@
+﻿acronym,definition,definition_status,occurrence_count,files_found
+APNA,,UNDEFINED,4,RMS_clean.csv
+CA,,UNDEFINED,1,COI_clean.csv
+CBV,,UNDEFINED,3,COI_clean.csv
+CEO,,UNDEFINED,1,COI_clean.csv
+CGA,,UNDEFINED,2,COI_clean.csv
+CLC,,UNDEFINED,4,RMS_clean.csv
+COI,Center of Influence,DEFINED_IN_SOURCE,19,COI_clean.csv;RMS_clean.csv
+CPA,,UNDEFINED,1,COI_clean.csv
+GBL,,UNDEFINED,1,COI_clean.csv
+IG,,UNDEFINED,1,RMS_clean.csv
+N/A,Not Applicable,DEFINED_IN_SOURCE,623,RMS_clean.csv
+NFAR,,UNDEFINED,58,RMS_clean.csv
+PLMF,,UNDEFINED,121,RMS_clean.csv
+RMS,,UNDEFINED,1,RMS_clean.csv
+SM,Social Media,DEFINED_IN_SOURCE,4,RMS_clean.csv
+SR,Serial Number,DEFINED_IN_SOURCE,3,COI_clean.csv;Events_clean.csv;RMS_clean.csv
+VP,,UNDEFINED,1,COI_clean.csv

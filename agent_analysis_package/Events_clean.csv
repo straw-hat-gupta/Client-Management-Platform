@@ -1,0 +1,10 @@
+﻿SR #,Event,Event Date,Cost,Location,Invited,Attendees,Team Attendance,Comment Sheets,Insurance Applications Potential,Insurance Applications Booked,Wealth Planning Potential,Wealth Planning Booked,Next Follow Up Date,Action Required
+1,Event005,2023-04-06,,Earl Grey,,44,11,,,,,,,
+2,Event006,2023-04-25,,Earl Grey,,9,8,,,,,,,
+3,Event031,2023-05-04,,Glencoe Golf,,23,11,,,,,,,
+4,Event007,2023-05-18,,Mountain View Bowling,,,6,,,,,,,
+5,Event008,2023-05-25,,Glencoe Club,,4,2,,,,,,,
+6,Event032,2023-06-07,1791.02,Military Museum,,14,7,,,,,,,
+7,Event009,2023-08-24,1576.02,Ranchmens Club,,16,7,7,6,2,,,2023-10-23,"Associate016 to connect with Person009, Client009, Person010, Person011"
+8,Event010,2023-09-28,8010.06,Glencoe Club,388,103,18,69,24,10,3,0,2023-10-23,Associate016 to book 10 more meetings
+9,Event011,2023-10-26,,Fort Calgary,316,26,10,,,,,,2023-10-23,Associate003 planning

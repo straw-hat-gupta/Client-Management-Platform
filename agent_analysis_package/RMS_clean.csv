@@ -1,0 +1,225 @@
+﻿SR #,Source,Referrer,Prospect,Relationship,Associate,Referral Date,Added to Advisor Portal,Connected to Referred Contact,Contact Prospect,Discovery Package Sent,Discovery Package Received,First Meeting Date,Final Status,New Client Date,Thank You to New Client,Thank You to Existing Client,Appreciation Event for Existing Client,Appreciation Event for New Client,Sales Credits,3 Month Service Call,# of Referrals Received,Action
+1,C,Client001,Prospect001,R,Associate001,2026-01-15,TRUE,TRUE,TRUE,,,,,,,,,,,,,
+2,C,Client002,Prospect002,R,Associate001,2026-01-21,TRUE,TRUE,TRUE,,,,,,,,,,,,,
+3,C,Client003,Prospect003,R,Associate001,2026-01-16,TRUE,TRUE,TRUE,,,,,,,,,,,,,
+4,O,Client004,Prospect004,F,Associate002,2026-03-19,FALSE,N/A,TRUE,N/A,,,,,,,,,,,,
+5,C,Client005,Prospect005,R,Associate001,,TRUE,TRUE,TRUE,,,,,,,,,,,,,
+6,C,Client006,Prospect006,R,Associate001,,FALSE,FALSE,TRUE,,,,,,,,,,,,,
+7,E,Event001,Prospect007,N/A,Associate001,,FALSE,FALSE,TRUE,,,,,,,,,,,,,
+8,E,Event001,Prospect008,N/A,Associate001,,FALSE,FALSE,TRUE,,,,,,,,,,,,,
+9,C,Client007,Prospect009,F,Associate002,2025-12-01,TRUE,TRUE,TRUE,2025-12-29,NOT_RECEIVED,2026-01-01,1,2026-02-20,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,0,
+10,C,Client008,Prospect010,R,Associate001,,FALSE,FALSE,TRUE,,,,,,,,,,,,,
+11,E,Event002,Prospect011,N/A,Associate001,,FALSE,FALSE,TRUE,,,,,,,,,,,,,
+12,E,Event002,Prospect012,N/A,Associate001,,FALSE,FALSE,TRUE,,,,,,,,,,,,,
+13,E,Event002,Prospect013,N/A,Associate001,,FALSE,FALSE,TRUE,,,,,,,,,,,,,
+14,C,Client009,Prospect014,R,Associate001,2015-11-15,FALSE,FALSE,TRUE,,,,,,,,,,,,,
+15,C,Client010,Prospect015,R,Associate001,2026-05-05,FALSE,FALSE,TRUE,,,,,,,,,,,,,
+16,E,Event003,Prospect016,C,Associate002,,FALSE,,,2026-06-25,,2026-08-14,,,,,,,,,,APNA for Discovery Meeting
+17,E,Event003,Prospect017,C,Associate002,,FALSE,,,2026-06-25,,2026-08-14,,,,,,,,,,APNA for Discovery Meeting
+18,O,Client011,Prospect018,C,Associate001,,FALSE,,,2026-06-24,2026-07-07,2026-07-10,,,,,,,,,,APNA for Discovery Meeting
+19,E,Event003,Prospect019,F,Associate002,06-18,TRUE,FALSE,TRUE,2026-06-22,2026-06-29,2026-07-03,2,,,,,,,,,Refering to IG advisor
+20,C,Client012,Prospect020,R,Associate001,,TRUE,,,,,,,,,,,,,,,APNA for Discovery Meeting
+21,C,Client013,Prospect021,R,Associate002,,,,,,,,,,,,,,,,,
+22,E,Event004,Prospect022,N/A,Associate001,07-18,TRUE,,,,,,,,,,,,,,,
+1,C,Client023,Prospect023,F,Associate026,2017-04-28,2017-04-28,2017-04-28,N/A,N/A,N/A,N/A,4,,,,,,,,,PLMF closed
+2,C,Client024,Prospect024,,Associate026,2017-04-21,2017-04-21,2017-04-21,2017-04-21,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+3,C,Client025,Prospect025,R,Associate026,2017-03-31,2017-03-31,2017-03-31,N/A,N/A,N/A,N/A,3,,,,2017-04-30,,,,,PLMF closed
+4,C,Client026,Prospect026,F,Associate026,2017-03-16,2017-03-16,2017-03-16,2017-03-06,2017-03-16,N/A,2017-03-16,3,,,,,,,,,PLMF closed
+5,C,Client027,Prospect027,F,Associate026,2017-03-01,2017-03-03,2017-03-03,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+6,C,Client027,Prospect028,F,Associate026,2017-03-01,2017-03-03,2017-03-03,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+7,C,Client028,Prospect029,R,Associate026,2017-02-01,2017-02-01,2017-02-01,N/A,N/A,N/A,N/A,3,,,,2017-04-30,,,,,PLMF closed
+8,C,Client029,Prospect030,,Associate026,2017-01-19,2017-01-19,2017-01-19,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+9,E,Event012,Prospect031,,Associate026,2017-01-19,2017-01-19,2017-01-19,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+10,C,Client029,Prospect032,,Associate026,2017-01-19,2017-01-20,2017-01-20,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+11,C,Client030,Prospect033,,Associate026,2017-01-19,2017-01-19,2017-01-19,2017-02-15,2017-02-16,2017-02-28,2017-02-28,3,,,,,,,,,PLMF closed
+12,C,Client030,Prospect034,F,Associate026,2017-01-19,2017-01-19,2017-01-19,N/A,N/A,N/A,N/A,5,,,,2017-03-05,,,,,PLMF closed
+13,C,Client031,Prospect035,,Associate026,2016-11-08,2016-11-09,2016-11-09,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+14,C,Client031,Prospect036,R,Associate026,2016-11-08,2016-11-09,2016-11-09,N/A,N/A,N/A,N/A,3,,,,2017-03-05,,,,,PLMF closed
+15,C,Client032,Prospect037,,Associate026,2016-10-04,2016-10-04,2017-02-07,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+16,C,Client026,Prospect038,,Associate026,2016-10-03,2016-10-03,2016-10-03,2016-10-04,2016-10-04,2016-10-17,2016-10-17,3,,,,,,,,,PLMF closed
+17,C,Client026,Prospect039,,Associate026,2016-10-03,2016-10-03,2016-10-03,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+18,C,Client033,Prospect040,,Associate026,2016-09-14,2016-09-14,2016-09-14,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+19,C,Client033,Prospect041,,Associate026,2016-09-13,2016-09-13,2016-09-13,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+20,C,Client030,Prospect042,,Associate026,2016-09-09,2016-09-09,2016-09-09,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+21,C,Client034,Prospect043,,Associate026,2016-06-06,2016-06-06,2016-06-06,2016-06-17,2016-05-05,N/A,2016-07-08,3,,,,,,,,,PLMF closed
+22,E,Event013,Prospect044,,Associate026,2016-02-11,2016-02-11,N/A,2016-03-31,2016-07-07,N/A,2016-08-08,5,,,,,,,,,PLMF closed
+23,C,Client035,Prospect045,,Associate026,2016-01-18,2016-01-18,2016-01-18,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+24,C,Client036,Prospect046,F,Associate004,2016-10-07,2016-10-07,2016-10-07,N/A,N/A,N/A,N/A,5,,,,2017-03-05,,,,,PLMF closed
+25,C,Client037,Prospect047,F,Associate004,2017-05-11,2017-05-11,2017-05-11,2017-05-11,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+26,C,Client032,Prospect048,,Associate004,2016-10-04,2016-10-04,2017-02-07,N/A,N/A,N/A,N/A,3,,,,2017-03-05,,,,,PLMF closed
+27,C,Client038,Prospect049,,Associate004,2016-11-13,2016-11-13,2017-02-03,N/A,N/A,N/A,N/A,3,,,,,,,,,pLMF closed
+28,C,Client039,Prospect050,F,Associate004,2017-02-17,2017-02-17,2017-02-17,N/A,N/A,N/A,N/A,3,,,,2017-04-30,,,,,PLMF closed
+29,C,Client038,Prospect051,,Associate004,2016-11-13,2016-11-13,2017-02-03,N/A,N/A,N/A,N/A,3,,,,2017-03-05,,,,,PLMF closed
+30,C,Client038,Prospect052,,Associate004,2016-11-13,2016-11-13,2017-02-03,N/A,N/A,N/A,N/A,3,,,,2017-03-05,,,,,PLMF closed
+31,C,Client040,Prospect053,F,Associate004,2017-03-06,2017-03-06,2017-03-06,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+32,C,Client041,Prospect054,,Associate004,2016-11-07,2016-11-07,2016-11-07,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+33,C,Client040,Prospect055,F,Associate004,2017-03-06,2017-03-06,2017-03-06,N/A,N/A,N/A,N/A,4,,,,,,,,,PLMF closed
+34,C,Client042,Prospect056,F,Associate004,2017-03-23,2017-03-23,2017-03-23,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+35,E,Event014,Prospect057,,Associate004,2017-08-17,2017-08-17,2017-08-17,2017-08-16,N/A,N/A,N/A,4,,,,,,,,,PLMF closed
+36,C,Client043,Prospect058,,Associate004,2017-03-14,2017-03-20,2017-03-20,N/A,N/A,N/A,N/A,4,,,,,,,,,PLMF closed
+37,E,Event015,Prospect059,,Associate004,2016-04-30,2016-04-30,2016-04-30,2016-04-30,2017-05-24,N/A,N/A,5,,,2016-04-29,,,,,,PLMF closed
+38,C,Client044,Prospect060,F,Associate004,2017-03-23,2011-07-29,2011-07-29,2017-03-23,2017-03-24,N/A,N/A,5,,,,,,,,,PLMF closed
+39,E,Event014,Prospect061,,Associate004,2017-07-17,2017-02-04,N/A,2017-08-16,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+40,C,Client045,Prospect062,F,Associate004,2017-03-29,2017-03-29,2017-03-29,N/A,N/A,N/A,N/A,5,,,,2017-04-30,,,,,PLMF closed
+41,C,Client045,Prospect063,,Associate004,2017-03-29,2017-03-29,2017-03-29,N/A,N/A,N/A,N/A,5,,,,2017-04-30,,,,,PLMF closed
+42,C,Client023,Prospect064,F,Associate004,2017-04-28,2017-04-28,2017-04-28,2017-06-21,2017-06-21,N/A,2017-06-29,5,,,,,,,,,PLMF closed
+43,C,Client036,Prospect065,F,Associate004,2016-10-07,2016-10-07,2016-10-07,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+44,C,Client046,Prospect066,F,Associate004,2017-04-04,2011-01-27,2017-04-04,N/A,N/A,N/A,2011-02-11,5,,,,,,,,,PLMF closed
+45,C,Client046,Prospect067,F,Associate004,2017-04-04,2017-04-04,2017-04-04,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+46,C,Client046,Prospect068,F,Associate004,2017-04-04,2017-04-04,2017-04-04,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+47,C,Client046,Prospect069,F,Associate004,2017-04-04,2017-04-04,2017-04-04,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+48,C,Client046,Prospect070,F,Associate004,2017-04-04,2017-04-04,2017-04-04,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+49,C,Client046,Prospect071,F,Associate004,2017-04-04,2017-05-10,2017-04-07,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+50,C,Client046,Prospect072,F,Associate004,2017-04-04,2017-04-04,2017-04-04,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+51,C,Client046,Prospect073,F,Associate004,2017-04-04,2017-04-04,2017-04-04,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+52,C,Client046,Prospect074,F,Associate004,2017-04-04,2017-04-04,2017-04-04,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+53,C,Client046,Prospect075,F,Associate004,2017-04-04,2017-04-04,2017-04-04,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+54,C,Client017,Prospect076,R,Associate004,2017-09-26,2017-09-26,2017-09-26,2017-09-26,2017-09-26,,,5,,,,,,,,,PLMF closed
+55,C,Client047,Prospect077,,Associate004,2017-01-19,2017-01-19,2017-01-19,2017-01-20,2017-01-25,2017-01-31,2017-02-03,5,,,,,,,,,PLMF closed
+56,E,Event014,Prospect078,,Associate004,2017-08-24,2017-08-21,N/A,2017-08-16,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+57,E,Event014,Prospect079,,Associate004,2017-08-17,2017-08-18,N/A,2017-08-17,2017-08-21,N/A,2017-08-30,5,,,,,,,,,PLMF closed
+58,C,Client023,Prospect080,F,Associate004,2017-03-16,2017-03-17,2017-03-17,2017-05-01,2017-05-03,N/A,N/A,5,,,,,,,,,PLMF closed
+59,C,Client009,Prospect081,,Associate004,,,,,,,,5,,,,,,,,,PLMF closed
+60,C,Client048,Prospect082,F,Associate004,2017-09-29,2017-09-29,2017-09-29,2017-09-29,2017-09-29,2017-11-08,2017-11-21,4,,,,,,,,,PLMF closed
+61,C,Client049,Prospect083,,Associate004,2017-08-03,2015-02-04,2015-02-04,N/A,N/A,N/A,N/A,4,,,,,,,,,PLMF closed
+62,C,Client050,Prospect084,,Associate004,2017-10-23,2017-10-23,2017-10-23,2017-10-20,2017-10-24,N/A,,3,,,,,,,,,PLMF closed
+63,C,Client049,Prospect085,,Associate004,2017-08-04,2017-08-04,2017-08-04,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+64,C,Client051,Prospect086,F,Associate004,2017-08-22,2017-08-22,2017-08-22,2017-08-22,2017-08-24,2017-10-31,2017-11-24,3,,,,,,,,,PLMF closed
+65,COI,CenterOfInfluence036,Prospect087,,Associate004,2017-09-11,2017-09-12,2017-09-13,2017-09-12,2017-09-13,N/A,,3,,,,,,,,,PLMF closed
+66,E,Event016,Prospect088,,Associate004,2017-01-19,2017-01-19,2017-01-19,N/A,N/A,N/A,N/A,3,,,,,,,,,PLMF closed
+67,SM,Client052,Prospect089,,Associate004,2018-02-01,2018-02-01,2018-02-01,2018-02-02,N/A,N/A,,3,,,,,,,,,PLMF closed
+68,C,Client053,Prospect090,F,Associate004,2017-08-21,2013-11-20,2013-11-20,2017-08-31,2017-08-31,N/A,N/A,5,,,,,,,,,PLMF closed
+69,C,Client049,Prospect091,F,Associate004,2017-11-24,2017-11-28,2017-11-28,2017-11-28,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+70,O,Client054,Prospect092,O,Associate009,2017-07-05,2017-07-05,N/A,N/A,N/A,N/A,2017-07-21,5,,,,N/A,N/A,,N/A,,PLMF closed
+71,C,Client055,Prospect093,,Associate004,2018-03-27,2018-03-27,2018-03-27,2018-03-27,2018-03-29,N/A,2018-03-29,5,,,,,,,,1,PLMF closed
+72,SM,Client049,Prospect085,F,Associate004,2017-08-04,2017-08-04,2017-08-04,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+73,C,Client052,Prospect094,,Associate004,2017-10-24,2017-10-24,2017-10-24,N/A,2017-11-01,N/A,N/A,5,,,,,,,,,PLMF closed
+74,C,Client056,Prospect095,,Associate004,2018-02-20,2018-02-20,2018-02-20,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+75,C,Client049,Prospect096,F,Associate004,2018-02-20,2018-02-20,2018-02-20,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+77,COI,Client026,Prospect097,F,Associate004,2018-01-30,2018-02-02,2018-02-02,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+78,C,Client048,Prospect098,C,Associate027,2017-07-13,2017-07-13,2017-07-13,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+79,C,CenterOfInfluence028,Prospect099,,Associate004,2018-04-27,2018-04-27,2018-04-27,2018-04-24,2018-04-27,N/A,N/A,5,,,,,,,,,PLMF closed
+80,O,CenterOfInfluence030,Prospect100,,Associate004,2018-03-27,2018-03-27,2018-03-27,N/A,N/A,N/A,N/A,4,,,,,,,,,PLMF closed
+81,C,Client057,Prospect101,C,Associate004,2017-12-07,2017-12-11,2017-12-11,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+83,E,Event017,Prospect102,O,Associate004,2017-10-04,2017-10-04,N/A,N/A,N/A,N/A,N/A,4,,,,N/A,,N/A,N/A,,PLMF closed
+84,C,Client058,Prospect103,R,Associate004,2017-05-18,2015-06-03,2015-06-03,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+85,E,Event018,Prospect104,F,Associate027,2017-05-05,2017-05-09,2017-05-09,2017-05-09,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+86,C,Client059,Prospect105,F,Associate027,2017-01-11,2017-01-11,2017-01-11,2017-07-17,2017-02-03,2017-02-06,,5,,,,,,,2017-04-30,,PLMF closed
+88,C,Client061,Prospect107,C,Associate027,2017-05-31,2017-05-31,2017-05-31,2017-05-31,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+89,E,Event019,Prospect108,O,Associate027,2017-08-17,2017-08-17,2017-08-17,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+90,C,Client062,Prospect109,F,Associate027,2017-05-31,2017-05-31,2017-05-31,2017-07-17,2017-06-30,N/A,N/A,5,2017-07-15,,,,,,,,PLMF closed
+100,O,Client063,Prospect119,O,Associate007,2014-01-31,2014-01-31,2017-03-14,2017-04-17,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+101,E,Event020,Prospect120,C,Associate027,2017-01-19,2017-01-19,2017-01-19,2017-03-01,2017-02-08,2017-05-04,N/A,5,2017-07-01,,,,,,,,PLMF closed
+107,COI,CenterOfInfluence039,Prospect125,,N/A,2018-02-27,2018-02-27,2018-02-27,N/A,N/A,N/A,N/A,5,N/A,,,N/A,,,,,PLMF closed
+111,C,Client056,Prospect095,,Associate028,2018-02-20,2018-02-20,2018-02-20,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+113,C,Client056,Prospect128,,Associate028,2017-11-28,2017-11-28,2017-11-28,2018-04-20,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+114,C,Client065,Prospect129,,Associate028,2017-07-31,2017-07-31,2017-07-31,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+115,C,Client066,Prospect130,F,Associate028,2018-04-20,2018-04-20,2018-04-20,2018-04-20,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+116,COI,CenterOfInfluence022,Prospect131,,Associate028,2018-03-28,,,,,,,5,,,,,,,,,PLMF closed
+117,C,Client067,Person005,,Associate029,2018-02-28,2018-02-28,2018-02-28,2018-03-20,2018-03-21,2018-04-23,2018-04-25,5,,,,,,,,,PLMF closed
+118,E,Event021,Prospect132,,Associate028,2018-02-28,2018-02-28,2018-02-28,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+119,E,Event022,Prospect133,,Associate028,2018-07-11,2018-07-11,2018-07-11,2018-07-11,2018-07-11,,2018-07-17,5,,,,,,,,,PLMF closed
+121,COI,Client068,Prospect134,,Associate028,2018-02-28,2018-02-28,2018-02-28,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+124,C,Client069,Prospect135,F,Associate028,2018-02-28,2018-02-28,2018-02-28,N/A,2018-06-11,N/A,N/A,5,,,,,,,,,PLMF closed
+125,C,Client070,Client069,R,Associate028,2018-02-28,2018-02-28,2018-02-28,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+126,C,Client069,Prospect136,F,Associate028,2018-02-28,2018-02-28,2018-02-28,2018-05-10,2018-05-10,N/A,N/A,5,,,,,,,,,PLMF closed
+127,C,Client071,Prospect137,,Associate028,2018-05-09,2018-05-09,2018-05-10,2018-05-09,2018-05-10,N/A,2018-05-18,5,,,,,,,,,PLMF closed
+128,E,Event023,CenterOfInfluence020,,Associate028,2018-03-29,2018-03-29,2018-03-29,N/A,2018-03-29,N/A,N/A,5,,,,,,,,,PLMF closed
+129,COI,CenterOfInfluence018,Prospect138,,Associate028,2018-08-01,2018-08-01,2018-08-01,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+130,C,Client072,Prospect139,,Associate028,2018-02-28,2018-02-28,2018-02-28,2018-03-16,2018-03-19,2018-03-20,2018-03-20,4,,,,,,,,,PLMF closed
+131,C,Client065,Prospect140,C,Associate028,2017-12-07,2017-12-11,2017-12-11,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+132,COI,CenterOfInfluence005,Prospect141,S,Associate028,2018-05-08,2018-05-08,2018-05-08,N/A,N/A,N/A,N/A,5,,,,,,,,,pLMF closed
+133,C,Client073,Prospect142,,Associate028,2017-02-07,2017-02-07,2017-02-07,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+134,COI,Client074,CenterOfInfluence006,S,Associate028,2018-03-01,2018-03-01,2018-03-01,N/A,N/A,2018-09-21,N/A,5,,,,,,,,,PLMF closed
+135,E,Event024,Prospect143,R,Associate028,2018-02-28,2018-02-28,2018-02-28,2018-05-10,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+136,E,Event024,Prospect144,R,Associate028,2018-02-28,2018-02-28,2018-02-28,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+137,COI,CenterOfInfluence028,Prospect145,F,Associate028,2018-09-18,2018-09-18,2018-09-18,2018-09-18,2018-10-02,2018-10-05,N/A,5,,,,,,,,,PLMF closed
+138,C,Client075,Prospect146,F,Associate028,2018-06-19,2018-06-20,2018-06-20,2018-07-23,2018-07-27,2018-07-27,N/A,5,,,,,,,IN_PROGRESS,,PLMF closed
+139,C,Prospect146,Prospect147,F,Associate029,2018-09-28,2018-09-28,2018-09-28,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+140,C,Prospect146,Prospect148,F,Associate029,2018-08-03,2018-08-03,2018-08-03,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+141,O,Client076,Prospect149,R,Associate028,2018-04-20,2018-04-20,2018-04-20,2018-04-23,2018-08-28,2018-05-08,N/A,5,,,,,,,,,PLMF closed
+142,C,Client077,Prospect150,F,Associate028,2018-09-11,2018-09-11,2018-09-11,2018-09-12,N/A,,N/A,5,,,,,,,,,PLMF closed
+143,COI,CenterOfInfluence018,Prospect151,S,Associate028,2018-07-31,2018-07-31,2018-07-31,2018-07-31,2018-09-13,2018-08-23,N/A,5,2018-09-26,,,,,,,,PLMF closed
+144,C,Client033,Prospect152,R,Associate028,2018-09-26,2018-09-26,2018-09-26,2018-09-26,N/A,2018-09-26,N/A,5,,,,,,,,,PLMF closed
+145,C,Client026,Prospect153,F,Associate028,2018-09-07,2018-09-07,2018-09-07,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+146,C,Client026,Prospect154,C,Associate028,2018-07-09,2018-07-10,2018-07-10,2018-07-10,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+147,C,Client078,Prospect155,F,Associate028,2018-09-20,2018-09-20,2018-09-20,N/A,N/A,N/A,N/A,5,,,,,,,,,PLMF closed
+148,COI,Client079,Prospect156,S,Associate028,2018-10-30,2018-10-30,2018-10-30,N/A,N/A,N/A,N/A,5,,,,,,,,,Associate013 to update the task
+149,C,Client080,Prospect157,F,Associate028,2018-08-14,2018-08-14,2018-08-14,2018-09-25,N/A,N/A,N/A,5,,,,,,,,,Associate007 to call in November and follow up
+150,E,Event021,Prospect158,R,Associate028,2018-02-28,2018-02-28,2018-02-28,N/A,N/A,N/A,N/A,5,,,,,,,,,Associate010 to call when next Event030's even appear
+151,C,Client057,Prospect159,F,Associate028,2018-10-25,2018-10-25,2018-10-25,N/A,N/A,N/A,N/A,5,,,,,,,,,Associate007 to ask during the meeting
+152,C,Client081,Prospect160,F,Associate028,2018-08-30,2018-08-30,2018-08-30,2018-09-18,2018-09-24,N/A,N/A,5,,,,,,,,,NFAR
+153,O,Prospect146,Prospect161,F,Associate028,2018-11-06,2018-11-06,2018-11-06,2018-11-12,2018-11-12,2018-11-08,N/A,4,,,,,,,,,NFAR
+154,C,Client082,Prospect162,F,Associate028,2018-09-04,2018-09-04,2018-09-04,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+155,C,Client083,Prospect163,F,Associate028,2018-11-22,2018-11-22,2018-11-22,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+156,C,Client084,Prospect164,C,Associate029,2018-10-25,2018-10-25,2018-10-25,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+157,C,Client048,Prospect165,F,Associate028,2018-10-25,2018-10-25,2018-10-25,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+158,C,Client048,Prospect166,F,Associate028,2018-10-25,2018-10-25,2018-10-25,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+159,C,Client085,Prospect167,F,Associate028,2018-10-04,2018-10-04,2018-10-04,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+160,C,Client086,Prospect168,R,Associate029,2018-09-19,2018-09-19,2018-09-19,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+161,C,Client083,Prospect169,F,Associate028,2018-11-22,2018-11-22,2018-11-22,2018-12-03,N/A,N/A,N/A,5,,,,,,,,,NFAR
+163,C,CenterOfInfluence050,Prospect170,F,Associate028,2019-01-21,2019-01-21,2019-01-21,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+164,C,Client087,Prospect171,C,Associate029,2018-10-23,2018-10-23,2018-10-23,2019-01-28,N/A,N/A,N/A,5,,,,,,,,,NFAR
+165,E,Event025,Prospect172,,Associate029,2019-03-21,2019-03-26,N/A,2019-03-26,2019-04-01,2019-03-26,N/A,5,,,,,,,,,NFAR
+166,C,Client083,Prospect173,F,Associate028,2018-11-22,2018-11-22,2018-11-22,2018-11-23,2018-11-30,2018-11-30,N/A,4,,,,,,,,,NFAR
+167,C,Client087,Prospect174,C,Associate029,2018-10-23,2018-10-23,2018-10-23,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+168,E,Event026,Prospect175,C,Associate028,2019-03-18,2019-03-18,2019-03-18,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+169,C,Client026,Prospect176,C,Associate028,2019-04-09,2019-04-09,2019-04-09,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+170,C,Client026,Prospect177,C,Associate028,2019-04-09,2019-04-09,2019-04-09,2019-04-09,N/A,N/A,N/A,3,,,,,,,,,NFAR
+171,E,Event027,Prospect178,C,Associate028,2019-03-13,2019-03-13,N/A,2019-03-18,N/A,N/A,N/A,5,,,,,,,,,NFAR
+172,E,Event027,Prospect179,,Associate029,2019-03-13,2019-03-13,N/A,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+173,C,Client026,Prospect180,C,Associate028,2019-04-09,2019-04-09,2019-04-09,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+174,C,Client026,Prospect181,C,Associate028,2019-04-09,2019-04-09,2019-04-09,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+175,C,Client026,Prospect182,C,Associate028,2019-04-09,2019-04-09,2019-04-09,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+176,E,Event027,Prospect183,,Associate029,2019-03-13,2019-03-13,N/A,2019-03-18,N/A,N/A,N/A,5,,,,,,,,,NFAR
+177,E,Event027,Prospect184,C,Associate028,2019-03-13,2019-03-13,N/A,2019-03-18,N/A,N/A,N/A,5,,,,,,,,,NFAR
+178,E,Event027,Prospect185,C,Associate028,2019-03-13,2019-03-13,N/A,2019-03-18,N/A,N/A,N/A,5,,,,,,,,,NFAR
+179,C,Client088,Prospect186,R,Associate028,2018-09-26,2018-09-26,2018-09-26,2018-10-22,2018-10-29,2018-11-07,N/A,3,,,,,,,,,NFAR
+180,C,Client089,Prospect187,C,Associate029,2018-10-15,2018-10-15,2018-10-15,N/A,N/A,N/A,N/A,3,,,,,,,,,NFAR
+181,E,Event028,Prospect188,C,Associate028,2018-03-22,2018-03-22,2018-03-22,N/A,N/A,N/A,N/A,3,,,,,,,,,NFAR
+182,E,Event026,Prospect189,C,Associate028,2019-03-18,2019-03-18,2019-03-18,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+183,C,Client088,Prospect190,R,Associate028,2018-10-25,2018-10-25,2018-10-25,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+184,C,Client090,Prospect191,F,Associate028,2018-10-26,2018-10-26,2018-10-26,2018-10-26,2018-11-08,N/A,N/A,5,,,,,,,,,NFAR
+185,C,Client091,Prospect192,C,Associate029,2019-09-05,2019-09-05,2019-09-05,2019-09-09,N/A,N/A,N/A,5,,,,,,,,,NFAR
+186,C,Client092,Prospect193,F,Associate029,2019-08-19,2019-08-20,2019-08-20,2019-08-19,N/A,N/A,N/A,5,,,,,,,,,NFAR
+188,COI,CenterOfInfluence036,Prospect194,S,Associate028,2019-09-20,2019-09-20,2019-09-20,2019-09-23,N/A,2019-10-09,N/A,5,,,,,,,,,NFAR
+189,C,Client066,Prospect059,F,Associate028,2019-09-04,2019-09-04,2019-09-04,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+192,C,Client095,Prospect197,C,Associate028,2019-09-23,,,,,,N/A,5,,,,,,,,,"NFAR, No response"
+193,C,Client096,Prospect198,C,Associate028,2018-12-10,2018-12-10,2018-12-10,N/A,N/A,N/A,N/A,5,,,,,,,,,"NFAR, No response"
+194,C,Client097,Prospect199,F,Associate028,2020-02-05,2020-02-05,2020-02-05,2020-02-14,,,N/A,5,,,,,,,,,NFAR
+195,C,Client057,Prospect200,F,Associate028,2019-08-30,2017-12-11,2017-12-11,N/A,N/A,N/A,N/A,5,,,,,,,,,Associate007 to follow up with Client057
+196,O,Client098,Prospect201,R,Associate028,2020-10-23,2020-10-23,2020-10-23,N/A,N/A,2020-10-22,N/A,5,,,,,,,,,NFAR
+197,C,Client099,Prospect202,,Associate028,2019-10-07,2019-10-07,2019-10-07,2019-10-07,N/A,2019-10-04,N/A,5,,,,,,,,,NFAR
+198,O,Client100,Prospect203,F,Associate028,2020-11-09,N/A,N/A,N/A,N/A,N/A,N/A,5,,,,,,,,,Associate017 to do CLC
+199,C,Client048,Prospect204,F,Associate028,,,,,,,N/A,5,,,,,,,,,Associate017 to do CLC
+200,C,Client101,Prospect205,R,Associate016,2020-06-24,2020-06-24,2020-06-24,2020-07-06,2020-07-23,2020-07-29,N/A,5,,,,,,,,,NFAR
+201,C,Client102,Prospect206,R,Associate016,2020-11-24,N/A,N/A,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+202,COI,CenterOfInfluence036,Prospect207,S,Associate016,2018-09-24,2018-09-24,2018-09-24,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+203,COI,CenterOfInfluence036,Prospect208,S,Associate016,2018-09-24,2018-09-24,2018-09-24,N/A,N/A,N/A,N/A,5,,,,,,,,,NFAR
+204,C,Client103,Prospect209,F,Associate004,2021-02-16,2021-02-16,2021-02-16,,,,N/A,5,,,,,,,,,NFAR
+205,C,Client104,Prospect210,F,Associate004,2020-12-18,2020-12-21,2020-12-21,2020-12-31,2021-01-05,2021-01-08,N/A,5,,,,,,,,,NFAR
+206,COI,Client105,Prospect211,S,Associate016,2020-02-10,2020-02-10,2020-02-10,N/A,N/A,N/A,N/A,5,,,,,,,,,Client093 will follow up with Client105 in a week again
+207,C,Client096,Prospect212,F,Associate016,2020-02-05,2020-02-05,2020-02-05,N/A,N/A,N/A,N/A,5,,,,,,,,,Client093 to call Prospect212
+208,C,Client106,Prospect213,F,Associate004,2021-02-16,,,,,,N/A,5,,,,,,,,,Client093 to asdvise if he needs to do CLC if no response received this week
+209,C,Client044,Prospect214,C,Associate016,2021-01-21,2021-01-22,2021-01-22,N/A,N/A,N/A,2021-03-05,5,,,,,,,,,"Associate007 to CLC Prospect214 , Associate007 to update Client044"
+210,C,Client078,Prospect215,F,Associate030,2018-09-20,2018-09-20,2018-09-20,2021-01-06,2021-01-08,2021-01-08,,3,,,,,,,,,NFAR
+211,C,Client107,Prospect216,F,Associate030,2019-09-23,2019-09-23,2019-09-23,N/A,N/A,N/A,,3,,,,,,,,,NFAR
+212,O,Client108,Prospect217,F,Associate030,2020-10-29,2020-10-29,2020-10-29,N/A,N/A,N/A,,3,,,,,,,,,NFAR
+217,C,Client103,Prospect219,F,Associate004,2021-03-26,2021-03-29,2021-03-29,N/A,N/A,N/A,,5,,,,,,,,,NFAR untill they decided to cntact us
+218,C,Client109,Prospect220,R,Associate004,2021-04-01,2021-04-19,,,,,,5,,,,,,,,,NFAR untill they decided to cntact us
+219,C,Client105,Prospect221,O,Associate016,2021-04-28,2021-04-30,2021-04-30,2021-04-30,,,,5,,,,,,,,,NFAR as prospect is not responsive
+220,C,Client009,Prospect222,F,Associate016,2021-07-20,2021-07-22,2021-07-22,2021-07-23,2021-07-29,2021-08-04,,5,,,,,,,,,NFAR
+221,C,Client110,Prospect223,F,Associate004,2021-08-20,N/A,N/A,N/A,N/A,N/A,,5,,,,,,,,,NFAR
+222,C,Client111,Prospect224,F,Associate030,2021-08-20,N/A,N/A,N/A,N/A,N/A,,5,,,,,,,,,NFAR
+223,C,Client111,Prospect225,F,Associate030,2021-08-20,N/A,N/A,N/A,N/A,N/A,,5,,,,,,,,,NFAR
+224,SM,Client112,Prospect226,S,Associate016,2021-07-21,2021-07-21,2021-07-21,2021-07-22,N/A,N/A,,5,,,,,,,,,Associate017 advised to close this prospect
+225,C,Client113,Prospect227,F,Associate016,2021-08-20,N/A,N/A,N/A,N/A,N/A,,5,,,,,,,,,Associate008 advised to close this prosepct as they were not responsive
+226,SM,Client114,Prospect228,S,Associate016,2021-11-02,2021-11-02,2021-11-04,2021-11-02,2021-11-04,2021-11-05,,3,,,,,,,,,Prospect124 does not want to proceed at the moment
+227,C,Client115,Prospect229,F,Associate004,2019-09-17,2019-09-17,2019-09-17,N/A,N/A,N/A,,3,,,,,,,,,Associate007 to follow-up with Client115
+228,C,Client115,Prospect230,F,Associate004,2019-08-30,2019-09-04,2019-09-04,N/A,N/A,N/A,,3,,,,,,,,,Associate007 to follow-up with Client115
+229,C,Client115,Prospect231,F,Associate004,2019-08-30,2019-09-04,2019-09-04,N/A,N/A,N/A,,3,,,,,,,,,Associate007 to follow-up with Client115
+230,C,Client115,Prospect232,F,Associate004,2019-08-30,2019-09-04,2019-09-04,N/A,N/A,N/A,,3,,,,,,,,,Associate007 to follow-up with Client115
+231,C,Client116,Prospect233,F,Associate016,2021-02-03,2021-02-05,2021-02-05,2021-02-11,2021-02-16,,,3,,,,,,,,,Associate017 to follow up in January
+232,C,Client117,Prospect234,F,Associate004,2020-08-25,2020-08-25,2020-08-25,2020-08-29,2020-09-08,2020-09-10,,3,,,,,,,,,Associate007 to call and advise next step
+233,C,Client118,Prospect124,F,Associate016,2021-08-20,N/A,N/A,N/A,N/A,N/A,,3,,,,,,,,,Associate008 to follw up in January
+234,C,Client119,Prospect235,F,Associate004,2021-10-18,2021-10-18,2021-10-18,,,,,3,,,,,,,,,NFAR

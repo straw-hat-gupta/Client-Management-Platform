@@ -1,0 +1,55 @@
+﻿record_type,file,column_order,field,group,workflow_order,value_type,possible_or_observed_values,meaning_or_note
+FIELD,RMS_clean.csv,1,SR #,Identifier,,text,source row number,Source row identifier; values restart between RMS and RMS NFAR.
+FIELD,RMS_clean.csv,2,Source,Referral,,code,C; E; M; SM; COI; O; I,How the referral originated.
+FIELD,RMS_clean.csv,3,Referrer,Referral,,generic ID,Client###; Event###; CenterOfInfluence###,Sanitized referrer.
+FIELD,RMS_clean.csv,4,Prospect,Referral,,generic ID,Prospect###,Sanitized referred prospect.
+FIELD,RMS_clean.csv,5,Relationship,Referral,,code,F; R; C; S; O; W; SM; N/A; blank,Relationship between referrer and prospect.
+FIELD,RMS_clean.csv,6,Associate,Referral,,generic ID,Associate###; N/A; blank,Firm associate responsible for the referral.
+FIELD,RMS_clean.csv,7,Referral Date,Referral,,date,ISO date YYYY-MM-DD; blank,Date the referral was received.
+FIELD,RMS_clean.csv,8,Added to Advisor Portal,Workflow,1,status or date,blank; TRUE; FALSE; N/A; NOT_RECEIVED; IN_PROGRESS; ISO date YYYY-MM-DD,Referral was added to the Advisor Portal.
+FIELD,RMS_clean.csv,9,Connected to Referred Contact,Workflow,2,status or date,blank; TRUE; FALSE; N/A; NOT_RECEIVED; IN_PROGRESS; ISO date YYYY-MM-DD,Connection to the referred contact was recorded.
+FIELD,RMS_clean.csv,10,Contact Prospect,Workflow,3,status or date,blank; TRUE; FALSE; N/A; NOT_RECEIVED; IN_PROGRESS; ISO date YYYY-MM-DD,Prospect contact was recorded.
+FIELD,RMS_clean.csv,11,Discovery Package Sent,Workflow,4,status or date,blank; TRUE; FALSE; N/A; NOT_RECEIVED; IN_PROGRESS; ISO date YYYY-MM-DD,Discovery package was sent.
+FIELD,RMS_clean.csv,12,Discovery Package Received,Workflow,5,status or date,blank; TRUE; FALSE; N/A; NOT_RECEIVED; IN_PROGRESS; ISO date YYYY-MM-DD,Discovery package was received.
+FIELD,RMS_clean.csv,13,First Meeting Date,Workflow,6,date or status,blank; TRUE; FALSE; N/A; NOT_RECEIVED; IN_PROGRESS; ISO date YYYY-MM-DD,First meeting checkpoint.
+FIELD,RMS_clean.csv,14,Final Status,Workflow,7,code,1; 2; 3; 4; 5; blank,Final outcome. Codes 3-5 identify NFAR records.
+FIELD,RMS_clean.csv,15,New Client Date,Workflow,8,date,ISO date YYYY-MM-DD; blank,Date the prospect became a client.
+FIELD,RMS_clean.csv,16,Thank You to New Client,Workflow,9,status or date,blank; TRUE; FALSE; N/A; NOT_RECEIVED; IN_PROGRESS; ISO date YYYY-MM-DD,Thank-you to the new client.
+FIELD,RMS_clean.csv,17,Thank You to Existing Client,Workflow,10,status or date,blank; TRUE; FALSE; N/A; NOT_RECEIVED; IN_PROGRESS; ISO date YYYY-MM-DD,Thank-you to the existing client/referrer.
+FIELD,RMS_clean.csv,18,Appreciation Event for Existing Client,Workflow,11,status or date,blank; TRUE; FALSE; N/A; NOT_RECEIVED; IN_PROGRESS; ISO date YYYY-MM-DD,Existing-client appreciation event.
+FIELD,RMS_clean.csv,19,Appreciation Event for New Client,Workflow,12,status or date,blank; TRUE; FALSE; N/A; NOT_RECEIVED; IN_PROGRESS; ISO date YYYY-MM-DD,New-client appreciation event.
+FIELD,RMS_clean.csv,20,Sales Credits,Referral administration,,status or date,blank; TRUE; FALSE; N/A; NOT_RECEIVED; IN_PROGRESS; ISO date YYYY-MM-DD,Separate referral information; not a workflow step.
+FIELD,RMS_clean.csv,21,3 Month Service Call,Workflow,13,status or date,blank; TRUE; FALSE; N/A; NOT_RECEIVED; IN_PROGRESS; ISO date YYYY-MM-DD,Three-month service call.
+FIELD,RMS_clean.csv,22,# of Referrals Received,Referral,,integer,0; 1; blank,Number of referrals received where recorded.
+FIELD,RMS_clean.csv,23,Action,Referral,,free text,sanitized text; blank,Current action or disposition note.
+FIELD,COI_clean.csv,1,SR #,Identifier,,text,source row number; blank,Source row identifier.
+FIELD,COI_clean.csv,2,COI,COI,,generic ID,CenterOfInfluence###; Client###,Sanitized center-of-influence identifier retained from the source.
+FIELD,COI_clean.csv,3,Contact,COI,,generic ID or status,Associate###; multiple Associate### values separated by /; No; blank,Firm contact(s) recorded for the COI.
+FIELD,COI_clean.csv,4,Profession,COI,,free text,observed professions; blank,COI profession.
+FIELD,COI_clean.csv,5,Expertise,COI,,free text,observed expertise; blank,COI area of expertise.
+FIELD,COI_clean.csv,6,Title,COI,,free text,observed titles; blank,COI professional title.
+FIELD,COI_clean.csv,7,Date Added to COI Network,COI,,date,ISO date YYYY-MM-DD; MM-DD when year unknown; blank,Date added to the COI network.
+FIELD,COI_clean.csv,8,Next Follow Up Date,COI,,date,ISO date YYYY-MM-DD; MM-DD when year unknown; blank,Next recorded follow-up date.
+FIELD,COI_clean.csv,9,Action Required,COI,,free text,sanitized text; blank,Current action required.
+FIELD,Events_clean.csv,1,SR #,Identifier,,text,source row number,Source row identifier.
+FIELD,Events_clean.csv,2,Event,Event,,generic ID,Event###,Unique sanitized event occurrence identifier.
+FIELD,Events_clean.csv,3,Event Date,Event,,date,ISO date YYYY-MM-DD; blank,Date of the event.
+FIELD,Events_clean.csv,4,Cost,Event,,decimal,decimal amount; blank,Recorded event cost without currency formatting.
+FIELD,Events_clean.csv,5,Location,Event,,free text,sanitized or non-person location; blank,Event location.
+FIELD,Events_clean.csv,6,Invited,Event metrics,,integer,non-negative integer; blank,Number invited.
+FIELD,Events_clean.csv,7,Attendees,Event metrics,,integer,non-negative integer; blank,Number attending.
+FIELD,Events_clean.csv,8,Team Attendance,Event metrics,,integer,non-negative integer; blank,Firm-team attendance.
+FIELD,Events_clean.csv,9,Comment Sheets,Event metrics,,integer,non-negative integer; blank,Comment sheets received.
+FIELD,Events_clean.csv,10,Insurance Applications Potential,Event outcomes,,integer,non-negative integer; blank,Potential insurance applications.
+FIELD,Events_clean.csv,11,Insurance Applications Booked,Event outcomes,,integer,non-negative integer; blank,Insurance applications booked.
+FIELD,Events_clean.csv,12,Wealth Planning Potential,Event outcomes,,integer,non-negative integer; blank,Potential wealth-planning opportunities.
+FIELD,Events_clean.csv,13,Wealth Planning Booked,Event outcomes,,integer,non-negative integer; blank,Wealth-planning opportunities booked.
+FIELD,Events_clean.csv,14,Next Follow Up Date,Event,,date,ISO date YYYY-MM-DD; blank,Next event follow-up date.
+FIELD,Events_clean.csv,15,Action Required,Event,,free text,sanitized text; blank,Current action required.
+EXCLUDED_FIELD,,,RMS Task Created on Advisor Portal,Exclusion,,,,Confirmed workflow step; excluded because it exists only in RMS NFAR.
+EXCLUDED_FIELD,,,Final Status Advised to Existing Client,Exclusion,,,,Confirmed workflow step; excluded because it exists only in RMS NFAR.
+EXCLUDED_FIELD,,,Thank You for Referral,Exclusion,,,,Confirmed workflow step; excluded because it exists only in RMS NFAR.
+EXCLUDED_FIELD,,,TYFI Ballot,Exclusion,,,,"Separate referral data, not a workflow step; excluded because it exists only in RMS NFAR."
+EXCLUDED_FIELD,,,First Meeting Method,Exclusion,,,,Excluded because it exists only in RMS NFAR.
+EXCLUDED_FIELD,,,Follow Up,Exclusion,,,,Excluded because it exists only in RMS NFAR.
+EXCLUDED_FIELD,,,Weekly history columns,Exclusion,,,,Excluded from RMS NFAR and COI for this package.
