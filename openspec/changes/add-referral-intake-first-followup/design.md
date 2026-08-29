@@ -48,8 +48,13 @@ Constraints that drive the design:
 
 ### D1 — Modules and their interfaces
 
-One module per capability in `specs/`, each exposing a small command/query interface in terms of
-domain types only. No module imports Express, React, or the database client.
+Application modules expose small command/query interfaces in terms of domain types only. No module
+imports Express, React, or the database client. The capability-to-module mapping is explicit:
+`households` → `households`; `referrals` → `referrals`; `referral-outreach` →
+`referral-outreach`; `tasks-and-scheduling` → `tasks` and `scheduling`; `reference-records` →
+`reference-records`; `associates-and-identity` → `identity`; and `audit-history` → `audit`.
+`evaluation-environment` is cross-cutting and deliberately has no application module: its behavior
+lives in startup guards, the migration runner, and the out-of-application reset script per D10.
 
 | Module | Owns | Public interface (shape, not signature) |
 |---|---|---|
@@ -176,11 +181,13 @@ problems in one response, because activation must "present all validation proble
 There is no authentication. `apps/api` injects the fixed `Evaluation User` Platform User identity
 at the request boundary, in exactly one place, and every module receives the acting identity as an
 explicit argument rather than reading a global. That injection point derives the identity solely
-from the request boundary and ignores every client-supplied identity input: an actor, user, or
-on-behalf-of value in a body, query string, or header is rejected or dropped and can never reach
-the audit actor. This matters because the actor is the only accountability signal in the slice, and
-`CONTEXT.md` binds against treating an editable Associate selection as the identity of the acting
-user — the call performer is selectable, the actor is not. When real authentication arrives in a
+from the request boundary and ignores every client-supplied field naming the acting Platform User:
+an actor, user, or on-behalf-of identity value in a body, query string, or header is rejected or
+dropped and can never reach the audit actor. The attempt's caller/performer Associate reference is
+a legitimate business field that is validated but never consulted for the audit actor. This matters
+because the actor is the only accountability signal in the slice, and `CONTEXT.md` binds against
+treating an editable Associate selection as the identity of the acting user — the call performer is
+selectable, the actor is not. When real authentication arrives in a
 later slice, that single injection point is replaced; no module signature changes.
 
 **Trust boundaries:**
@@ -195,14 +202,17 @@ later slice, that single injection point is replaced; no module signature change
   `Discovery package sent` completion action) are duplicated as server-side refusals.
 - The service is intended to make no outbound network calls. A dependency-manifest check alone
   cannot establish that, because Node ships global `fetch` and the `node:http`, `node:https`,
-  `node:net`, `node:tls`, `node:dgram`, and `node:child_process` modules with no dependency to
-  declare. Two controls therefore apply together: the manifest check (no HTTP client, mail
-  transport, or third-party SDK in `apps/api`'s dependencies) and a source-level ban on importing
-  those modules or calling global `fetch` anywhere in `apps/api` or the domain modules. These are
-  static controls: they make an accidental egress path visible in review and in CI, and they are
-  not a substitute for the network isolation of the evaluation environment itself.
-- Secrets: the build has no production credentials. The database connection string is the only
-  configuration value, supplied per environment and never committed.
+  `node:net`, `node:tls`, `node:dgram`, `node:dns`, `node:child_process`, and
+  `node:worker_threads` modules with no dependency to declare. Two controls therefore apply
+  together: the manifest check (no HTTP client, mail transport, or third-party SDK in `apps/api`'s
+  dependencies) and a source-level ban on importing those modules, calling global `fetch`, or using
+  dynamic `import()` or `require()` with a computed specifier anywhere in `apps/api`, the domain
+  modules, `scripts/`, or `packages/contracts`. These static controls explicitly do not cover
+  transitive dependencies, package install scripts, or `apps/web`; they make an accidental egress
+  path visible in review and CI, and are not a substitute for network isolation.
+- Configuration is limited to the database connection string (the sole secret, supplied per
+  environment and never committed), the evaluation-mode configuration marker (a guard), the bind
+  interface, and the non-loopback acknowledgement value (a guard). No other configuration is read.
 
 ### D9 — Data ownership
 
@@ -219,10 +229,12 @@ by others only through that module's interface:
 | `event_reference`, `coi_reference` | `reference-records` |
 | `associate` | `identity` |
 | `audit_entry` | `audit` only |
+| `evaluation_environment_marker` | first migration only; maintained outside the application; read by API startup, the migration runner, and reset |
 
-`audit_entry` is append-only: no update or delete path exists in the module interface, and the
-database role used by the application is granted `INSERT` and `SELECT` on it but not `UPDATE` or
-`DELETE`.
+`audit_entry` is append-only: no update or delete path exists in the module interface. The
+application connects as a non-owning database role distinct from the migration and reset role. On
+the audit store, the application role holds `INSERT` and `SELECT` only, with no `UPDATE`, `DELETE`,
+`TRUNCATE`, or DDL privilege.
 
 ### D10 — Seeding and reset live outside the application, behind their own preconditions
 
@@ -230,15 +242,15 @@ The known synthetic baseline and the reset operation are a repository script run
 environment, not an API route and not a UI action. This is what makes reset "outside Platform User
 actions and Audit History" true by construction rather than by a hidden permission check.
 
-Reset is destructive and takes its target from configuration, so it is guarded rather than trusted:
-it refuses to run unless the target database carries the evaluation-environment marker row that
-reset itself seeds, and unless evaluation-mode configuration is present. The same marker row is
-what API startup and the migration runner check, so the three-layer production guard in
-`specs/evaluation-environment/spec.md` and the reset guard share one mechanism: a deployment-path
-refusal, an evaluation-mode configuration marker, and a database marker row. Lifting any of them
-requires a code change, which is the point — a mistyped `DATABASE_URL` must not be able to point an
-ordinary build, a migration, or a reset at a database that was never meant for it. Reset also
-leaves an out-of-band operator record of when it ran and against which target.
+The first migration writes the evaluation-environment marker row. The migration runner MAY run
+against an empty database when evaluation-mode configuration is present, establishing the marker
+as part of that migration. Once a database contains application tables, a missing marker row is a
+hard refusal for the migration runner, API startup, and reset alike. Reset also requires
+evaluation-mode configuration. This empty-database bootstrap is a property of database state, not a
+bypass flag, initialization switch, or configuration value that lifts a refusal. Together with the
+deployment-path refusal, these guards ensure a mistyped `DATABASE_URL` cannot point an ordinary
+build, migration, or reset at an existing database never meant for evaluation. Reset leaves an
+out-of-band operator record of when it ran and against which target.
 
 ## Risks / Trade-offs
 
@@ -263,10 +275,11 @@ leaves an out-of-band operator record of when it ran and against which target.
 - **`Discovery package sent` completion is disabled in the UI only, if implemented carelessly** →
   Mitigation: the server refuses the completion command for that task type; the UI state is a
   convenience.
-- **Duplicate and conflict responses disclose the matched record** → Duplicate blocks and
-  stale-save conflicts name the record they matched, including inactive Households and
-  `Discarded Draft` Referrals, which is required for the Platform User to act on them and is
-  harmless under V1 equal access; this must be revisited when per-user visibility arrives.
+- **Duplicate, conflict, and opt-in search responses disclose records** → Duplicate blocks,
+  stale-save conflicts, and search with inactive and closed records included expose those records,
+  including inactive Households and `Discarded Draft` Referrals. This is required for the Platform
+  User to act on them and is harmless under V1 equal access; it must be revisited when per-user
+  visibility arrives.
 - **Pilot-time abuse controls are deferred with authentication** → Rate limiting, field length
   bounds, and request size limits are not part of this slice; they belong with authentication
   before any operational pilot, and field length bounds in particular should be settled alongside
@@ -339,10 +352,10 @@ leaves an out-of-band operator record of when it ran and against which target.
   can at least be inspected, and it may seed already-activated Referrals whose first follow-up tasks
   were positioned by different branches so an evaluator can see the results side by side; seeded
   results are illustrations, and the unit tests remain the evidence.
-- **Boundary checks**: the two egress checks from D8 (dependency manifest, plus a source-level ban
-  on `node:http`, `node:https`, `node:net`, `node:tls`, `node:dgram`, `node:child_process`, and
-  global `fetch`); loopback-by-default binding, the refusal to bind a non-loopback interface without
-  the named acknowledgement value, and the startup log of the bound interface; all three layers of
+- **Boundary checks**: the two egress checks from D8 (dependency manifest, plus its source-level ban
+  over the named Node modules, global `fetch`, and computed dynamic imports); loopback-by-default
+  binding, refusal without acknowledgement, unconditional refusal of wildcard and globally
+  routable addresses, and the startup log of the bound interface; all three layers of
   the production guard and the reset guard, each asserted to refuse; a log redaction test; and a
   provenance check that no value, free-text fragment, or file originating in
   `agent_analysis_package/` appears in seed data, fixtures, tests, or application code, matching

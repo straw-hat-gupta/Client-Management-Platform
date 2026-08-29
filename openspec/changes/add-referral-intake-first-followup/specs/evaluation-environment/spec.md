@@ -72,7 +72,10 @@ The baseline SHALL contain at least:
 
 Records whose value depends on the current date SHALL be positioned relative to the date the reset
 runs, not to fixed calendar dates, so that the same baseline demonstrates the same behavior
-whenever it is restored.
+whenever it is restored. Seeded baseline records SHALL NOT carry fabricated Audit History entries
+for their seeding. The append-only audit store is the sole accountability record, so entries
+indistinguishable from recorded fact SHALL NOT be fabricated for an operation excluded from Audit
+History. Contextual Audit History is demonstrated by real changes made during the session.
 
 #### Scenario: Overdue behavior is demonstrable immediately after reset
 
@@ -93,6 +96,12 @@ whenever it is restored.
 - **WHEN** an evaluator works through the approved evaluation-success list
 - **THEN** every item has the records it needs already present, except those the evaluator is meant to create during the demonstration
 
+#### Scenario: Baseline seeding fabricates no Audit History
+
+- **GIVEN** a freshly reset evaluation environment
+- **WHEN** an evaluator opens Audit History for a seeded baseline record
+- **THEN** it contains no Audit History entry for the record's seeding
+
 ### Requirement: Isolated, non-public operation
 
 The evaluation build SHALL run only locally or in an isolated private evaluation environment. It
@@ -100,9 +109,10 @@ SHALL NOT be exposed publicly or to an untrusted network. It has no real authent
 SHALL NOT be treated as access-controlled.
 
 The platform SHALL enforce this rather than rely on operator discipline: the API SHALL bind a
-loopback interface by default, SHALL refuse to start when configured to bind a non-loopback
-interface unless an explicitly named acknowledgement value is set, and SHALL log the interface it
-bound at startup.
+loopback interface by default. A non-loopback acknowledgement SHALL name the concrete private-range
+address to bind. The API SHALL refuse a non-loopback bind without that acknowledgement, and SHALL
+refuse a wildcard or globally routable address even when an acknowledgement is set. It SHALL log
+the interface it bound at startup.
 
 #### Scenario: The build is not publicly reachable
 
@@ -125,9 +135,15 @@ bound at startup.
 
 #### Scenario: Acknowledged non-loopback bind starts and is logged
 
-- **GIVEN** the API configured to bind a non-loopback interface with the acknowledgement value set
+- **GIVEN** the API configured to bind a concrete private-range address with an acknowledgement naming that address
 - **WHEN** it starts
 - **THEN** it starts and logs the non-loopback interface it bound
+
+#### Scenario: Wildcard and globally routable binds are always refused
+
+- **GIVEN** the API configured to bind a wildcard or globally routable address
+- **WHEN** it starts with the non-loopback acknowledgement set
+- **THEN** it refuses to start and names the isolation requirement as the reason
 
 ### Requirement: No upload, import, or external integration
 
@@ -160,8 +176,10 @@ build pointed at a different `DATABASE_URL` would bypass it. Three independent l
 1. The deployment path refuses to run and names the evaluation-only boundary.
 2. The API refuses to start unless an explicit evaluation-mode marker is present in its
    configuration.
-3. Both API startup and the migration runner refuse a database that does not carry an
-   evaluation-environment marker row, which the reset operation seeds.
+3. The first migration writes the evaluation-environment marker row. The migration runner may run
+   against an empty database when the evaluation-mode configuration marker is present. Once a
+   database contains application tables, API startup and the migration runner refuse it if the
+   marker row is absent.
 
 Lifting any of these refusals SHALL require a code change; no configuration value alone SHALL
 enable production operation.
@@ -178,11 +196,17 @@ enable production operation.
 - **WHEN** it starts
 - **THEN** it refuses to start and names the evaluation-only boundary as the reason
 
-#### Scenario: An unmarked database is refused
+#### Scenario: Empty evaluation database initializes and writes the marker row
 
-- **GIVEN** a database that carries no evaluation-environment marker row
-- **WHEN** the API starts or the migration runner runs against it
-- **THEN** both refuse and name the missing marker as the reason
+- **GIVEN** an empty database and the evaluation-mode configuration marker is present
+- **WHEN** the migration runner applies the first migration
+- **THEN** it initializes the application tables and writes the evaluation-environment marker row
+
+#### Scenario: An initialized unmarked database is refused
+
+- **GIVEN** a database with application tables but no evaluation-environment marker row
+- **WHEN** the API starts, the migration runner runs, or reset is invoked against it
+- **THEN** each refuses and names the missing marker as the reason
 
 #### Scenario: Configuration alone cannot enable production operation
 
@@ -197,10 +221,12 @@ environment operation performed outside normal Platform User actions, SHALL NOT 
 Platform User feature in the application, and SHALL NOT be recorded in Audit History.
 
 Because reset is destructive and takes its target from configuration, it SHALL refuse to run unless
-the target database carries the evaluation-environment marker row and evaluation-mode configuration
-is present. Reset SHALL leave an out-of-band operator record of when it ran and against which
-target; before any operational pilot, no comparably destructive environment operation may exist
-without a restricted security-log entry.
+the target database carries the evaluation-environment marker row written by the first migration
+and evaluation-mode configuration is present. Once a database contains application tables, this
+marker-row refusal applies to reset, API startup, and the migration runner alike. Reset SHALL leave
+an out-of-band operator record of when it ran and against which target; before any operational
+pilot, no comparably destructive environment operation may exist without a restricted security-log
+entry.
 
 #### Scenario: Reset restores the baseline
 
@@ -256,9 +282,10 @@ restored, or migrated into any environment used with real data; such an environm
 
 Technical request and error logs SHALL carry only record identifiers, error classes, and a
 correlation identifier. They SHALL NOT carry contact details, note or reason text, Client Numbers,
-or record field values. This applies to the rejected saves, validation failures, and stale-save
-conflicts that are deliberately excluded from Audit History and therefore appear only in technical
-logs, which are the submissions most likely to contain contact details.
+record field values, or database driver error text, which is business content and SHALL NOT be
+logged verbatim. This applies to rejected saves, validation failures, stale-save conflicts, and
+unique-constraint failures that are deliberately excluded from Audit History and therefore appear
+only in technical logs, which are the submissions most likely to contain contact details.
 
 #### Scenario: A rejected save is logged without its content
 
@@ -266,6 +293,13 @@ logs, which are the submissions most likely to contain contact details.
 - **WHEN** the rejection is logged
 - **THEN** the log entry identifies the record, the error class, and the correlation identifier
 - **AND** none of those submitted values appears anywhere in the log output
+
+#### Scenario: A duplicate constraint failure is logged without driver text or content
+
+- **GIVEN** a duplicate save reaching a unique constraint whose values include a phone number, an email address, and a Client Number
+- **WHEN** the database rejection is logged
+- **THEN** the log entry identifies the record, the error class, and the correlation identifier
+- **AND** neither the driver error text nor any conflicting value appears anywhere in the log output
 
 ### Requirement: Limited page surface
 

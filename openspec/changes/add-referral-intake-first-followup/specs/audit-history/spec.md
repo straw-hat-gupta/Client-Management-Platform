@@ -155,9 +155,10 @@ Platform User may retry. It SHALL NOT contain database, query, stack, or configu
 ### Requirement: Audit History entries are immutable once written
 
 An Audit History entry SHALL be immutable once written. The platform SHALL NOT provide any action
-to delete or edit an entry, and the database role the application uses SHALL hold no `UPDATE` or
-`DELETE` privilege on the audit store, so that an application defect cannot alter recorded history.
-Corrections SHALL be recorded as further entries.
+to delete or edit an entry. The application SHALL connect as a non-owning database role distinct
+from the role used for migrations and reset. On the audit store, the application role SHALL hold
+`INSERT` and `SELECT` only, with no `UPDATE`, `DELETE`, `TRUNCATE`, or DDL privilege, so that an
+application defect cannot alter recorded history. Corrections SHALL be recorded as further entries.
 
 #### Scenario: No delete or edit action exists
 
@@ -168,7 +169,7 @@ Corrections SHALL be recorded as further entries.
 #### Scenario: The application cannot alter a written entry
 
 - **GIVEN** a written Audit History entry
-- **WHEN** the application attempts an `UPDATE` or `DELETE` against the audit store
+- **WHEN** the application attempts an `UPDATE`, `DELETE`, `TRUNCATE`, `ALTER`, or `DROP` against the audit store
 - **THEN** the database refuses the operation because the application role holds no such privilege
 
 #### Scenario: A correction adds an entry

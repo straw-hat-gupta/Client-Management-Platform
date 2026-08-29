@@ -300,13 +300,18 @@ taken before building.
    needs a human decision between two options: (a) every record in the evaluation environment,
    including evaluator-entered records, carries an evaluation marker; or (b) an unobtrusive
    environment banner is accepted as distinct from the "real data warning" the firm declined.
+   As decision 4 explains, data entered into the evaluation build cannot be erased under the
+   controls this change specifies, so option (a) or (b) is the only available deterrent, and
+   declining both accepts permanent retention of whatever an evaluator types.
    This change picks neither.
 11. **Who owns the pilot precondition list** — this change names several preconditions for leaving
    evaluation: real authentication and security logging, a completed security threat model
-   (`docs/security/threat-model.md` exists but is empty), operational backup and recovery, and the
-   professional review in items 3 and 4. What needs a human decision is not the contents of any one
-   of them but who owns that list, keeps it current, and confirms it is satisfied before production
-   deployment is enabled. This change does not author any of those artifacts.
+   (`docs/security/threat-model.md` exists but is empty), operational backup and recovery, rate
+   limiting, field-length bounds, request-size limits, a restricted security-log entry for
+   comparably destructive environment operations, and the professional review in items 3 and 4.
+   What needs a human decision is not the contents of any one of them but who owns that list, keeps
+   it current, and confirms it is satisfied before production deployment is enabled. This change
+   does not author any of those artifacts.
 
 ### Recorded, not a decision for this slice
 

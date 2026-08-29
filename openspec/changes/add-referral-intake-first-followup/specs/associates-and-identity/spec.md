@@ -173,3 +173,14 @@ rule and SHALL never be blocked by owned work.
 - **THEN** the platform accepts the change
 - **AND** Audit History records the deactivation with actor and timestamp
 - **AND** the Associate's earlier assignments and recorded actions remain visible
+
+### Requirement: The fixed development identity's Associate remains active
+
+The Associate linked to the fixed `Evaluation User` development identity SHALL NOT be made inactive
+in this slice, even when that Associate owns no work.
+
+#### Scenario: Deactivating the evaluation identity's Associate is refused
+
+- **GIVEN** the Associate linked to the fixed `Evaluation User` identity owns no work
+- **WHEN** a Platform User attempts to make that Associate inactive
+- **THEN** the platform refuses and leaves the Associate active

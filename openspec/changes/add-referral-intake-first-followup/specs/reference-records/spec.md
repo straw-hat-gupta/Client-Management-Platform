@@ -148,3 +148,15 @@ SHALL be deactivated separately.
 - **WHEN** a Platform User discards that Draft
 - **THEN** the COI remains active and selectable
 - **AND** the Platform User may deactivate it separately if it was a mistake
+
+### Requirement: Equal access to reference records
+
+Every authenticated Platform User SHALL have equal access to view and change Event and COI
+reference records in this slice. This states V1 access policy, not evidence that an access-control
+mechanism has been built or tested.
+
+#### Scenario: Any Platform User may change a reference record
+
+- **GIVEN** an Event or COI reference record created by another Platform User
+- **WHEN** any authenticated Platform User deactivates or reactivates it
+- **THEN** the platform accepts the change and records the actor in Audit History
