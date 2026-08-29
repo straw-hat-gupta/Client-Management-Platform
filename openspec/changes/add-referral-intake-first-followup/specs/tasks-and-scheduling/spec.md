@@ -18,7 +18,7 @@ completion time and the acting Platform User.
 #### Scenario: Open Task past its due time is Overdue
 
 - **GIVEN** an Open Task due at 5:00 p.m. Firm Time today
-- **WHEN** the Firm Time Zone clock passes 5:00 p.m.
+- **WHEN** server time resolved in the Firm Time Zone passes 5:00 p.m.
 - **THEN** the task is shown as Overdue with no grace period
 - **AND** its status remains `Open`
 
@@ -198,7 +198,9 @@ Referral Owner when those are different Associates.
 
 Manual rescheduling SHALL accept only Firm Business Days that have not passed. The current day
 SHALL be selectable before 5:00 p.m. Firm Time; after that time the earliest selectable date SHALL
-be the next Firm Business Day. No reason SHALL be required. Audit History SHALL retain the previous
+be the next Firm Business Day. Both "has not passed" and the 5:00 p.m. boundary SHALL be evaluated
+against server time resolved in the Firm Time Zone, never against a clock supplied by the client,
+and the server SHALL enforce the constraint regardless of what the web app offered. No reason SHALL be required. Audit History SHALL retain the previous
 date, the new date, the actor, and the timestamp.
 
 #### Scenario: Past date is rejected
@@ -221,9 +223,15 @@ date, the new date, the actor, and the timestamp.
 
 #### Scenario: Today is not selectable after 5:00 p.m.
 
-- **GIVEN** the current time is 5:30 p.m. Firm Time
+- **GIVEN** the current server time is 5:30 p.m. Firm Time
 - **WHEN** a Platform User opens the rescheduling action
 - **THEN** the earliest selectable date is the next Firm Business Day
+
+#### Scenario: The server rejects a date the client should not have offered
+
+- **GIVEN** the current server time is 5:30 p.m. Firm Time
+- **WHEN** a request arrives rescheduling a task to today
+- **THEN** the server rejects it and the due date is unchanged
 
 #### Scenario: Rescheduling requires no reason but is audited
 

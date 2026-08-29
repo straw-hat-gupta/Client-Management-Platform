@@ -81,7 +81,7 @@ entries, and persists both. If the audit insert fails, the transaction rolls bac
 change does not happen.
 
 **Alternative considered:** write the audit entry asynchronously (outbox table, background drain).
-Rejected: `docs/product/vision.md` requires that a change requiring Audit History "succeeds with
+Rejected: `docs/product/vision.md` requires that a change needing Audit History "succeeds with
 its history entry or fails entirely", and an outbox accepts an unaudited change for later repair.
 Also rejected: an application-level "audit first, then change" sequence, which can leave a recorded
 change that never happened.
@@ -91,8 +91,16 @@ change that never happened.
 
 > **Proposed ADR-0001 — Audit History entries are written in the same database transaction as the
 > change they audit.** Alternatives: transactional outbox with asynchronous drain; separate audit
-> service. Consequence: audit availability becomes a write-availability dependency for every
-> business change, which is the behavior the product direction requires.
+> service. Consequences: (a) the audit store becomes a hard dependency of every write — when it is
+> unavailable, the platform accepts no business change at all; (b) audit growth is unbounded,
+> because entries are append-only and nothing prunes them, so storage grows monotonically with
+> use; and (c) the audit store is the sole accountability record for the platform while
+> operational backup and recovery are deferred (see `proposal.md` — Data Sensitivity, which makes
+> backup and recovery a precondition for real client use), so losing it loses all accountability
+> history with no restore path.
+
+Because task 3.3 implements this commitment, the ADR-0001 decision is taken at the `PLAN APPROVED`
+gate (task 1.1) rather than at the end of the change.
 
 ### D3 — Time is stored as instants plus firm-calendar dates
 
@@ -167,19 +175,32 @@ problems in one response, because activation must "present all validation proble
 
 There is no authentication. `apps/api` injects the fixed `Evaluation User` Platform User identity
 at the request boundary, in exactly one place, and every module receives the acting identity as an
-explicit argument rather than reading a global. When real authentication arrives in a later slice,
-that single injection point is replaced; no module signature changes.
+explicit argument rather than reading a global. That injection point derives the identity solely
+from the request boundary and ignores every client-supplied identity input: an actor, user, or
+on-behalf-of value in a body, query string, or header is rejected or dropped and can never reach
+the audit actor. This matters because the actor is the only accountability signal in the slice, and
+`CONTEXT.md` binds against treating an editable Associate selection as the identity of the acting
+user — the call performer is selectable, the actor is not. When real authentication arrives in a
+later slice, that single injection point is replaced; no module signature changes.
 
 **Trust boundaries:**
 
 - The evaluation environment perimeter is the only security boundary. Everything inside it is
-  trusted, which is precisely why it must not be publicly reachable.
+  trusted, which is precisely why it must not be publicly reachable. That is enforced in the
+  application, not only by operator discipline: the API binds loopback by default, refuses to start
+  on a non-loopback interface unless an explicitly named acknowledgement value is set, and logs the
+  interface it bound at startup so an evaluator can see what was actually exposed.
 - The browser is not trusted for business rules: every invariant in `specs/` is enforced in the
   API and domain layers, and the web app's disabled controls (notably the disabled
   `Discovery package sent` completion action) are duplicated as server-side refusals.
-- There is no outbound trust boundary at all: the service makes no outbound network calls. This is
-  enforced by having no HTTP client, no mail transport, and no third-party SDK in `apps/api`'s
-  dependencies.
+- The service is intended to make no outbound network calls. A dependency-manifest check alone
+  cannot establish that, because Node ships global `fetch` and the `node:http`, `node:https`,
+  `node:net`, `node:tls`, `node:dgram`, and `node:child_process` modules with no dependency to
+  declare. Two controls therefore apply together: the manifest check (no HTTP client, mail
+  transport, or third-party SDK in `apps/api`'s dependencies) and a source-level ban on importing
+  those modules or calling global `fetch` anywhere in `apps/api` or the domain modules. These are
+  static controls: they make an accidental egress path visible in review and in CI, and they are
+  not a substitute for the network isolation of the evaluation environment itself.
 - Secrets: the build has no production credentials. The database connection string is the only
   configuration value, supplied per environment and never committed.
 
@@ -203,11 +224,21 @@ by others only through that module's interface:
 database role used by the application is granted `INSERT` and `SELECT` on it but not `UPDATE` or
 `DELETE`.
 
-### D10 — Seeding and reset live outside the application
+### D10 — Seeding and reset live outside the application, behind their own preconditions
 
 The known synthetic baseline and the reset operation are a repository script run against the
 environment, not an API route and not a UI action. This is what makes reset "outside Platform User
 actions and Audit History" true by construction rather than by a hidden permission check.
+
+Reset is destructive and takes its target from configuration, so it is guarded rather than trusted:
+it refuses to run unless the target database carries the evaluation-environment marker row that
+reset itself seeds, and unless evaluation-mode configuration is present. The same marker row is
+what API startup and the migration runner check, so the three-layer production guard in
+`specs/evaluation-environment/spec.md` and the reset guard share one mechanism: a deployment-path
+refusal, an evaluation-mode configuration marker, and a database marker row. Lifting any of them
+requires a code change, which is the point — a mistyped `DATABASE_URL` must not be able to point an
+ordinary build, a migration, or a reset at a database that was never meant for it. Reset also
+leaves an out-of-band operator record of when it ran and against which target.
 
 ## Risks / Trade-offs
 
@@ -232,6 +263,14 @@ actions and Audit History" true by construction rather than by a hidden permissi
 - **`Discovery package sent` completion is disabled in the UI only, if implemented carelessly** →
   Mitigation: the server refuses the completion command for that task type; the UI state is a
   convenience.
+- **Duplicate and conflict responses disclose the matched record** → Duplicate blocks and
+  stale-save conflicts name the record they matched, including inactive Households and
+  `Discarded Draft` Referrals, which is required for the Platform User to act on them and is
+  harmless under V1 equal access; this must be revisited when per-user visibility arrives.
+- **Pilot-time abuse controls are deferred with authentication** → Rate limiting, field length
+  bounds, and request size limits are not part of this slice; they belong with authentication
+  before any operational pilot, and field length bounds in particular should be settled alongside
+  the validation rules rather than retrofitted.
 - **First-slice-shaped modules could become the wrong shape when conversion and appreciation
   arrive** → Mitigation: Household identity is already separated from Referral workflow, which is
   the boundary the later slices cross; outreach stage handling is deliberately concrete rather
@@ -260,8 +299,12 @@ actions and Audit History" true by construction rather than by a hidden permissi
   conflicts are deliberately *excluded* from Audit History, the technical log is where an evaluator
   and the implementer can see that they happened — this is the intended split, and the two must not
   be conflated.
-- Logs carry record identifiers and error classes, never contact details or note text, so the same
-  logging code remains safe when the platform later handles real data.
+- Log content is a requirement, not a convention: `specs/evaluation-environment/spec.md` —
+  "Technical logs carry no business content" limits technical logs to record identifiers, error
+  classes, and a correlation identifier, and forbids contact details, note or reason text, Client
+  Numbers, and record field values. This is load-bearing precisely because the entries above route
+  rejected saves and validation failures — the submissions most likely to carry contact details —
+  into technical logs. Task 3.5 verifies it with a redaction test rather than by inspection.
 - Security and authentication event logging is explicitly a later-slice prerequisite and is not
   implemented here.
 - A health endpoint reports database reachability, so an evaluator can distinguish "audit writes
@@ -286,9 +329,14 @@ actions and Audit History" true by construction rather than by a hidden permissi
   including the aggregated validation-error response.
 - **End-to-end walkthroughs**: the evaluation-success list in `docs/product/journeys.md`
   ("Evaluation success") is the acceptance script — one automated walkthrough per bullet.
-- **Boundary checks**: an automated check that `apps/api` declares no outbound HTTP, mail, or
-  third-party integration dependency; a check that the production deployment path refuses to run;
-  and a check that fixtures contain no rows copied from the sanitized spreadsheets.
+- **Boundary checks**: the two egress checks from D8 (dependency manifest, plus a source-level ban
+  on `node:http`, `node:https`, `node:net`, `node:tls`, `node:dgram`, `node:child_process`, and
+  global `fetch`); loopback-by-default binding, the refusal to bind a non-loopback interface without
+  the named acknowledgement value, and the startup log of the bound interface; all three layers of
+  the production guard and the reset guard, each asserted to refuse; a log redaction test; and a
+  provenance check that no value, free-text fragment, or file originating in
+  `agent_analysis_package/` appears in seed data, fixtures, tests, or application code, matching
+  substrings of free-text columns rather than whole rows.
 - All test data is synthetic and clearly marked. No real firm, client, or financial data is used in
   any test, fixture, or screenshot.
 

@@ -90,7 +90,7 @@ types and SHALL require each type's attribution before activation:
 
 | Code | Source | Required attribution |
 |---|---|---|
-| C | Client | An existing client Household or client Household Member selected from the platform |
+| C | Client | An existing client Household or client Household Member selected from the platform. The Referral Relationship is recorded alongside it but is not part of the source's completeness |
 | E | Event | The specific Event name and date |
 | M | Marketing | The campaign or channel name |
 | SM | Social Media | The platform name |
@@ -121,11 +121,12 @@ COI names and their resolution tasks are outside this slice.
 
 ### Requirement: Referral Relationship on a Client Referral Source
 
-Each Client Referral Source SHALL record its Referral Relationship to the prospective Household
-using one of `Friend`, `Relative`, `Colleague`, `Service provider`, or `Other`. The Referral
-Relationship SHALL be `N/A` when the Referral did not come through a client. The relationship
-SHALL apply to the prospective Household collectively; per-member Referral participation is
-outside this slice.
+Each Client Referral Source SHALL carry a Referral Relationship to the prospective Household. Its
+value SHALL be `N/A` by default, and a Platform User MAY set it to `Friend`, `Relative`,
+`Colleague`, `Service provider`, or `Other`. The Referral Relationship SHALL be `N/A` when the
+Referral did not come through a client. It SHALL NOT form part of a Referral Source's completeness
+and SHALL NOT block activation. The relationship SHALL apply to the prospective Household
+collectively; per-member Referral participation is outside this slice.
 
 #### Scenario: Relationship is recorded per Client source
 
@@ -139,18 +140,27 @@ outside this slice.
 - **WHEN** the Platform User views its attribution
 - **THEN** the Referral Relationship is `N/A`
 
+#### Scenario: An unset relationship does not block activation
+
+- **GIVEN** a `Draft` Referral with a Client Referral Source whose Referral Relationship is still `N/A` and which satisfies every other activation requirement
+- **WHEN** the Platform User activates it
+- **THEN** the platform activates the Referral
+- **AND** does not report the Referral Relationship as missing information
+
 ### Requirement: Referral Received Date
 
 The Referral Received Date SHALL be the calendar date in the Firm Time Zone on which the firm first
 received the Referral. It SHALL default to the current date in the Firm Time Zone. The Platform
-User MAY backdate it. The platform SHALL reject a future Referral Received Date. Adding a later
+User MAY backdate it. The platform SHALL reject a future Referral Received Date. "Future" SHALL be
+determined against server time resolved in the Firm Time Zone, never against a clock supplied by
+the client. Adding a later
 Referral Source SHALL NOT change the Referral's original Referral Received Date and SHALL NOT
 create a second Referral Received Date.
 
 #### Scenario: Future date is rejected
 
 - **GIVEN** a Referral being saved or activated
-- **WHEN** the Referral Received Date is later than the current date in the Firm Time Zone
+- **WHEN** the Referral Received Date is later than the current date derived from server time in the Firm Time Zone
 - **THEN** the platform rejects the save, states that a future date is not accepted, and changes no record
 
 #### Scenario: Backdating is accepted
@@ -206,8 +216,10 @@ business from an existing client Household is outside this slice.
 
 Activation SHALL validate the whole transition at once and SHALL require: at least one named
 Household Member, at least one phone number or email address across the prospective Household, at
-least one complete Referral Source with its source-specific attribution, a non-future Referral
-Received Date, an active Referral Owner, and no blocking duplicate conflict. The Referral SHALL
+least one complete Referral Source with its source-specific attribution as listed in the
+attribution table — for a Client Referral Source, completeness means the client is selected, and
+does not include the Referral Relationship — a non-future Referral Received Date, an active
+Referral Owner, and no blocking duplicate conflict. The Referral SHALL
 move to `In process` only when exactly one first follow-up task and its due date are created
 successfully. Failure SHALL leave the Referral `Draft`, preserve entered values, create no task,
 and present all validation problems together. Retry SHALL create exactly one first follow-up task.

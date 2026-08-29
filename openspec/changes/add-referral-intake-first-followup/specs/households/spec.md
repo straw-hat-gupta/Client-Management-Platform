@@ -83,15 +83,28 @@ another Household Member.
 The platform SHALL block creation of a second Household when an exact phone number or exact email
 address matches contact information already recorded on a different existing Household. The block
 SHALL have no override. The platform SHALL direct the Platform User to the existing Household and
-its Referral. Phone matching SHALL ignore formatting and email matching SHALL be
-case-insensitive. Duplicate checks SHALL include inactive Households.
+its Referral. Duplicate checks SHALL include inactive Households.
 
-#### Scenario: Exact phone match blocks creation
+Matching SHALL use these normalizations, so that two values match only when their normalized forms
+are identical:
 
-- **GIVEN** an existing Household records the phone number `+1-555-0100`
-- **WHEN** a Platform User attempts to create a different Household using `(555) 010-0` formatted as the same number
+- **Phone**: remove every character that is not a digit; then, when the result is 11 digits
+  beginning with `1`, remove that leading `1`; compare the resulting digit strings for exact
+  equality. Values whose normalized forms differ in length do not match.
+- **Email**: trim surrounding whitespace and compare case-insensitively.
+
+#### Scenario: Exact phone match blocks creation across formatting
+
+- **GIVEN** an existing Household records the phone number `+1-555-555-0100`, which normalizes to `5555550100`
+- **WHEN** a Platform User attempts to create a different Household using `(555) 555-0100`, which normalizes to the same `5555550100`
 - **THEN** the platform blocks creation, directs the Platform User to the existing Household and its Referral, and offers no override
 - **AND** no new Household, member, Referral Source, or Referral is created
+
+#### Scenario: Different normalized phone numbers do not match
+
+- **GIVEN** an existing Household records the phone number `+1-555-555-0100`, which normalizes to `5555550100`
+- **WHEN** a Platform User creates a different Household using `555-0100`, which normalizes to `5550100`
+- **THEN** the platform does not treat the two as a match and does not block creation
 
 #### Scenario: Exact email match blocks creation
 

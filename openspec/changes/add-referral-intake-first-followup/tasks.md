@@ -11,12 +11,12 @@ bullet gets one end-to-end walkthrough.
 
 ## 1. Plan approval and foundation
 
-- [ ] 1.1 Do not start implementation until a human records `PLAN APPROVED` in the draft PR; verify by linking the approving comment in the PR description before task 1.2 begins
+- [ ] 1.1 Do not start implementation until a human records `PLAN APPROVED` in the draft PR, and until the same human has accepted or declined proposed ADR-0001 (audit entry written in the same transaction as the change it audits) because task 3.3 implements that commitment; verify by linking the approving comment and the ADR-0001 decision in the PR description before task 1.2 begins
 - [ ] 1.2 Create the monorepo skeleton (`apps/web`, `apps/api`, `packages/contracts`, domain module directories per `design.md` D1) and verify `npm install` and a workspace-wide type-check succeed with no application behavior yet
-- [ ] 1.3 Create `scripts/verify.sh` running type-check, lint, unit tests, integration tests, and `openspec validate --all --strict`; verify it exits non-zero when any step fails and zero on the empty skeleton (`AGENTS.md` requires this script and it does not exist in the repository today)
+- [ ] 1.3 Create `scripts/verify.sh` running type-check, lint, unit tests, integration tests, and `npx -y @fission-ai/openspec@latest validate --all --strict`; verify it exits non-zero when any step fails and zero on the empty skeleton (`AGENTS.md` requires this script and it does not exist in the repository today). Do not use the bare `openspec` npm package: it is a v0.0.0 placeholder with no binary, so `npx openspec@latest ...` fails with "could not determine executable to run". Pinning `@fission-ai/openspec` as a devDependency and invoking the local `openspec` binary is an acceptable alternative; the bare-package form is not
 - [ ] 1.4 Add the PostgreSQL migration runner and the first empty migration; verify migrations apply and re-apply idempotently against a scratch database
 - [ ] 1.5 Add module-boundary enforcement (lint rule or dependency check) asserting that domain modules import no HTTP, React, or database framework and that the dependency direction in `design.md` D1 has no cycles; verify the check fails on a deliberately introduced violation and passes on the skeleton
-- [ ] 1.6 Add the boundary check asserting `apps/api` declares no outbound HTTP, mail, or third-party integration dependency (`specs/evaluation-environment/spec.md` — No upload, import, or external integration); verify it fails when such a dependency is added
+- [ ] 1.6 Add the egress boundary checks asserting (a) `apps/api` declares no outbound HTTP, mail, or third-party integration dependency and (b) no source file in `apps/api` or the domain modules imports `node:http`, `node:https`, `node:net`, `node:tls`, `node:dgram`, or `node:child_process`, or calls global `fetch` (`specs/evaluation-environment/spec.md` — No upload, import, or external integration); verify each check fails on a deliberately introduced violation of its own kind
 
 ## 2. Firm Time Zone and Firm Business Day scheduling
 
@@ -30,11 +30,13 @@ bullet gets one end-to-end walkthrough.
 - [ ] 3.1 Create the `audit_entry` table as append-only with the application role granted only `INSERT` and `SELECT`; verify an attempted `UPDATE` and `DELETE` are refused by the database
 - [ ] 3.2 Implement the `audit` module interface (`recordChange`, `historyForRecord`) storing previous value, new value, acting Platform User, timestamp, and any required reason; verify with unit tests over entry content per `specs/audit-history/spec.md` — "Audit History entry content"
 - [ ] 3.3 Implement the application-service transaction pattern from `design.md` D2 so a change and its audit entry share one transaction; verify with an integration test that forces the audit insert to fail and asserts the business change is not applied and can be retried to apply exactly once ("Audited changes are all-or-nothing")
-- [ ] 3.4 Verify that record views, validation failures, and rejected stale saves produce no Audit History entry, with integration tests per "What Audit History does not record"
+- [ ] 3.4 Verify that record views, validation failures, and rejected stale saves produce no Audit History entry, with integration tests per "The exclusion list is closed and exhaustive"
+- [ ] 3.5 Implement technical request and error logging carrying only record identifiers, error classes, and a correlation id (`specs/evaluation-environment/spec.md` — Technical logs carry no business content); verify with a redaction test that submits a rejected save containing a phone number, an email address, a Client Number, and free-text note and reason values, then asserts none of those values appear anywhere in the captured log output
+- [ ] 3.6 Implement the user-facing error shape for a failed audited write, naming the failure class and that retry is possible; verify with a test asserting the response carries no database, query, stack, or configuration detail
 
 ## 4. Identity, Associates, and the firm calendar
 
-- [ ] 4.1 Implement the `associate` record and the fixed `Evaluation User` development identity injected at the single API boundary point (`design.md` D8); verify with an integration test that every audited change records the development identity as actor
+- [ ] 4.1 Implement the `associate` record and the fixed `Evaluation User` development identity injected at the single API boundary point (`design.md` D8); verify with an integration test that every audited change records the development identity as actor, and with a negative test that a request carrying an actor, user, or on-behalf-of field in its body, query string, or headers is rejected or ignored and never changes the recorded actor
 - [ ] 4.2 Implement Associate create, edit, and active status plus selectability rules; verify with tests covering "Synthetic Associates are selectable for work" in `specs/associates-and-identity/spec.md`
 - [ ] 4.3 Implement the refusal to deactivate an Associate who owns a non-closed Referral or an Open Task, and success after reassignment; verify with integration tests covering all three scenarios under "An Associate owning work cannot be deactivated"
 - [ ] 4.4 Implement firm holiday and closure calendar maintenance with Audit History, affecting future calculations only; verify with an integration test that an existing task's due date is not recalculated after a calendar change
@@ -120,23 +122,24 @@ bullet gets one end-to-end walkthrough.
 ## 14. Contextual Audit History surface
 
 - [ ] 14.1 Deliver the `Audit history` action on Household, Referral, task, Associate, Event, and COI detail views with no inline history in workflow views and no global audit page; verify by walkthrough against `specs/audit-history/spec.md` — "Contextual per-record access"
-- [ ] 14.2 Verify by integration test that every change type listed under "What Audit History records" produces an entry with previous value, new value, actor, timestamp, and any required reason
+- [ ] 14.2 Verify by integration test that every change type listed under "Every successful change is recorded" produces an entry with previous value, new value, actor, timestamp, and any required reason
 - [ ] 14.3 Implement read-only availability while audit writes are failing and verify with an integration test that records remain viewable while writes are rejected
 
 ## 15. Evaluation environment boundary
 
-- [ ] 15.1 Author the synthetic baseline seed data modelled on the sanitized spreadsheets' structures without copying their rows, and the reset script that runs outside the application; verify by running reset and asserting the environment matches the baseline exactly
+- [ ] 15.1 Author the synthetic baseline seed data modelled on the sanitized spreadsheets' structures without reusing any of their values, and the reset script that runs outside the application and seeds the evaluation-environment marker row; verify by running reset and asserting the environment matches the baseline exactly, and by two refusal tests: reset against a database with no evaluation-environment marker row is refused, and reset with evaluation-mode configuration absent is refused
 - [ ] 15.2 Verify by test that reset is not reachable as a Platform User action and produces no Audit History entry
-- [ ] 15.3 Implement the production deployment guard that refuses to run and names the evaluation-only boundary; verify by executing the guarded path and asserting the refusal
-- [ ] 15.4 Add the fixture check asserting no rows copied from the sanitized spreadsheets appear in seed data or tests; verify it fails on a deliberately introduced copied row
-- [ ] 15.5 Document the synthetic-data-only, isolated, non-public operating rule in the repository (not as an in-product warning); verify the documentation exists and that no in-product data warning is rendered
-- [ ] 15.6 Verify by walkthrough that upload, import, email, and external-integration actions are absent from every page
+- [ ] 15.3 Implement the three-layer production guard: the deployment script refuses to run and names the evaluation-only boundary; the API refuses to start without an explicit evaluation-mode marker; and both API startup and the migration runner refuse a database lacking the evaluation-environment marker row. Verify with four tests — the guarded deploy path, startup without the evaluation-mode marker, startup against an unmarked database, and migration against an unmarked database — each asserting refusal, plus a test asserting no configuration value alone lifts any of the three refusals
+- [ ] 15.4 Implement loopback-by-default binding: the API binds a loopback interface unless an explicitly named acknowledgement value is set, refuses to start on a non-loopback interface without it, and logs the bound interface at startup; verify with tests for the default bind, the refusal, the acknowledged non-loopback start, and the presence of the startup log line
+- [ ] 15.5 Add the provenance check asserting that no value, free-text fragment, or file originating in `agent_analysis_package/` appears in seed data, fixtures, tests, or application code — substring matching over the free-text columns of those files in addition to whole-row matching, plus a path check that no file under `agent_analysis_package/` is read or imported by application or test code; verify it fails on a deliberately introduced copied row, on a single copied free-text fragment, and on a deliberate read of that directory
+- [ ] 15.6 Document the synthetic-data-only, isolated, non-public operating rule in the repository (not as an in-product warning); verify the documentation exists and that no in-product data warning is rendered
+- [ ] 15.7 Verify by walkthrough that upload, import, email, and external-integration actions are absent from every page
 
 ## 16. Verification, review, and archive
 
 - [ ] 16.1 Run `./scripts/verify.sh` and verify every check passes; report which checks ran, their results, any skipped checks, and residual risk, per `AGENTS.md`
 - [ ] 16.2 Run one end-to-end walkthrough per bullet of the "Evaluation success" list in `docs/product/journeys.md` and verify each is demonstrable using only synthetic data
-- [ ] 16.3 Run `openspec validate --all --strict` and verify it passes with no findings
-- [ ] 16.4 Confirm the two proposed ADRs in `design.md` (audit-in-transaction, date storage) are either written and accepted under `docs/adr/` or explicitly declined by a human; verify the decision is recorded in the PR
+- [ ] 16.3 Run `npx -y @fission-ai/openspec@latest validate --all --strict` (or the pinned local `openspec` binary from task 1.3) and verify it passes with no findings
+- [ ] 16.4 Confirm proposed ADR-0002 in `design.md` (date storage) is either written and accepted under `docs/adr/` or explicitly declined by a human, and that the ADR-0001 decision taken at task 1.1 is recorded there too; verify both decisions are recorded in the PR
 - [ ] 16.5 Obtain independent final review from the agent that did not author the code, with fresh context and read-only access; verify every accepted finding is fixed by the original author and re-verified
 - [ ] 16.6 Archive the change and inspect the resulting canonical spec diff under `openspec/specs/` before merge; verify the diff contains only the behavior specified here

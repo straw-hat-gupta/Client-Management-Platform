@@ -32,8 +32,9 @@ attempt SHALL NOT create another task.
 
 ### Requirement: Recording a follow-up attempt
 
-Each recorded attempt SHALL capture a non-future date and time in the Firm Time Zone, the Associate
-who made the attempt, an outcome of `No answer`, `Voicemail`, or `Two-way conversation`, an
+Each recorded attempt SHALL capture a non-future date and time in the Firm Time Zone — "non-future"
+determined against server time resolved in the Firm Time Zone, never against a clock supplied by the
+client — the Associate who made the attempt, an outcome of `No answer`, `Voicemail`, or `Two-way conversation`, an
 optional note, and the Platform User and timestamp that entered it. The Associate who made the
 attempt SHALL default to the Associate linked to the acting Platform User and MAY be changed when
 recording on another Associate's behalf. An unsuccessful attempt SHALL also record the next due
@@ -56,8 +57,14 @@ date.
 #### Scenario: Future attempt date and time is rejected
 
 - **GIVEN** an attempt form
-- **WHEN** the Platform User enters a date and time later than the current Firm Time Zone time
+- **WHEN** the Platform User enters a date and time later than the current server time resolved in the Firm Time Zone
 - **THEN** the platform rejects the attempt, records nothing, and preserves the entered values
+
+#### Scenario: A client clock cannot widen the accepted range
+
+- **GIVEN** a client whose local clock is ahead of server time
+- **WHEN** it submits an attempt dated after the current server time in the Firm Time Zone
+- **THEN** the platform rejects the attempt
 
 ### Requirement: Unsuccessful attempt keeps the task Open and requires a next due date
 

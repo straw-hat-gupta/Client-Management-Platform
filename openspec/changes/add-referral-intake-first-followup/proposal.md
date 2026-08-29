@@ -4,9 +4,11 @@
 
 Referral coordination currently lives in disconnected spreadsheets. Staff re-enter the same
 identity and contact details, search several places for a Referral's owner, stage, and next
-action, and risk missing follow-up entirely [E-001, E-002, E-029]. An introduction already
-triggers an RMS entry today, so Referral intake and the first follow-up call form the smallest
-coherent replacement of that practice [E-012, E-015].
+action, and risk missing follow-up entirely [E-001, E-002, E-029]. Discovery establishes that an
+introduction already triggers an RMS entry [E-012] and that intake usually needs a name, a phone
+number, and an email address [E-015]. That Referral intake plus the first follow-up call is the
+right first slice is not established by those entries: it is the approved scope in
+`docs/product/vision.md` "Delivery Shape" and `docs/product/journeys.md` "First Vertical Slice".
 
 The firm lead has approved building this slice as an **evaluation-only** build so that the
 flow can be exercised hands-on before any operational pilot. Flow details remain subject to
@@ -52,8 +54,8 @@ production-deployment paths are part of that demonstration, not later cleanup.
   manual rescheduling constraints, and the `Due on non-business day` flag.
 - **New** minimal Event and COI reference records with inline creation from Referral intake,
   duplicate blocking, and deactivate/reactivate.
-- **New** synthetic Associates and the fixed `Evaluation User` development identity used as the
-  default audit actor, default call performer, and default Tasks filter.
+- **New** synthetic Associates and the fixed `Evaluation User` development identity, which is the
+  non-overridable Audit History actor and the default call performer and default Tasks filter.
 - **New** contextual Audit History recording previous value, new value, actor, and timestamp,
   written all-or-nothing with the change it audits.
 - **New** evaluation-environment boundary: synthetic data only, isolated and non-public, no
@@ -228,7 +230,9 @@ final.
 3. **Flow acceptance** — detailed flow acceptance is pending hands-on validation of the initial UI
    and may cause revisions to these specs before any operational pilot.
 4. **Professional review** of equal-access permissions, privacy, compliance, retention, and
-   security governance remains outstanding [E-043, C-002].
+   security governance remains outstanding [E-043, C-002]. That review must resolve the direct
+   conflict between any erasure or right-to-be-forgotten obligation and this slice's append-only,
+   never-deleted Audit History.
 5. **Audit History scope confirmation** — discovery contains an unreconciled contradiction between
    the stakeholder's stated preference and the proposed broad change history [E-030, C-002]. The
    approved product direction specifies broad Audit History; this change follows that direction and
@@ -242,8 +246,9 @@ final.
 8. **Referral Relationship requiredness** — `docs/product/journeys.md` enumerates the
    relationship values for a Client Referral Source and `CONTEXT.md` defines the term, but the
    required-attribution table lists only "selection of an existing client". This change specifies
-   that the relationship is recorded per Client Referral Source and defaults to `N/A` for
-   non-client Referrals; whether an explicit relationship value blocks activation is deferred.
+   that a Referral Relationship is recorded per Client Referral Source, defaults to `N/A`, and
+   does **not** form part of a Referral Source's completeness, so it never blocks activation.
+   Whether an explicit relationship value should become required for activation is deferred.
 9. **Audit History CSV download** — `docs/product/journeys.md` describes a CSV download option on
    the contextual `Audit history` action at the RMS-release level, while the slice's page surface
    excludes reports and CSV export. This change specifies contextual Audit History access without
@@ -253,3 +258,16 @@ final.
    creation, so this change specifies only generated tasks plus the linkage invariant that every
    task belongs to one of those records. Whether manual task creation is exercised in this slice
    is deferred.
+11. **Marking evaluator-entered records, or warning in-product** — ESCALATED, not resolved here.
+   Only seeded records are required to be clearly synthetic, so a record an evaluator types
+   carries no marker, and the approved product decision is that the synthetic-only rule is
+   documented rather than shown in-product (`docs/product/vision.md` line 84,
+   `docs/product/journeys.md` line 25). Nothing in the build therefore deters someone from typing
+   real client data into it. This is an approved-decision-versus-data-protection conflict and
+   needs a human decision between two options: (a) every record in the evaluation environment,
+   including evaluator-entered records, carries an evaluation marker; or (b) an unobtrusive
+   environment banner is accepted as distinct from the "real data warning" the firm declined.
+   This change picks neither.
+12. **Security threat model** — `docs/security/threat-model.md` exists but is empty. A completed
+   threat model is named in this change as a precondition for enabling production deployment; who
+   authors it, when, and what it must cover are human decisions this change does not make.

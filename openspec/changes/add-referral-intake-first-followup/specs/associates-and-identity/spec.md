@@ -49,17 +49,35 @@ activity, while their earlier assignments and recorded actions SHALL remain visi
 ### Requirement: The fixed `Evaluation User` development identity
 
 The slice SHALL be operated by one fixed, clearly marked development identity linked to a synthetic
-`Evaluation User` Associate. That identity SHALL be the default Audit History actor, the default
-Associate recorded as having performed a call, and the default Tasks page filter. Other synthetic
+`Evaluation User` Associate. The Audit History actor SHALL be that authenticated Platform User
+identity as established at the request boundary. It SHALL NOT be selectable, defaultable, or
+overridable by any request field, header, or body value, and no editable Associate selection SHALL
+stand in for the identity of the acting user. That identity SHALL also be the default Associate
+recorded as having performed a call and the default Tasks page filter; those two are defaults the
+Platform User may change, while the actor is not. Other synthetic
 Associates SHALL remain selectable for assignments and for recording activity on another
 Associate's behalf. Real authentication and Platform User provisioning SHALL NOT be part of this
 slice.
 
-#### Scenario: Development identity is the default actor
+#### Scenario: The actor comes from the request boundary
 
 - **GIVEN** the evaluation build
 - **WHEN** any Platform User action is recorded in Audit History
-- **THEN** the acting Platform User is the fixed development identity linked to the `Evaluation User` Associate
+- **THEN** the acting Platform User is the fixed development identity established at the request boundary
+
+#### Scenario: A request cannot choose its own actor
+
+- **GIVEN** a request that carries an actor, user, or on-behalf-of value in its body, query string, or headers
+- **WHEN** the platform processes it
+- **THEN** the request is rejected or the supplied value is ignored
+- **AND** the recorded actor is still the identity established at the request boundary
+
+#### Scenario: Changing the call performer does not change the actor
+
+- **GIVEN** a follow-up attempt recorded on another Associate's behalf
+- **WHEN** the attempt is saved
+- **THEN** the selected Associate is recorded as the caller
+- **AND** the Audit History actor remains the acting Platform User
 
 #### Scenario: Development identity is the default call performer
 
@@ -84,6 +102,10 @@ slice.
 Every authenticated Platform User SHALL have the same visibility and the same actions across
 business records in this slice. There SHALL be no role-based access control and no user-specific
 visibility. Individual identity SHALL remain required for ownership, reminders, and Audit History.
+This requirement, and every other "every authenticated Platform User" requirement in this change,
+states V1 access **policy** and is not evidence that an access-control mechanism has been built or
+tested; when authentication arrives, equal access becomes an explicit allow-all decision taken at a
+real authorization checkpoint.
 
 #### Scenario: Any Platform User may view any Associate's work
 
@@ -116,7 +138,9 @@ slice.
 
 The platform SHALL refuse to make an Associate inactive while they are the Referral Owner of a
 non-closed Referral or the assignee of an Open Task. The Platform User SHALL reassign that work
-first. The Associate's earlier assignments and actions SHALL remain in Audit History.
+first. The Associate's earlier assignments and actions SHALL remain in Audit History. When real
+authentication arrives, revocation of a Platform User's sign-in access SHALL be independent of this
+rule and SHALL never be blocked by owned work.
 
 #### Scenario: Deactivation is refused while work is owned
 

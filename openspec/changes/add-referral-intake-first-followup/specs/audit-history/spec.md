@@ -7,13 +7,16 @@ relationship with the change it audits.
 
 ## ADDED Requirements
 
-### Requirement: What Audit History records
+### Requirement: Every successful change is recorded
 
-Audit History SHALL record successful business and administrative changes, including Household and
-Household Member changes, Referral changes, Referral Source changes, ownership changes, activation,
-task creation, assignment, rescheduling, completion and cancellation, accepted duplicate warnings,
-outreach activity and its corrections, dispositions and reopenings, Associate changes, and firm
-holiday and closure calendar changes.
+Every successful change to a business or administrative record SHALL produce an Audit History
+entry. Coverage SHALL be complete by default: a change is recorded unless it appears in the closed
+exclusion list below. This includes, and is not limited to, Household and Household Member changes,
+Referral changes, Referral Source changes, ownership changes, activation, task creation,
+assignment, rescheduling, completion and cancellation, accepted duplicate warnings, outreach
+activity and its corrections, dispositions and reopenings, Associate changes, and firm holiday and
+closure calendar changes. An implementer SHALL NOT decide that a change is unimportant enough to
+omit.
 
 #### Scenario: An ownership change is recorded
 
@@ -33,12 +36,22 @@ holiday and closure calendar changes.
 - **WHEN** the evaluation identity adds or removes a closure day
 - **THEN** Audit History records the change with previous value, new value, actor, and timestamp
 
-### Requirement: What Audit History does not record
+### Requirement: The exclusion list is closed and exhaustive
 
-Audit History SHALL NOT record record views, unsaved input, validation failures, rejected
-stale-save conflicts, failed sign-in attempts, or internal errors. Technical failure details SHALL
-NOT be added to the business record. Failed sign-ins and system failures belong in restricted
-technical and security logs, which are outside this slice.
+The following, and only the following, SHALL be excluded from Audit History:
+
+1. Record views and other read-only access.
+2. Unsaved input.
+3. Validation failures.
+4. Rejected stale-save conflicts.
+5. Failed sign-in attempts.
+6. Internal errors and technical failure detail.
+7. The environment reset operation.
+
+Nothing else SHALL be excluded. Adding an entry to this list SHALL require a recorded human
+decision, not an implementation judgement. Technical failure details SHALL NOT be added to the
+business record. Failed sign-ins and system failures belong in restricted technical and security
+logs, which are outside this slice.
 
 #### Scenario: A rejected stale save is not recorded
 
@@ -103,7 +116,7 @@ SHALL be able to open it. A global Audit History page SHALL NOT exist in this sl
 
 ### Requirement: Audited changes are all-or-nothing
 
-Any business or administrative change requiring Audit History SHALL succeed together with its
+Because every non-excluded change is recorded, every such change SHALL succeed together with its
 history entry or SHALL fail entirely. The platform SHALL NOT accept an unaudited change for later
 repair. The Platform User MAY retry. Read-only access MAY remain available while audit writes are
 failing.
@@ -127,16 +140,36 @@ failing.
 - **WHEN** a Platform User opens a record
 - **THEN** the platform may still show the record read-only
 
-### Requirement: Audit History is not deleted or edited
+### Requirement: Error content when an audited write fails
 
-The platform SHALL NOT provide any action to delete or edit an Audit History entry. Corrections
-SHALL be recorded as further entries.
+An error returned when an audited write fails SHALL identify the failure class and state that the
+Platform User may retry. It SHALL NOT contain database, query, stack, or configuration detail.
+
+#### Scenario: Failure is explained without internal detail
+
+- **GIVEN** a change whose Audit History entry cannot be written
+- **WHEN** the Platform User receives the error
+- **THEN** the error names the failure class and states that retry is possible
+- **AND** it contains no database name, query text, stack trace, or configuration value
+
+### Requirement: Audit History entries are immutable once written
+
+An Audit History entry SHALL be immutable once written. The platform SHALL NOT provide any action
+to delete or edit an entry, and the database role the application uses SHALL hold no `UPDATE` or
+`DELETE` privilege on the audit store, so that an application defect cannot alter recorded history.
+Corrections SHALL be recorded as further entries.
 
 #### Scenario: No delete or edit action exists
 
 - **GIVEN** an Audit History view
 - **WHEN** a Platform User looks for a delete or edit action
 - **THEN** no such action exists
+
+#### Scenario: The application cannot alter a written entry
+
+- **GIVEN** a written Audit History entry
+- **WHEN** the application attempts an `UPDATE` or `DELETE` against the audit store
+- **THEN** the database refuses the operation because the application role holds no such privilege
 
 #### Scenario: A correction adds an entry
 
