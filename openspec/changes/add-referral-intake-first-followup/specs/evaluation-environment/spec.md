@@ -41,6 +41,58 @@ warning.
 - **WHEN** its file reads and imports are inspected
 - **THEN** none of them resolves to a path under `agent_analysis_package/`
 
+### Requirement: The synthetic baseline supports the whole evaluation demonstration
+
+The known synthetic baseline SHALL contain enough pre-positioned state for an evaluator to
+demonstrate every item on the approved evaluation-success list without first having to construct
+that state by hand. Some of that state cannot be created through the product at all: manual
+rescheduling accepts only Firm Business Days that have not passed, so an evaluator SHALL NOT be
+able to produce an overdue task, and therefore overdue visibility, longest-overdue-first ordering,
+and the reminder indicator are demonstrable only from seeded state.
+
+The baseline SHALL contain at least:
+
+- **Associates** — several active synthetic Associates including `Evaluation User`, and at least
+  one inactive Associate, so that selectability and the deactivation refusal are both showable.
+- **Firm calendar** — at least one closure day that falls on a Friday and at least one that does
+  not, so that both the Friday-of-week default and its shift to the preceding Firm Business Day are
+  showable.
+- **Households** — at least one prospective Household with a single member, one with more than one
+  member, one Pre-existing Client Household whose member holds a Client Number, and one inactive
+  Household retained from an earlier discard, so that reuse and reactivation are showable.
+- **Reference records** — at least one active and one inactive Event, and at least one active and
+  one inactive COI.
+- **Referrals** — at least one `Draft` Referral with missing activation information and no Referral
+  Owner, one `In process` Referral with an Open follow-up task, one Referral closed with an NFAR
+  disposition that has at least one recorded attempt so that reopening is showable, and one
+  `Discarded Draft`.
+- **Tasks** — at least one overdue Open Task, at least one task completed on the day of the reset,
+  and at least one Open Task whose due date is far enough ahead that it is not yet in reminder
+  range.
+
+Records whose value depends on the current date SHALL be positioned relative to the date the reset
+runs, not to fixed calendar dates, so that the same baseline demonstrates the same behavior
+whenever it is restored.
+
+#### Scenario: Overdue behavior is demonstrable immediately after reset
+
+- **GIVEN** a freshly reset evaluation environment
+- **WHEN** an evaluator opens the Tasks page
+- **THEN** the overdue section contains at least one task
+- **AND** the `Completed today` section contains at least one task
+
+#### Scenario: The Friday-shift branch is demonstrable
+
+- **GIVEN** a freshly reset evaluation environment
+- **WHEN** an evaluator inspects the firm calendar
+- **THEN** it contains at least one closure day falling on a Friday and at least one that does not
+
+#### Scenario: The baseline covers the approved success list
+
+- **GIVEN** a freshly reset evaluation environment
+- **WHEN** an evaluator works through the approved evaluation-success list
+- **THEN** every item has the records it needs already present, except those the evaluator is meant to create during the demonstration
+
 ### Requirement: Isolated, non-public operation
 
 The evaluation build SHALL run only locally or in an isolated private evaluation environment. It
@@ -169,6 +221,13 @@ without a restricted security-log entry.
 - **WHEN** it runs
 - **THEN** it refuses and destroys nothing
 
+#### Scenario: Reset is demonstrated by its result, not by its operation
+
+- **GIVEN** an evaluator working through the approved evaluation-success list
+- **WHEN** reset is demonstrated
+- **THEN** an operator runs the environment operation alongside the evaluator
+- **AND** what the evaluator demonstrates is the restored baseline, not the running of the operation
+
 #### Scenario: Reset is not a Platform User feature
 
 - **GIVEN** any page in the evaluation build
@@ -211,12 +270,19 @@ logs, which are the submissions most likely to contain contact details.
 ### Requirement: Limited page surface
 
 The evaluation build SHALL expose only the Referrals page, Referral detail, the Tasks page, the
-Households page and Household detail, minimal Events, minimal COIs, synthetic Associates, and
-contextual `Audit history` actions. Reports, client appreciation, full Event and COI management,
-import, and a global Audit History page SHALL NOT be present.
+Households page and Household detail, minimal Events, minimal COIs, synthetic Associates including
+firm holiday and closure calendar maintenance, and contextual `Audit history` actions. Reports,
+client appreciation, full Event and COI management, import, and a global Audit History page SHALL
+NOT be present.
 
 #### Scenario: Out-of-scope pages are absent
 
 - **GIVEN** the evaluation build's navigation
 - **WHEN** an evaluator looks for Reports, appreciation, import, or a global Audit History page
 - **THEN** none of them exist
+
+#### Scenario: Calendar maintenance has a home in the surface
+
+- **GIVEN** the evaluation build's navigation
+- **WHEN** an evaluator looks for firm holiday and closure calendar maintenance
+- **THEN** it is reachable from the synthetic Associates surface

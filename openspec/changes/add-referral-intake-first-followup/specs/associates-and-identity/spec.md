@@ -54,7 +54,12 @@ identity as established at the request boundary. It SHALL NOT be selectable, def
 overridable by any request field, header, or body value, and no editable Associate selection SHALL
 stand in for the identity of the acting user. That identity SHALL also be the default Associate
 recorded as having performed a call and the default Tasks page filter; those two are defaults the
-Platform User may change, while the actor is not. Other synthetic
+Platform User may change, while the actor is not.
+
+In this slice the requirement is satisfied by a fixed identity that no request field, header, or
+body value can influence; it is not evidence that an authentication mechanism has been built or
+tested. It becomes an authenticated-identity requirement when authentication arrives, without
+changing the meaning of any actor already recorded in Audit History. Other synthetic
 Associates SHALL remain selectable for assignments and for recording activity on another
 Associate's behalf. Real authentication and Platform User provisioning SHALL NOT be part of this
 slice.
@@ -116,9 +121,16 @@ real authorization checkpoint.
 ### Requirement: Firm holiday and closure calendar maintenance
 
 The evaluation identity SHALL be able to maintain the firm holiday and closure calendar used for
-Firm Business Day calculations. Calendar changes SHALL remain in Audit History and SHALL affect
+Firm Business Day calculations. Calendar maintenance SHALL be reached from the Associates surface,
+which is the page surface that holds it in this slice. Calendar changes SHALL remain in Audit History and SHALL affect
 future due-date calculations only. Administrative permission enforcement SHALL NOT be part of this
 slice.
+
+#### Scenario: Calendar maintenance is reachable
+
+- **GIVEN** the evaluation build's Associates surface
+- **WHEN** a Platform User looks for firm holiday and closure calendar maintenance
+- **THEN** it is reachable from there
 
 #### Scenario: Calendar day is added
 

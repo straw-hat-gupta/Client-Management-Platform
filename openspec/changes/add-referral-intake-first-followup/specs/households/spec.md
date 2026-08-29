@@ -198,9 +198,11 @@ optional. This path SHALL create neither a Referral nor any client-appreciation 
 
 The Households page SHALL serve as the client list as well as the place to find prospective
 Households. The list SHALL show Household display name, member names, relationship state, Client
-Numbers, primary contact information, and the next Open Task. Search SHALL default to active
-records only and SHALL allow the Platform User to include inactive records, with every result
-clearly showing its status.
+Numbers, primary contact information, and the next Open Task. It SHALL NOT show an owner column and
+SHALL NOT offer a Household Owner filter, because Household Owner arrives with conversion, which is
+outside this slice; the Referral Owner is the in-slice owner and is shown on the Referrals page.
+Search SHALL default to active records only and SHALL allow the Platform User to include inactive
+records, with every result clearly showing its status.
 
 #### Scenario: Inactive Households are excluded by default
 
@@ -213,6 +215,58 @@ clearly showing its status.
 - **GIVEN** the same search term
 - **WHEN** the Platform User enables inactive records
 - **THEN** both Households appear and each result clearly shows its status
+
+#### Scenario: The Households list is empty on a fresh environment
+
+- **GIVEN** an environment with no active Household
+- **WHEN** a Platform User opens the Households page
+- **THEN** the page explains that no Households exist yet and points to the `New Referral` action and Pre-existing Client Household setup as the two ways to create one
+
+### Requirement: Search matching rules
+
+Search across Households and Referrals SHALL cover Household display names, Household Member names,
+phone numbers, email addresses, and Client Numbers. It SHALL match as follows:
+
+- **Names** — partial and case-insensitive.
+- **Email addresses** — case-insensitive.
+- **Phone numbers** — formatting-insensitive, using the normalization in "Duplicate blocking on
+  exact phone or email".
+- **Client Numbers** — exact and prefix matching.
+
+Search SHALL default to active records only. The Platform User SHALL be able to include inactive
+and closed records, and every result SHALL clearly show its status. Search over the record types
+outside this slice is not provided.
+
+#### Scenario: Partial name matching
+
+- **GIVEN** a Household Member named `Jordan Sample`
+- **WHEN** a Platform User searches for `jord`
+- **THEN** the Household appears in the results
+
+#### Scenario: Phone matching ignores formatting
+
+- **GIVEN** a Household recording the phone number `+1-555-555-0100`
+- **WHEN** a Platform User searches for `(555) 555-0100`
+- **THEN** the Household appears in the results
+
+#### Scenario: Client Number prefix matching
+
+- **GIVEN** a Household Member holding Client Number `SYN-1001`
+- **WHEN** a Platform User searches for `SYN-10`
+- **THEN** that member's Household appears in the results
+
+#### Scenario: Email matching ignores case
+
+- **GIVEN** a Household recording `synthetic.prospect@example.invalid`
+- **WHEN** a Platform User searches for `Synthetic.Prospect@Example.Invalid`
+- **THEN** the Household appears in the results
+
+#### Scenario: Closed records are excluded until requested
+
+- **GIVEN** a Household whose only Referral is closed with an NFAR disposition
+- **WHEN** a Platform User searches without enabling inactive and closed records
+- **THEN** it does not appear
+- **AND** enabling them brings it back with its status clearly shown
 
 ### Requirement: Household stale-save conflict rejection
 

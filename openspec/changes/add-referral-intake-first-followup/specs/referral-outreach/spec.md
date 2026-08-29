@@ -94,6 +94,10 @@ SHALL remain in Audit History.
 
 ### Requirement: Two-way conversation
 
+Every member of a Prospective Household SHALL be a Prospect on that Household's active Referral in
+this slice, so the participants selectable on an attempt are that Household's members. Per-member
+Referral participation is outside this slice.
+
 A `Two-way conversation` attempt SHALL identify at least one participating Prospect from the
 prospective Household and SHALL require a result of `Continue outreach`,
 `NFAR — not interested in our services`, or `NFAR — no business opportunity`. A note SHALL remain
@@ -117,6 +121,12 @@ contact occurred.
 - **GIVEN** a prospective Household with two members
 - **WHEN** the Platform User records a conversation with one of them
 - **THEN** the attempt identifies that member as the participating Prospect
+
+#### Scenario: Every member is selectable as a Prospect
+
+- **GIVEN** a prospective Household with three members and an active Referral
+- **WHEN** the Platform User opens the participant selection on an attempt
+- **THEN** all three members are selectable
 
 ### Requirement: Completing Follow-up Call and creating the handoff task is atomic
 
@@ -208,10 +218,20 @@ boundary to the next evaluation slice.
 ### Requirement: NFAR disposition closes the Referral
 
 An NFAR disposition SHALL be one of `NFAR — not interested in our services`,
-`NFAR — no business opportunity`, or `NFAR — no response`. Completing the current task as NFAR
-SHALL record the selected disposition, mark that task `Completed`, and close the Referral. Setting
-NFAR from Referral detail without performing the current task SHALL close the Referral and mark the
-still-unperformed task `Cancelled`. Either path SHALL be atomic and SHALL create no next task.
+`NFAR — no business opportunity`, or `NFAR — no response`. There SHALL be two routes to it, and
+both SHALL be atomic and SHALL create no next task:
+
+1. **Completing the current task as NFAR** SHALL record the selected disposition, mark that task
+   `Completed`, and close the Referral. A two-way conversation whose result is one of the two
+   conversation dispositions takes this route. The follow-up task SHALL also provide an action to
+   record an NFAR disposition without a two-way conversation, so that a Referral abandoned after
+   unsuccessful attempts can be closed by completing the task it was worked on. All three
+   dispositions SHALL be selectable through that action.
+2. **Setting NFAR from Referral detail without performing the current task** SHALL close the
+   Referral and mark the still-unperformed task `Cancelled`.
+
+`NFAR — no response` SHALL remain unavailable as the result of a two-way conversation, and its
+recorded-attempt requirement SHALL apply on whichever route records it.
 
 #### Scenario: NFAR through the task completes it
 
@@ -221,6 +241,22 @@ still-unperformed task `Cancelled`. Either path SHALL be atomic and SHALL create
 - **AND** the Referral Status becomes `NFAR — no business opportunity`
 - **AND** no `Discovery package sent` task is created
 - **AND** Audit History records the disposition, actor, and timestamp
+
+#### Scenario: `NFAR — no response` completes the task it was worked on
+
+- **GIVEN** an `In process` Referral with an Open follow-up task carrying two `No answer` attempts
+- **WHEN** a Platform User records `NFAR — no response` on that task without a two-way conversation
+- **THEN** the follow-up task becomes `Completed`
+- **AND** the Referral Status becomes `NFAR — no response`
+- **AND** no `Discovery package sent` task is created
+- **AND** the recorded attempts remain visible
+- **AND** Audit History records the disposition, actor, and timestamp
+
+#### Scenario: A non-conversation NFAR may also be one of the other two dispositions
+
+- **GIVEN** an `In process` Referral with an Open follow-up task carrying one `Voicemail` attempt
+- **WHEN** a Platform User records `NFAR — not interested in our services` on that task without a two-way conversation
+- **THEN** the follow-up task becomes `Completed` and the Referral closes with that disposition
 
 #### Scenario: NFAR from Referral detail cancels the task
 
@@ -292,7 +328,9 @@ Reopening into any later stage SHALL be outside this slice.
 ### Requirement: Correcting a follow-up attempt
 
 Correcting a recorded attempt SHALL require a correction reason and SHALL preserve the previous
-value, new value, actor, reason, and timestamp. A correction SHALL NOT silently change the related
+value, new value, actor, reason, and timestamp. Attempt correction, marking an attempt
+`Entered in error`, and reversing a Follow-up completion SHALL be reached from the activity history
+on Referral detail. A correction SHALL NOT silently change the related
 task's or Referral's state.
 
 #### Scenario: Correction requires a reason

@@ -329,6 +329,16 @@ leaves an out-of-band operator record of when it ran and against which target.
   including the aggregated validation-error response.
 - **End-to-end walkthroughs**: the evaluation-success list in `docs/product/journeys.md`
   ("Evaluation success") is the acceptance script — one automated walkthrough per bullet.
+- **The first-follow-up scheduling branches are evidenced by unit tests, not by the walkthrough.**
+  Activation uses server "now", so a single hands-on session can only exercise the branch the
+  evaluation date happens to fall into: the Friday-of-week default, the shift to the preceding Firm
+  Business Day, and the three-Firm-Business-Day floor cannot all be reached on one day. Branch
+  correctness is therefore established by the table-driven unit tests in task 2.2, and the
+  walkthrough demonstrates only the branch its date produces. The baseline seeds a firm calendar
+  containing both a Friday closure day and a non-Friday closure day so that the Friday-shift branch
+  can at least be inspected, and it may seed already-activated Referrals whose first follow-up tasks
+  were positioned by different branches so an evaluator can see the results side by side; seeded
+  results are illustrations, and the unit tests remain the evidence.
 - **Boundary checks**: the two egress checks from D8 (dependency manifest, plus a source-level ban
   on `node:http`, `node:https`, `node:net`, `node:tls`, `node:dgram`, `node:child_process`, and
   global `fetch`); loopback-by-default binding, the refusal to bind a non-loopback interface without
@@ -346,8 +356,10 @@ These can be answered during implementation without changing the specs, the modu
 the task breakdown. The unresolved *product* decisions are in `proposal.md` — Unresolved Human
 Decisions, and are not repeated here.
 
-- Which specific synthetic baseline records the reset script seeds (how many Households,
-  Associates, Events, and COIs are useful for exercising every path).
+- The baseline's composition is **not** an open question here. It determines what the firm lead can
+  demonstrate, so it is specified in product terms in `specs/evaluation-environment/spec.md` —
+  "The synthetic baseline supports the whole evaluation demonstration". Implementation chooses
+  exact names and counts, not which states must exist.
 - Whether the version token in D5 is a row version counter or a last-modified token; both satisfy
   the specs.
 - Which test runner and integration-test database strategy (per-test transaction rollback versus

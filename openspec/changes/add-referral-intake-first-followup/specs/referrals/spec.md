@@ -37,7 +37,8 @@ the Platform User. Every successful later save SHALL update the Draft and appear
 A Draft Referral SHALL identify an existing Household or create a new Household with at least one
 named Household Member. Contact information, Referral Source, Referral Received Date, and Referral
 Owner MAY remain incomplete in `Draft`. A Draft SHALL create no task. The platform SHALL clearly
-identify the information still required for activation.
+identify the information still required for activation. The Referral SHALL also carry an optional
+plain-text Referral context note, which SHALL never be required and SHALL never block activation.
 
 #### Scenario: Draft saved with only a named member
 
@@ -52,6 +53,19 @@ identify the information still required for activation.
 - **GIVEN** a `New Referral` form
 - **WHEN** the Platform User saves without selecting an existing Household and without naming at least one Household Member
 - **THEN** the platform rejects the save, preserves the entered values, and creates no record
+
+#### Scenario: Referral context note is optional free text
+
+- **GIVEN** the `New Referral` form
+- **WHEN** the Platform User enters a plain-text Referral context note and saves the Draft
+- **THEN** the platform stores the note on the Referral and shows it on Referral detail
+- **AND** a later successful change to the note appears in Audit History
+
+#### Scenario: Draft saves without a context note
+
+- **GIVEN** the `New Referral` form
+- **WHEN** the Platform User saves the Draft with the Referral context note left empty
+- **THEN** the platform accepts the save
 
 #### Scenario: Draft may have no Referral Owner
 
@@ -404,16 +418,64 @@ and SHALL create a new `Draft` Referral. The earlier `Discarded Draft` SHALL rem
 - **AND** the earlier `Discarded Draft` remains inactive
 - **AND** the Household then has exactly one non-discarded Referral
 
+### Requirement: Referral age
+
+Referral age SHALL begin on the Referral Received Date and SHALL include time the Referral spent in
+`Draft`. For an active Referral, age SHALL run through the current date. For a closed Referral, age
+SHALL stop on the date it moved to its NFAR disposition. A Referral with no Referral Received Date
+yet SHALL show no age rather than an age of zero.
+
+#### Scenario: Active Referral age runs to today
+
+- **GIVEN** an `In process` Referral whose Referral Received Date was ten days ago
+- **WHEN** a Platform User views the Referrals page
+- **THEN** its Referral age is measured from that Referral Received Date through the current date
+
+#### Scenario: Closed Referral age stops at closure
+
+- **GIVEN** a Referral closed with an NFAR disposition
+- **WHEN** a Platform User views it some days later
+- **THEN** its Referral age still stops on the date it was closed
+
+#### Scenario: Draft time counts toward age
+
+- **GIVEN** a Referral that spent several days in `Draft` before activation
+- **WHEN** its age is shown
+- **THEN** the days spent in `Draft` are included
+
+#### Scenario: A Draft with no Referral Received Date shows no age
+
+- **GIVEN** a `Draft` Referral with no Referral Received Date
+- **WHEN** a Platform User views the Referrals page
+- **THEN** no Referral age is shown for it
+
 ### Requirement: Referral discovery and Needs attention
 
-The Referrals page SHALL be the default landing page. It SHALL show the Household or prospective
-client name, all Referral Sources, the Referral Received Date, Referral age, the current outreach
-stage, the Referral Status, the Referral Owner, and the next Open Task with its due date. It SHALL
-initially show `Draft` and `In process` Referrals and SHALL allow including NFAR and
-`Discarded Draft` records. It SHALL support filters for Referral Owner, Referral Status, outreach
+The Referrals page SHALL be the default landing page and SHALL provide the primary `New Referral`
+action. It SHALL show the Household or prospective client name, all Referral Sources, the Referral
+Received Date, Referral age, the current outreach stage, the Referral Status, the Referral Owner,
+and the next Open Task with its due date. It SHALL initially show `Draft` and `In process`
+Referrals and SHALL allow including NFAR and `Discarded Draft` records — the in-slice include
+options, since `Became client` and `Merged` are outside this slice. It SHALL support filters for Referral Owner, Referral Status, outreach
 stage, Referral Source, Referral Received Date range, and task due state. A `Needs attention` view
 SHALL surface unowned `Draft` Referrals and active Referrals with no Open Task, labelling the
 latter `No next task`.
+
+The page SHALL also provide search over Referrals covering the Household display name, Household
+Member names, phone numbers, email addresses, and Client Numbers, using the matching rules in
+`specs/households/spec.md` — "Search matching rules".
+
+#### Scenario: The primary New Referral action is on the Referrals page
+
+- **GIVEN** the Referrals page
+- **WHEN** a Platform User looks for the way to start a new Referral
+- **THEN** the page provides the primary `New Referral` action
+
+#### Scenario: The Referrals list is empty on a fresh environment
+
+- **GIVEN** an environment with no `Draft` and no `In process` Referral
+- **WHEN** a Platform User opens the Referrals page
+- **THEN** the page explains that there are no active Referrals, notes that closed and discarded records can be included through the filters, and offers the `New Referral` action
 
 #### Scenario: Closed and discarded Referrals are excluded by default
 

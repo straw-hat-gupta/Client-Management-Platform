@@ -194,6 +194,40 @@ Referral Owner when those are different Associates.
 - **WHEN** the reminder time is reached
 - **THEN** the reminder indicator is visible for both Associate A and Associate B
 
+### Requirement: Task reassignment
+
+Any task MAY be reassigned to an active Associate, by any Platform User, regardless of who owns the
+related Referral. The platform SHALL refuse reassignment to an inactive Associate. No reason SHALL
+be required. Audit History SHALL record the previous assignee, the new assignee, the actor, and the
+timestamp. After reassignment, reminders and overdue visibility SHALL follow the new task assignee
+and the current Referral Owner.
+
+#### Scenario: A task is reassigned
+
+- **GIVEN** an Open Task assigned to Associate A
+- **WHEN** a Platform User reassigns it to active Associate B
+- **THEN** the task is assigned to Associate B
+- **AND** Audit History records the previous assignee, the new assignee, the actor, and the timestamp
+
+#### Scenario: Reminders follow the new assignee
+
+- **GIVEN** a task reassigned from Associate A to Associate B on a Referral owned by Associate C
+- **WHEN** the reminder time is reached
+- **THEN** the reminder indicator is visible for Associate B and Associate C
+- **AND** it is no longer visible for Associate A
+
+#### Scenario: Reassignment to an inactive Associate is refused
+
+- **GIVEN** an Open Task and an inactive Associate
+- **WHEN** a Platform User attempts to reassign the task to that Associate
+- **THEN** the platform refuses and the assignee is unchanged
+
+#### Scenario: A non-owner may reassign
+
+- **GIVEN** a task on a Referral owned by another Associate
+- **WHEN** any Platform User reassigns it
+- **THEN** the platform accepts the change and records the acting Platform User in Audit History
+
 ### Requirement: Manual rescheduling constraints
 
 Manual rescheduling SHALL accept only Firm Business Days that have not passed. The current day
@@ -298,6 +332,12 @@ page SHALL NOT provide a generic completion checkbox that could bypass required 
 - **GIVEN** a task completed earlier today
 - **WHEN** a Platform User views the Tasks page
 - **THEN** the task appears in a collapsed `Completed today` section until the end of that Firm Time Zone day
+
+#### Scenario: The Tasks page is empty for the selected Associate
+
+- **GIVEN** an Associate with no Open Task and nothing completed today
+- **WHEN** a Platform User views the Tasks page filtered to that Associate
+- **THEN** the page explains that this Associate has no tasks in view and states that the filter can be switched to another Associate or to all firm tasks
 
 #### Scenario: No generic completion checkbox
 

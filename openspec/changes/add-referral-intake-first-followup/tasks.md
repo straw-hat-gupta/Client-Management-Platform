@@ -40,7 +40,7 @@ bullet gets one end-to-end walkthrough.
 - [ ] 4.2 Implement Associate create, edit, and active status plus selectability rules; verify with tests covering "Synthetic Associates are selectable for work" in `specs/associates-and-identity/spec.md`
 - [ ] 4.3 Implement the refusal to deactivate an Associate who owns a non-closed Referral or an Open Task, and success after reassignment; verify with integration tests covering all three scenarios under "An Associate owning work cannot be deactivated"
 - [ ] 4.4 Implement firm holiday and closure calendar maintenance with Audit History, affecting future calculations only; verify with an integration test that an existing task's due date is not recalculated after a calendar change
-- [ ] 4.5 Deliver the Associates page and verify by walkthrough that an evaluator can add a synthetic Associate and a closure day and see both in contextual Audit History
+- [ ] 4.5 Deliver the Associates page, including firm holiday and closure calendar maintenance reached from that surface; verify by walkthrough that an evaluator can add a synthetic Associate and a closure day and see both in contextual Audit History
 
 ## 5. Households, members, and duplicate prevention
 
@@ -52,7 +52,7 @@ bullet gets one end-to-end walkthrough.
 - [ ] 5.6 Implement inactive-Household reuse and reactivation; verify with an integration test that a matching inactive Household is reactivated with members and history intact while a `Discarded Draft` stays inactive
 - [ ] 5.7 Implement Household optimistic concurrency (`design.md` D5); verify with a concurrency integration test asserting the stale save is rejected, nothing is overwritten, and nothing is audited
 - [ ] 5.8 Implement Pre-existing Client Household setup with its required fields and the `Unknown` Client Start Date; verify with tests asserting no Referral and no client-appreciation task is created
-- [ ] 5.9 Deliver the Households page and Household detail with active-by-default search; verify by walkthrough that an evaluator can create a Pre-existing Client Household, hit a duplicate block, accept a name-match warning, and open contextual Audit History
+- [ ] 5.9 Deliver the Households page and Household detail with active-by-default search, its empty state, and no owner column or Household Owner filter; verify by walkthrough that an evaluator can create a Pre-existing Client Household, hit a duplicate block, accept a name-match warning, and open contextual Audit History
 
 ## 6. Minimal Event and COI reference records
 
@@ -69,7 +69,8 @@ bullet gets one end-to-end walkthrough.
 - [ ] 7.3 Implement Referral Received Date defaulting, backdating, future-date rejection, and retention when a later source is added; verify with unit and integration tests for all three scenarios
 - [ ] 7.4 Implement all-or-nothing creation of a new Household, its members, its sources, and the Draft Referral from one intake save, preserving entered values on failure; verify with an integration test that forces a mid-save failure and asserts nothing was created and retry creates exactly one of each
 - [ ] 7.5 Implement the one-non-discarded-Referral-per-Household rule and the refusal to give a client Household its own Referral; verify with integration tests for both refusals
-- [ ] 7.6 Deliver the `New Referral` single-form page and the Referrals list with its default `Draft` and `In process` filter; verify by walkthrough that an evaluator can search Households, create one inline, and save a Draft that names its missing activation information
+- [ ] 7.6 Implement search over Households and Referrals covering display names, member names, phone numbers, email addresses, and Client Numbers with the matching rules in `specs/households/spec.md` — "Search matching rules"; verify with tests for partial case-insensitive name matching, formatting-insensitive phone matching, case-insensitive email matching, exact and prefix Client Number matching, and the active-only default with its opt-in for inactive and closed records
+- [ ] 7.7 Deliver the `New Referral` single-form page including its optional plain-text Referral context note, and the Referrals list with its default `Draft` and `In process` filter, the primary `New Referral` action, the derived Referral age column, and its empty state; verify by walkthrough that an evaluator can search Households, create one inline, and save a Draft that names its missing activation information, and with unit tests for Referral age covering an active Referral, a closed Referral, `Draft` time included, and a Draft with no Referral Received Date
 
 ## 8. Activation and first follow-up task
 
@@ -84,9 +85,10 @@ bullet gets one end-to-end walkthrough.
 
 - [ ] 9.1 Implement derived reminder indicator, overdue visibility, and the immediate-appearance rule when the reminder time has already passed (`design.md` D4); verify with tests covering every scenario under "Persistent reminder indicator" and the absence of dismiss and snooze
 - [ ] 9.2 Implement reminder visibility for both the task assignee and the current Referral Owner; verify with an integration test where the two are different Associates
-- [ ] 9.3 Implement manual rescheduling constraints and their Audit History; verify with tests covering past dates, non-business days, the 5:00 p.m. boundary, and the recorded previous and new dates
-- [ ] 9.4 Implement the derived `Due on non-business day` flag and its Needs Attention entry, cleared only by a manual reschedule; verify with an integration test that adds a closure day under an existing task and asserts the flag appears, the due date is unchanged, and both changes are audited
-- [ ] 9.5 Deliver the Tasks page with its four sections, ordering, filters, `Evaluation User` default filter, `Completed today` section, and no generic completion checkbox; verify by walkthrough against "Tasks page organization"
+- [ ] 9.3 Implement task reassignment to an active Associate with its Audit History and reminder follow-through; verify with tests for a successful reassignment, refusal for an inactive Associate, reassignment by a non-owner, and reminders moving to the new assignee while still reaching the current Referral Owner
+- [ ] 9.4 Implement manual rescheduling constraints and their Audit History; verify with tests covering past dates, non-business days, the 5:00 p.m. boundary, and the recorded previous and new dates
+- [ ] 9.5 Implement the derived `Due on non-business day` flag and its Needs Attention entry, cleared only by a manual reschedule; verify with an integration test that adds a closure day under an existing task and asserts the flag appears, the due date is unchanged, and both changes are audited
+- [ ] 9.6 Deliver the Tasks page with its four sections, ordering, filters, `Evaluation User` default filter, `Completed today` section, its empty state, and no generic completion checkbox; verify by walkthrough against "Tasks page organization" and by a test that an Associate with no tasks in view sees the explanatory empty state rather than a blank page
 
 ## 10. Follow-up Call attempts
 
@@ -104,14 +106,14 @@ bullet gets one end-to-end walkthrough.
 
 ## 12. NFAR closure and reopening
 
-- [ ] 12.1 Implement the three NFAR dispositions, closure through the task, and closure from Referral detail cancelling the unperformed task, each atomic and creating no next task; verify with integration tests for both paths and for a forced closure failure changing nothing
+- [ ] 12.1 Implement the three NFAR dispositions and both closure routes — completing the current task as NFAR, including the action that records an NFAR disposition without a two-way conversation so `NFAR — no response` can complete the task it was worked on, and closure from Referral detail cancelling the unperformed task — each atomic and creating no next task; verify with integration tests for the conversation route, the non-conversation task route, the Referral-detail route, and a forced closure failure changing nothing
 - [ ] 12.2 Implement the `NFAR — no response` attempt requirement, excluding attempts marked `Entered in error`; verify with tests for zero attempts, one attempt, and an `Entered in error` attempt
 - [ ] 12.3 Implement reopening into the Follow-up Call stage with a required reason and an optional additional Referral Source, reopening the same task with prior attempts, reassigning to the current Referral Owner, and setting a due date three Firm Business Days after reopening; verify with integration tests including the missing-reason rejection and the absence of later-stage options
 - [ ] 12.4 Verify by walkthrough that an evaluator can exercise every valid NFAR closure path and reopen the Referral
 
 ## 13. Correction, reversal, and discard
 
-- [ ] 13.1 Implement attempt correction requiring a reason and leaving task and Referral state untouched; verify with integration tests asserting unchanged workflow state and a complete audit entry
+- [ ] 13.1 Implement attempt correction, reached from the activity history on Referral detail, requiring a reason and leaving task and Referral state untouched; verify with integration tests asserting unchanged workflow state and a complete audit entry
 - [ ] 13.2 Implement `Entered in error` marking that retains and visibly flags the attempt without deleting it; verify with tests asserting continued visibility and exclusion from workflow evidence
 - [ ] 13.3 Implement the refusal to invalidate an attempt that a later transition depends on; verify with integration tests for the NFAR-supporting attempt and for the conversation supporting an active handoff
 - [ ] 13.4 Implement reversal of an incorrect Follow-up completion as one atomic operation (cancel the handoff task, reopen the original task with earlier valid attempts, assign to the current Referral Owner with a three-Firm-Business-Day due date, mark the conversation `Entered in error`); verify with an integration test asserting all effects together and a forced-failure test asserting none of them
@@ -127,7 +129,7 @@ bullet gets one end-to-end walkthrough.
 
 ## 15. Evaluation environment boundary
 
-- [ ] 15.1 Author the synthetic baseline seed data modelled on the sanitized spreadsheets' structures without reusing any of their values, and the reset script that runs outside the application and seeds the evaluation-environment marker row; verify by running reset and asserting the environment matches the baseline exactly, and by two refusal tests: reset against a database with no evaluation-environment marker row is refused, and reset with evaluation-mode configuration absent is refused
+- [ ] 15.1 Author the synthetic baseline seed data to the composition required by `specs/evaluation-environment/spec.md` — "The synthetic baseline supports the whole evaluation demonstration" (including the overdue Open Task, the task completed on the reset date, both closure-day kinds, and the pre-positioned Referral states), modelled on the sanitized spreadsheets' structures without reusing any of their values, positioning date-dependent records relative to the reset date, plus the reset script that runs outside the application and seeds the evaluation-environment marker row; verify by a post-reset assertion that every listed baseline element is present and that the Tasks page shows a non-empty overdue section and a non-empty `Completed today` section; verify by running reset and asserting the environment matches the baseline exactly, and by two refusal tests: reset against a database with no evaluation-environment marker row is refused, and reset with evaluation-mode configuration absent is refused
 - [ ] 15.2 Verify by test that reset is not reachable as a Platform User action and produces no Audit History entry
 - [ ] 15.3 Implement the three-layer production guard: the deployment script refuses to run and names the evaluation-only boundary; the API refuses to start without an explicit evaluation-mode marker; and both API startup and the migration runner refuse a database lacking the evaluation-environment marker row. Verify with four tests — the guarded deploy path, startup without the evaluation-mode marker, startup against an unmarked database, and migration against an unmarked database — each asserting refusal, plus a test asserting no configuration value alone lifts any of the three refusals
 - [ ] 15.4 Implement loopback-by-default binding: the API binds a loopback interface unless an explicitly named acknowledgement value is set, refuses to start on a non-loopback interface without it, and logs the bound interface at startup; verify with tests for the default bind, the refusal, the acknowledged non-loopback start, and the presence of the startup log line
@@ -138,7 +140,7 @@ bullet gets one end-to-end walkthrough.
 ## 16. Verification, review, and archive
 
 - [ ] 16.1 Run `./scripts/verify.sh` and verify every check passes; report which checks ran, their results, any skipped checks, and residual risk, per `AGENTS.md`
-- [ ] 16.2 Run one end-to-end walkthrough per bullet of the "Evaluation success" list in `docs/product/journeys.md` and verify each is demonstrable using only synthetic data
+- [ ] 16.2 Run one end-to-end walkthrough per bullet of the "Evaluation success" list in `docs/product/journeys.md` and verify each is demonstrable using only synthetic data, starting from a freshly reset baseline. Two bullets are evidenced differently and the report must say so: the first-follow-up scheduling branches are evidenced by the table-driven unit tests in task 2.2 because activation uses server "now" and one session reaches only the branch its date produces; and reset is demonstrated by the restored baseline, with an operator running the operation alongside the evaluator
 - [ ] 16.3 Run `npx -y @fission-ai/openspec@latest validate --all --strict` (or the pinned local `openspec` binary from task 1.3) and verify it passes with no findings
 - [ ] 16.4 Confirm proposed ADR-0002 in `design.md` (date storage) is either written and accepted under `docs/adr/` or explicitly declined by a human, and that the ADR-0001 decision taken at task 1.1 is recorded there too; verify both decisions are recorded in the PR
 - [ ] 16.5 Obtain independent final review from the agent that did not author the code, with fresh context and read-only access; verify every accepted finding is fixed by the original author and re-verified
