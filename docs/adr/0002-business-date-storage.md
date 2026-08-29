@@ -1,5 +1,5 @@
 ---
-Status: proposed
+Status: accepted
 ---
 
 # Business date-only values are stored as calendar dates; times of day are applied in the Firm Time Zone at comparison and display time

@@ -1,5 +1,5 @@
 ---
-Status: proposed
+Status: accepted
 ---
 
 # Audit History entries are written in the same database transaction as the change they audit
