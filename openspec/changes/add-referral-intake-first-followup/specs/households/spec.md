@@ -224,8 +224,13 @@ records, with every result clearly showing its status.
 
 ### Requirement: Search matching rules
 
-Search across Households and Referrals SHALL cover Household display names, Household Member names,
-phone numbers, email addresses, and Client Numbers. It SHALL match as follows:
+Search SHALL be provided per page — on the Households page over Households, and on the Referrals
+page over Referrals. This slice SHALL NOT provide a persistent global search in the main
+navigation.
+
+Search SHALL cover Household display names, Household Member names, phone numbers, email addresses,
+and Client Numbers, and SHALL NOT cover Referral Source details, Referral Owners, task assignees,
+Referral Statuses, outreach stages, or note text. It SHALL match as follows:
 
 - **Names** — partial and case-insensitive.
 - **Email addresses** — case-insensitive.
@@ -235,7 +240,13 @@ phone numbers, email addresses, and Client Numbers. It SHALL match as follows:
 
 Search SHALL default to active records only. The Platform User SHALL be able to include inactive
 and closed records, and every result SHALL clearly show its status. Search over the record types
-outside this slice is not provided.
+outside this slice is not provided; COIs, Events, and tasks are found through their own pages.
+
+#### Scenario: No global navigation search exists
+
+- **GIVEN** the evaluation build's main navigation
+- **WHEN** a Platform User looks for a persistent global search
+- **THEN** no such search exists, and search is reached from the Households page and the Referrals page
 
 #### Scenario: Partial name matching
 

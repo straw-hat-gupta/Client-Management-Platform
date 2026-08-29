@@ -104,6 +104,8 @@ Each item below is deliberately excluded and must not be implemented by this cha
 - Event management beyond source identity, and COI management beyond source identity
 - Pillar List, Investment Transfer, Transfer Reconciliation, Insurance Business Monitor, Focus 10
 - A global Audit History page
+- A persistent global search in the main navigation; search is per page, over Households and
+  Referrals only
 - `Needs attention` entries that depend on out-of-scope capabilities — `Became client` Referrals
   missing a Client Start Date, and unresolved temporary COI sources. The in-slice view carries only
   unowned `Draft` Referrals, active Referrals with no Open Task, and tasks flagged
@@ -278,14 +280,17 @@ taken before building.
    creation, so this change specifies only generated tasks plus the linkage invariant that every
    task belongs to one of those records. Whether manual task creation is exercised in this slice
    is deferred.
-9. **Global navigation search narrowed to Households and Referrals** — `docs/product/journeys.md`
+9. **Search narrowed to per-page search over Households and Referrals** — `docs/product/journeys.md`
    describes a persistent global search in the main navigation covering Households and members,
-   Referrals, COIs, Events, and tasks. This change specifies search over Households and Referrals
-   only, because COIs, Events, and tasks are present in this slice only as minimal reference and
-   generated records. *Blocks*: nothing. *Either way*: keeping the narrowing means an evaluator
-   finds COIs, Events, and tasks through their own pages; restoring the full scope makes search the
-   primary navigation surface, which changes the shape of the main navigation rather than adding a
-   filter.
+   Referrals, COIs, Events, and tasks, matching across a wider field list that includes Referral
+   Source details, Referral Owners, task assignees, Referral Statuses, outreach stages, and note
+   text. This change narrows both dimensions: search is per page rather than global, and it matches
+   only names, phone numbers, email addresses, and Client Numbers. Review has settled this
+   narrowing **for this slice**; what remains open is whether the RMS release restores the global
+   surface and the wider field list. *Blocks*: nothing in this slice. *Either way*: keeping the
+   narrowing means an evaluator finds COIs, Events, and tasks through their own pages; restoring
+   the full scope makes search the primary navigation surface, which changes the shape of the main
+   navigation rather than adding a filter.
 10. **Marking evaluator-entered records, or warning in-product** — ESCALATED, not resolved here.
    Only seeded records are required to be clearly synthetic, so a record an evaluator types
    carries no marker, and the approved product decision is that the synthetic-only rule is
