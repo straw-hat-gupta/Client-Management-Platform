@@ -300,9 +300,10 @@ taken before building.
    needs a human decision between two options: (a) every record in the evaluation environment,
    including evaluator-entered records, carries an evaluation marker; or (b) an unobtrusive
    environment banner is accepted as distinct from the "real data warning" the firm declined.
-   As decision 4 explains, data entered into the evaluation build cannot be erased under the
-   controls this change specifies, so option (a) or (b) is the only available deterrent, and
-   declining both accepts permanent retention of whatever an evaluator types.
+   As decision 4 explains, there is no selective in-product erasure: a Platform User cannot erase
+   an individual record or its Audit History. Option (a) or (b) is therefore the only available
+   deterrent. Declining both means entered data persists until an operator resets or disposes of
+   the environment, destroying all non-baseline evaluation work indiscriminately.
    This change picks neither.
 11. **Who owns the pilot precondition list** — this change names several preconditions for leaving
    evaluation: real authentication and security logging, a completed security threat model

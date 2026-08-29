@@ -176,10 +176,11 @@ build pointed at a different `DATABASE_URL` would bypass it. Three independent l
 1. The deployment path refuses to run and names the evaluation-only boundary.
 2. The API refuses to start unless an explicit evaluation-mode marker is present in its
    configuration.
-3. The first migration writes the evaluation-environment marker row. The migration runner may run
-   against an empty database when the evaluation-mode configuration marker is present. Once a
-   database contains application tables, API startup and the migration runner refuse it if the
-   marker row is absent.
+3. The first migration writes the evaluation-environment marker row. An empty database contains no
+   tables in the target schema, and the migration runner may run against it when the evaluation-mode
+   configuration marker is present. The migration runner refuses a database containing any table
+   it did not create. Once initialization has begun, API startup and the migration runner refuse the
+   database if the marker row is absent.
 
 Lifting any of these refusals SHALL require a code change; no configuration value alone SHALL
 enable production operation.
@@ -198,7 +199,7 @@ enable production operation.
 
 #### Scenario: Empty evaluation database initializes and writes the marker row
 
-- **GIVEN** an empty database and the evaluation-mode configuration marker is present
+- **GIVEN** a database containing no tables in the target schema and the evaluation-mode configuration marker is present
 - **WHEN** the migration runner applies the first migration
 - **THEN** it initializes the application tables and writes the evaluation-environment marker row
 

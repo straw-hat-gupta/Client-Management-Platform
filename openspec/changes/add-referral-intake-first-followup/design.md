@@ -194,9 +194,10 @@ later slice, that single injection point is replaced; no module signature change
 
 - The evaluation environment perimeter is the only security boundary. Everything inside it is
   trusted, which is precisely why it must not be publicly reachable. That is enforced in the
-  application, not only by operator discipline: the API binds loopback by default, refuses to start
-  on a non-loopback interface unless an explicitly named acknowledgement value is set, and logs the
-  interface it bound at startup so an evaluator can see what was actually exposed.
+  application, not only by operator discipline: the API binds loopback by default; a non-loopback
+  acknowledgement must name a concrete private-range address; and the API refuses wildcard and
+  globally routable addresses even when an acknowledgement is set. It logs the interface it bound
+  at startup so an evaluator can see what was actually exposed.
 - The browser is not trusted for business rules: every invariant in `specs/` is enforced in the
   API and domain layers, and the web app's disabled controls (notably the disabled
   `Discovery package sent` completion action) are duplicated as server-side refusals.
@@ -216,8 +217,8 @@ later slice, that single injection point is replaced; no module signature change
 
 ### D9 — Data ownership
 
-One PostgreSQL schema, one set of tables, but each table is written by exactly one module and read
-by others only through that module's interface:
+One PostgreSQL schema, one set of tables, but each table has exactly one owning module or named
+infrastructure boundary, with reads going through that named owner:
 
 | Tables | Written by |
 |---|---|
@@ -242,15 +243,16 @@ The known synthetic baseline and the reset operation are a repository script run
 environment, not an API route and not a UI action. This is what makes reset "outside Platform User
 actions and Audit History" true by construction rather than by a hidden permission check.
 
-The first migration writes the evaluation-environment marker row. The migration runner MAY run
-against an empty database when evaluation-mode configuration is present, establishing the marker
-as part of that migration. Once a database contains application tables, a missing marker row is a
-hard refusal for the migration runner, API startup, and reset alike. Reset also requires
-evaluation-mode configuration. This empty-database bootstrap is a property of database state, not a
-bypass flag, initialization switch, or configuration value that lifts a refusal. Together with the
-deployment-path refusal, these guards ensure a mistyped `DATABASE_URL` cannot point an ordinary
-build, migration, or reset at an existing database never meant for evaluation. Reset leaves an
-out-of-band operator record of when it ran and against which target.
+The first migration writes the evaluation-environment marker row. An empty database contains no
+tables in the target schema. The migration runner MAY run against such a database when
+evaluation-mode configuration is present, establishing the marker as part of that migration. It
+refuses a database containing any table it did not create. A missing marker row is a hard refusal
+for the migration runner, API startup, and reset alike once initialization has begun. Reset also
+requires evaluation-mode configuration. This empty-database bootstrap is a property of database
+state, not a bypass flag, initialization switch, or configuration value that lifts a refusal.
+Together with the deployment-path refusal, these guards ensure a mistyped `DATABASE_URL` cannot
+point an ordinary build, migration, or reset at an existing database never meant for evaluation.
+Reset leaves an out-of-band operator record of when it ran and against which target.
 
 ## Risks / Trade-offs
 
@@ -315,9 +317,10 @@ out-of-band operator record of when it ran and against which target.
 - Log content is a requirement, not a convention: `specs/evaluation-environment/spec.md` —
   "Technical logs carry no business content" limits technical logs to record identifiers, error
   classes, and a correlation identifier, and forbids contact details, note or reason text, Client
-  Numbers, and record field values. This is load-bearing precisely because the entries above route
-  rejected saves and validation failures — the submissions most likely to carry contact details —
-  into technical logs. Task 3.5 verifies it with a redaction test rather than by inspection.
+  Numbers, record field values, and database driver error text. This is load-bearing precisely
+  because the entries above route rejected saves and validation failures — the submissions most
+  likely to carry contact details — into technical logs. Task 3.5 verifies it with a redaction test
+  rather than by inspection.
 - Security and authentication event logging is explicitly a later-slice prerequisite and is not
   implemented here.
 - A health endpoint reports database reachability, so an evaluator can distinguish "audit writes
@@ -357,9 +360,10 @@ out-of-band operator record of when it ran and against which target.
   binding, refusal without acknowledgement, unconditional refusal of wildcard and globally
   routable addresses, and the startup log of the bound interface; all three layers of
   the production guard and the reset guard, each asserted to refuse; a log redaction test; and a
-  provenance check that no value, free-text fragment, or file originating in
-  `agent_analysis_package/` appears in seed data, fixtures, tests, or application code, matching
-  substrings of free-text columns rather than whole rows.
+  provenance check that normalizes every free-text cell in `agent_analysis_package/`, generates
+  contiguous five-word shingles, and fails if any shingle appears in seed data, fixtures, tests, or
+  application code, with reviewed false positives recorded in an explicit rationale-bearing
+  allowlist; it also fails if application or test code reads or imports that directory.
 - All test data is synthetic and clearly marked. No real firm, client, or financial data is used in
   any test, fixture, or screenshot.
 
