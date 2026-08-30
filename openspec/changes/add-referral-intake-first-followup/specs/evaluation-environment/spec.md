@@ -1,0 +1,323 @@
+## Purpose
+
+This slice is an evaluation-only build. This capability owns the boundary that keeps it safe to
+operate: synthetic data only, isolated and non-public operation, no external integration, no
+production deployment, and a reset that restores a known synthetic baseline.
+
+## ADDED Requirements
+
+### Requirement: Synthetic data only
+
+The evaluation build SHALL be used only with clearly synthetic data. Real firm, client, or
+financial data SHALL NOT be entered into it, and SHALL NOT appear in fixtures, seed data, logs,
+screenshots, or tests. No value, free-text fragment, or file originating in `agent_analysis_package/`
+SHALL appear in fixtures, seed data, tests, or application code; only structural patterns — column
+shapes, value formats, and cardinality — MAY be reused. The restriction is at the level of
+individual values, not whole rows, because the sanitized files preserve original free-text wording.
+This restriction SHALL be documented in the repository rather than presented as an in-product
+warning.
+
+#### Scenario: Seed data is clearly synthetic
+
+- **GIVEN** a freshly reset evaluation environment
+- **WHEN** an evaluator views the seeded Households, Associates, Events, and COIs
+- **THEN** every record is clearly marked as synthetic
+
+#### Scenario: No in-product data warning is shown
+
+- **GIVEN** the evaluation build
+- **WHEN** an evaluator uses any page
+- **THEN** no in-product warning about real data is displayed, and the restriction is documented in the repository instead
+
+#### Scenario: No sanitized value or fragment is present
+
+- **GIVEN** the repository's fixtures, seed data, tests, and application code
+- **WHEN** they are checked against the contents of `agent_analysis_package/`
+- **THEN** they contain no copied row, no copied field value, and no copied free-text fragment
+
+#### Scenario: The sanitized files are never read by the build
+
+- **GIVEN** the application and test code
+- **WHEN** its file reads and imports are inspected
+- **THEN** none of them resolves to a path under `agent_analysis_package/`
+
+### Requirement: The synthetic baseline supports the whole evaluation demonstration
+
+The known synthetic baseline SHALL contain enough pre-positioned state for an evaluator to
+demonstrate every item on the approved evaluation-success list without first having to construct
+that state by hand. Some of that state cannot be created through the product at all: manual
+rescheduling accepts only Firm Business Days that have not passed, so an evaluator SHALL NOT be
+able to produce an overdue task, and therefore overdue visibility, longest-overdue-first ordering,
+and the reminder indicator are demonstrable only from seeded state.
+
+The baseline SHALL contain at least:
+
+- **Associates** — several active synthetic Associates including `Evaluation User`, and at least
+  one inactive Associate, so that selectability and the deactivation refusal are both showable.
+- **Firm calendar** — at least one closure day that falls on a Friday and at least one that does
+  not, so that both the Friday-of-week default and its shift to the preceding Firm Business Day are
+  showable.
+- **Households** — at least one prospective Household with a single member, one with more than one
+  member, one Pre-existing Client Household whose member holds a Client Number, and one inactive
+  Household retained from an earlier discard, so that reuse and reactivation are showable.
+- **Reference records** — at least one active and one inactive Event, and at least one active and
+  one inactive COI.
+- **Referrals** — at least one `Draft` Referral with missing activation information and no Referral
+  Owner, one `In process` Referral with an Open follow-up task, one Referral closed with an NFAR
+  disposition that has at least one recorded attempt so that reopening is showable, and one
+  `Discarded Draft`.
+- **Tasks** — at least one overdue Open Task, at least one task completed on the day of the reset,
+  and at least one Open Task whose due date is far enough ahead that it is not yet in reminder
+  range.
+
+Records whose value depends on the current date SHALL be positioned relative to the date the reset
+runs, not to fixed calendar dates, so that the same baseline demonstrates the same behavior
+whenever it is restored. Seeded baseline records SHALL NOT carry fabricated Audit History entries
+for their seeding. The append-only audit store is the sole accountability record, so entries
+indistinguishable from recorded fact SHALL NOT be fabricated for an operation excluded from Audit
+History. Contextual Audit History is demonstrated by real changes made during the session.
+
+#### Scenario: Overdue behavior is demonstrable immediately after reset
+
+- **GIVEN** a freshly reset evaluation environment
+- **WHEN** an evaluator opens the Tasks page
+- **THEN** the overdue section contains at least one task
+- **AND** the `Completed today` section contains at least one task
+
+#### Scenario: The Friday-shift branch is demonstrable
+
+- **GIVEN** a freshly reset evaluation environment
+- **WHEN** an evaluator inspects the firm calendar
+- **THEN** it contains at least one closure day falling on a Friday and at least one that does not
+
+#### Scenario: The baseline covers the approved success list
+
+- **GIVEN** a freshly reset evaluation environment
+- **WHEN** an evaluator works through the approved evaluation-success list
+- **THEN** every item has the records it needs already present, except those the evaluator is meant to create during the demonstration
+
+#### Scenario: Baseline seeding fabricates no Audit History
+
+- **GIVEN** a freshly reset evaluation environment
+- **WHEN** an evaluator opens Audit History for a seeded baseline record
+- **THEN** it contains no Audit History entry for the record's seeding
+
+### Requirement: Isolated, non-public operation
+
+The evaluation build SHALL run only locally or in an isolated private evaluation environment. It
+SHALL NOT be exposed publicly or to an untrusted network. It has no real authentication, so it
+SHALL NOT be treated as access-controlled.
+
+The platform SHALL enforce this rather than rely on operator discipline: the API SHALL bind a
+loopback interface by default. A non-loopback acknowledgement SHALL name the concrete private-range
+address to bind. The API SHALL refuse a non-loopback bind without that acknowledgement, and SHALL
+refuse a wildcard or globally routable address even when an acknowledgement is set. It SHALL log
+the interface it bound at startup.
+
+#### Scenario: The build is not publicly reachable
+
+- **GIVEN** a deployed evaluation environment
+- **WHEN** its reachability is checked from outside the isolated network
+- **THEN** it is not reachable
+
+#### Scenario: Default bind is loopback
+
+- **GIVEN** an evaluation environment with no interface explicitly configured
+- **WHEN** the API starts
+- **THEN** it binds a loopback interface
+- **AND** it logs the bound interface
+
+#### Scenario: Non-loopback bind is refused without acknowledgement
+
+- **GIVEN** the API configured to bind a non-loopback interface
+- **WHEN** it starts without the explicitly named acknowledgement value
+- **THEN** it refuses to start and names the isolation requirement as the reason
+
+#### Scenario: Acknowledged non-loopback bind starts and is logged
+
+- **GIVEN** the API configured to bind a concrete private-range address with an acknowledgement naming that address
+- **WHEN** it starts
+- **THEN** it starts and logs the non-loopback interface it bound
+
+#### Scenario: Wildcard and globally routable binds are always refused
+
+- **GIVEN** the API configured to bind a wildcard or globally routable address
+- **WHEN** it starts with the non-loopback acknowledgement set
+- **THEN** it refuses to start and names the isolation requirement as the reason
+
+### Requirement: No upload, import, or external integration
+
+The evaluation build SHALL provide no file upload, no spreadsheet import, no email, no messaging,
+and no other external communication or third-party integration. No import capability SHALL be
+enabled in any environment holding real data without the provenance behavior described in
+`docs/product/journeys.md` "Deferred Migration Notes".
+
+#### Scenario: No upload or import action exists
+
+- **GIVEN** any page in the evaluation build
+- **WHEN** an evaluator looks for a file upload or spreadsheet import action
+- **THEN** no such action exists
+
+#### Scenario: No outbound communication occurs
+
+- **GIVEN** a task reminder becoming due
+- **WHEN** the reminder indicator appears
+- **THEN** the platform sends no email, message, or push notification
+
+### Requirement: Production deployment is disabled
+
+Production deployment of this slice SHALL remain disabled. It SHALL remain disabled until real
+authentication and security logging are added, a completed security threat model exists, and
+professionally approved privacy, compliance, retention, and security governance are in place.
+
+The refusal SHALL NOT depend on the repository's deployment script alone, because an ordinary
+build pointed at a different `DATABASE_URL` would bypass it. Three independent layers SHALL apply:
+
+1. The deployment path refuses to run and names the evaluation-only boundary.
+2. The API refuses to start unless an explicit evaluation-mode marker is present in its
+   configuration.
+3. The first migration writes the evaluation-environment marker row. An empty database contains no
+   tables in the target schema, and the migration runner may run against it when the evaluation-mode
+   configuration marker is present. The migration runner refuses a database containing any table
+   it did not create. Once initialization has begun, API startup and the migration runner refuse the
+   database if the marker row is absent.
+
+Lifting any of these refusals SHALL require a code change; no configuration value alone SHALL
+enable production operation.
+
+#### Scenario: The production deployment path refuses to run
+
+- **GIVEN** the repository's deployment configuration
+- **WHEN** a production deployment is attempted
+- **THEN** it is refused and identifies the evaluation-only boundary as the reason
+
+#### Scenario: Startup without the evaluation-mode marker is refused
+
+- **GIVEN** the API configured without the explicit evaluation-mode marker
+- **WHEN** it starts
+- **THEN** it refuses to start and names the evaluation-only boundary as the reason
+
+#### Scenario: Empty evaluation database initializes and writes the marker row
+
+- **GIVEN** a database containing no tables in the target schema and the evaluation-mode configuration marker is present
+- **WHEN** the migration runner applies the first migration
+- **THEN** it initializes the application tables and writes the evaluation-environment marker row
+
+#### Scenario: An initialized unmarked database is refused
+
+- **GIVEN** a database with application tables but no evaluation-environment marker row
+- **WHEN** the API starts, the migration runner runs, or reset is invoked against it
+- **THEN** each refuses and names the missing marker as the reason
+
+#### Scenario: Configuration alone cannot enable production operation
+
+- **GIVEN** any combination of configuration and environment values
+- **WHEN** an operator attempts to lift the refusals without changing code
+- **THEN** the refusals remain in force
+
+### Requirement: Environment reset to a known synthetic baseline
+
+The evaluation environment SHALL be resettable to a known synthetic baseline. Reset SHALL be an
+environment operation performed outside normal Platform User actions, SHALL NOT be exposed as a
+Platform User feature in the application, and SHALL NOT be recorded in Audit History.
+
+Because reset is destructive and takes its target from configuration, it SHALL refuse to run unless
+the target database carries the evaluation-environment marker row written by the first migration
+and evaluation-mode configuration is present. Once a database contains application tables, this
+marker-row refusal applies to reset, API startup, and the migration runner alike. Reset SHALL leave
+an out-of-band operator record of when it ran and against which target; before any operational
+pilot, no comparably destructive environment operation may exist without a restricted security-log
+entry.
+
+#### Scenario: Reset restores the baseline
+
+- **GIVEN** an evaluation environment containing work created during evaluation
+- **WHEN** the environment reset operation is run
+- **THEN** the environment contains exactly the known synthetic baseline records
+- **AND** an out-of-band operator record identifies when it ran and against which target
+
+#### Scenario: Reset refuses an unmarked target
+
+- **GIVEN** a target database that carries no evaluation-environment marker row
+- **WHEN** the reset operation is run against it
+- **THEN** it refuses and destroys nothing
+
+#### Scenario: Reset refuses without evaluation-mode configuration
+
+- **GIVEN** a reset invoked with evaluation-mode configuration absent
+- **WHEN** it runs
+- **THEN** it refuses and destroys nothing
+
+#### Scenario: Reset is demonstrated by its result, not by its operation
+
+- **GIVEN** an evaluator working through the approved evaluation-success list
+- **WHEN** reset is demonstrated
+- **THEN** an operator runs the environment operation alongside the evaluator
+- **AND** what the evaluator demonstrates is the restored baseline, not the running of the operation
+
+#### Scenario: Reset is not a Platform User feature
+
+- **GIVEN** any page in the evaluation build
+- **WHEN** a Platform User looks for an environment reset action
+- **THEN** no such action exists in the application
+
+#### Scenario: Reset is not audited
+
+- **GIVEN** a completed environment reset
+- **WHEN** a Platform User opens any record's Audit History
+- **THEN** the reset does not appear as an Audit History entry
+
+### Requirement: No operational data promise
+
+Evaluation data SHALL carry no backup, retention, or migration promise. Operational backup and
+recovery SHALL be established before any real client use. Evaluation data SHALL NOT be promoted,
+restored, or migrated into any environment used with real data; such an environment starts empty.
+
+#### Scenario: Evaluation data is disposable
+
+- **GIVEN** an evaluation environment
+- **WHEN** it is reset or destroyed
+- **THEN** no backup, retention, or migration obligation applies to the data it held
+
+### Requirement: Technical logs carry no business content
+
+Technical request and error logs SHALL carry only record identifiers, error classes, and a
+correlation identifier. They SHALL NOT carry contact details, note or reason text, Client Numbers,
+record field values, or database driver error text, which is business content and SHALL NOT be
+logged verbatim. This applies to rejected saves, validation failures, stale-save conflicts, and
+unique-constraint failures that are deliberately excluded from Audit History and therefore appear
+only in technical logs, which are the submissions most likely to contain contact details.
+
+#### Scenario: A rejected save is logged without its content
+
+- **GIVEN** a save rejected by validation whose payload contained a phone number, an email address, a Client Number, and free-text note and reason values
+- **WHEN** the rejection is logged
+- **THEN** the log entry identifies the record, the error class, and the correlation identifier
+- **AND** none of those submitted values appears anywhere in the log output
+
+#### Scenario: A duplicate constraint failure is logged without driver text or content
+
+- **GIVEN** a duplicate save reaching a unique constraint whose values include a phone number, an email address, and a Client Number
+- **WHEN** the database rejection is logged
+- **THEN** the log entry identifies the record, the error class, and the correlation identifier
+- **AND** neither the driver error text nor any conflicting value appears anywhere in the log output
+
+### Requirement: Limited page surface
+
+The evaluation build SHALL expose only the Referrals page, Referral detail, the Tasks page, the
+Households page and Household detail, minimal Events, minimal COIs, synthetic Associates including
+firm holiday and closure calendar maintenance, and contextual `Audit history` actions. Reports,
+client appreciation, full Event and COI management, import, and a global Audit History page SHALL
+NOT be present.
+
+#### Scenario: Out-of-scope pages are absent
+
+- **GIVEN** the evaluation build's navigation
+- **WHEN** an evaluator looks for Reports, appreciation, import, or a global Audit History page
+- **THEN** none of them exist
+
+#### Scenario: Calendar maintenance has a home in the surface
+
+- **GIVEN** the evaluation build's navigation
+- **WHEN** an evaluator looks for firm holiday and closure calendar maintenance
+- **THEN** it is reachable from the synthetic Associates surface
